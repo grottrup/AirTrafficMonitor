@@ -2,7 +2,11 @@
 
 namespace AirTrafficMonitor
 {
-    public class Class1
+    public class TransponderReceiverData : IObservable<string>
     {
+        public IDisposable Subscribe(IObserver<string> observer)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
