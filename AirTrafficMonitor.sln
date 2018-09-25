@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTrafficMonitor", "AirTra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8541B8AC-CEA8-41BC-A163-78910055DF50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.Tests", "AirTrafficMonitor.IntegrationTests\AirTrafficMonitor.Tests.csproj", "{AA7B22F4-7838-48B5-BC16-0EFAA6EE633D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.Tests", "AirTrafficMonitor.Tests\AirTrafficMonitor.Tests.csproj", "{AA7B22F4-7838-48B5-BC16-0EFAA6EE633D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
