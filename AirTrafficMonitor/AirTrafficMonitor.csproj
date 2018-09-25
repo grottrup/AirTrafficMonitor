@@ -4,4 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="TransponderReceiver">
+      <HintPath>library\TransponderReceiver.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
