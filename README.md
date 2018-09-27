@@ -37,3 +37,4 @@ node('master'){
 ```
 
 5. Add a GitHub Web Hook in GitHub Settings with the following address: `http://ci3.ase.au.dk:8080/github-webhook/`
+
