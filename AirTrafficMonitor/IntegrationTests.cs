@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using NUnit.Core;
 
 namespace AirTrafficMonitor.Tests
 {
