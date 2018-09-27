@@ -14,17 +14,17 @@ node('master'){
     }
     
     stage('Update NuGet packages')    {
-        bat '"C:\\Program Files (x86)\\NuGet\\nuget" restore ***your solution***.sln'
+        bat '"C:\\Program Files (x86)\\NuGet\\nuget" restore AirTrafficMonitor.sln'
     }
     
     stage('Build'){
     
-        bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe" ***your solution***.sln'
+        bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe" AirTrafficMonitor.sln'
     }
     
     try {
         stage('Run unit tests') {
-            bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  *** your test project***\\bin\\Debug\\***your test project***.dll --result:TestResult.xml'
+            bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  *** your test project***\\bin\\Debug\\AirTrafficMonitor.Tests.dll --result:TestResult.xml'
         }
     }
     finally {
@@ -32,6 +32,6 @@ node('master'){
             nunit testResultsPattern: 'TestResult.xml'
         }
     }
+    
 }
-
 ```
