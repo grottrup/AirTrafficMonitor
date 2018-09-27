@@ -9,7 +9,7 @@ namespace AirTrafficMonitor.Tests
         [TestCase(TestName = "The system shall monitor one (1) airspace.")]
         public void Test1()
         {
-
+            Assert.Fail();
         }
 
         [TestCase(TestName = "The system shall render all tracks currently in the monitored airspace.")]
