@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirTrafficMonitor", "AirTrafficMonitor\AirTrafficMonitor.csproj", "{1EFDEAC1-38D4-46B7-853D-EBE3D117C32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.Tests", "AirTrafficMonitor.Tests\AirTrafficMonitor.Tests.csproj", "{6325B8CC-E60C-4F0F-98EA-EEA9B8562F90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.Tests", "AirTrafficMonitor.Tests\AirTrafficMonitor.Tests.csproj", "{8320F16E-149E-41FF-BA67-23002A1C6B69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{1EFDEAC1-38D4-46B7-853D-EBE3D117C32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EFDEAC1-38D4-46B7-853D-EBE3D117C32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EFDEAC1-38D4-46B7-853D-EBE3D117C32C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6325B8CC-E60C-4F0F-98EA-EEA9B8562F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6325B8CC-E60C-4F0F-98EA-EEA9B8562F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6325B8CC-E60C-4F0F-98EA-EEA9B8562F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6325B8CC-E60C-4F0F-98EA-EEA9B8562F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8320F16E-149E-41FF-BA67-23002A1C6B69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8320F16E-149E-41FF-BA67-23002A1C6B69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8320F16E-149E-41FF-BA67-23002A1C6B69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8320F16E-149E-41FF-BA67-23002A1C6B69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
