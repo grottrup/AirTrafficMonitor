@@ -21,10 +21,17 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void Test1()
+        public void Configurator_Resolving_ReturnsInstances()
         {
             var logger = _container.Resolve<ILogger>();
+            var subject = _container.Resolve<IObservable<AirTraffic>>();
+            var observer = _container.Resolve<IObserver<AirTraffic>>();
+
+
             Assert.IsNotNull(logger);
+            Assert.IsNotNull(subject);
+            Assert.IsNotNull(observer);
+
         }
     }
 }

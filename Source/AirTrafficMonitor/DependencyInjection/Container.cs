@@ -13,12 +13,12 @@ namespace DependencyInjection
 
         public void Register<TTypeToResolve, TConcrete>()
         {
-            Register<TTypeToResolve, TConcrete>(LifeCycle.Singleton);
+            _registeredObjects.Add(new RegisteredObject(typeof (TTypeToResolve), typeof (TConcrete)));
         }
 
-        public void Register<TTypeToResolve, TConcrete>(LifeCycle lifeCycle)
+        public void Register<TTypeToResolve>(object instance)
         {
-            _registeredObjects.Add(new RegisteredObject(typeof (TTypeToResolve), typeof (TConcrete), lifeCycle));
+            _registeredObjects.Add(new RegisteredObject(typeof(TTypeToResolve), instance));
         }
 
         public TTypeToResolve Resolve<TTypeToResolve>()
@@ -39,8 +39,7 @@ namespace DependencyInjection
 
         private object GetInstance(RegisteredObject registeredObject)
         {
-            if (registeredObject.Instance == null || 
-                registeredObject.LifeCycle == LifeCycle.Transient)
+            if (registeredObject.Instance == null)
             {
                 var parameters = ResolveConstructorParameters(registeredObject);
                 registeredObject.CreateInstance(parameters.ToArray());

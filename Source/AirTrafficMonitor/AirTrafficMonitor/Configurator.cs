@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitor.Observer;
 using DependencyInjection;
 
 namespace AirTrafficMonitor
@@ -16,8 +17,12 @@ namespace AirTrafficMonitor
         {
             container.Register<ILogger, Logger>();
 
+            container.Register<IObservable<AirTraffic>,AirTrafficSubject>();
+            container.Register<IObserver<AirTraffic>, AirTrafficObserver>();
+
             return container;
         }
+
     }
 
     public class Logger : ILogger //replace with logging framework

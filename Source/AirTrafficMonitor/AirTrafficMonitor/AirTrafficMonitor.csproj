@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Observer\AirTraffic.cs" />
     <Compile Include="Configurator.cs" />
+    <Compile Include="Observer\AirTrafficObserver.cs" />
+    <Compile Include="Observer\AirTrafficSubject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,5 +52,6 @@
       <Name>DependencyInjection</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
