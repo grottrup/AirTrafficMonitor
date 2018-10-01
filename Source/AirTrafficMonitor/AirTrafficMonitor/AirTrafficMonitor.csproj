@@ -47,6 +47,7 @@
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\AirTrafficObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
+    <Compile Include="Observer\AntiCorruptionLayer\TransponderReceiverFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Observer;
+using AirTrafficMonitor.Observer.AntiCorruptionLayer;
 using DependencyInjection;
 
 namespace AirTrafficMonitor
@@ -19,6 +20,8 @@ namespace AirTrafficMonitor
 
             container.Register<IObservable<AirTraffic>,AirTrafficSubject>();
             container.Register<IObserver<AirTraffic>, AirTrafficObserver>();
+
+            container.Register<IRawDataController, RawDataController>();
 
             return container;
         }
