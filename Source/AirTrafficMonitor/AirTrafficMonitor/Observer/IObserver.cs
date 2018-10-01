@@ -1,4 +1,4 @@
-﻿namespace AirTrafficMonitor
+﻿namespace AirTrafficMonitor.Observer
 {
     public interface IObserver<T>
     {

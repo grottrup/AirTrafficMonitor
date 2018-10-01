@@ -7,16 +7,17 @@ namespace AirTrafficMonitor.Observer
 {
     public class AirTrafficSubject : ISubject<AirTrafficReport>
     {
-        private readonly List<System.IObserver<AirTrafficReport>> _observers;
+        private readonly List<IObserver<AirTrafficReport>> _observers;
         private readonly ITransponderReceiver _receiver;
 
         public AirTrafficSubject()
         {
-            _observers = new List<System.IObserver<AirTrafficReport>>();
+            _observers = new List<IObserver<AirTrafficReport>>();
             _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();//dependency inject instead maybe
+            StartReceivingTransponderData();
         }
 
-        public void Subscribe(System.IObserver<AirTrafficReport> observer)
+        public void Subscribe(IObserver<AirTrafficReport> observer)
         {
             if (!_observers.Contains(observer))
             {
@@ -24,18 +25,18 @@ namespace AirTrafficMonitor.Observer
             }
         }
 
-        public void Unsubscribe(System.IObserver<AirTrafficReport> observer)
+        public void Unsubscribe(IObserver<AirTrafficReport> observer)
         {
             _observers.Remove(observer);
         }
 
         private void Notify(AirTrafficReport report)
         {
-            _observers.ForEach(o => o.OnNext(report));
+            _observers.ForEach(o => o.Update(report));
         }
 
 
-        public void StartReceivingTransponderData()
+        private void StartReceivingTransponderData()
         {
             _receiver.TransponderDataReady += RawDataReceivedEvent;
         }

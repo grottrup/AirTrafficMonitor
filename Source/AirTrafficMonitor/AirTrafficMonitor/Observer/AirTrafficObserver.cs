@@ -3,7 +3,7 @@ using AirTrafficMonitor.Observer;
 
 namespace AirTrafficMonitor
 {
-    public class AirTrafficObserver : IObserver<AirTrafficReport>
+    public class AirTrafficObserver : Observer.IObserver<AirTrafficReport>
     {
         private readonly IView _view;
 

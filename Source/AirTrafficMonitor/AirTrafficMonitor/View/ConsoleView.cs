@@ -10,7 +10,7 @@ namespace AirTrafficMonitor.View
     {
         public void Display(AirTrafficReport report)
         {
-            Console.WriteLine(report);
+            Console.WriteLine(report.RawData);
         }
     }
 }
