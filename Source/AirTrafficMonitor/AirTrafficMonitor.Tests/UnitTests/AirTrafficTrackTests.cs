@@ -12,10 +12,10 @@ namespace AirTrafficMonitor.Tests.UnitTests
     public class AirTrafficTrackTests
     {
         [TestCase(TestName = "Each track shall be have with the following data")]
-        public void Test1()
+        public void Test1() //should we make a track history?
         {
             var factory = new AirTrafficTrackFactory();
-            var track = factory.CreateTrack("AGJ063;39563;95000;16800;20181001160609975");
+            var track = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
 
             //Assert.AreEqual("AGJ063", track.Tag);
             Assert.AreEqual(39563, track.Position.X);
@@ -29,15 +29,15 @@ namespace AirTrafficMonitor.Tests.UnitTests
     //TODO: use in implementation as well
     public interface IAirTrafficTrackFactory
     {
-        AirTrafficTrack CreateTrack(string rawTrackData);
+        AirTrafficRecord CreateRecord(string rawTrackData);
     }
 
     public class AirTrafficTrackFactory : IAirTrafficTrackFactory
     {
-        public AirTrafficTrack CreateTrack(string rawTrackData)
+        public AirTrafficRecord CreateRecord(string rawTrackData)
         {
             var split = rawTrackData.Split(';');
-            var track = new AirTrafficTrack(rawTrackData) //remove raw
+            var track = new AirTrafficRecord(rawTrackData) //remove raw
             {
                 Position = new Position(Int32.Parse(split[1]), Int32.Parse(split[2]))
             }; 

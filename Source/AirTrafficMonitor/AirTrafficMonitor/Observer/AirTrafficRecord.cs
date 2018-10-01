@@ -2,7 +2,7 @@
 
 namespace AirTrafficMonitor
 {
-    public class AirTrafficTrack
+    public class AirTrafficRecord
     {
         public string RawData { get; } //remove
         public string Tag { get; set; }
@@ -10,7 +10,7 @@ namespace AirTrafficMonitor
         public int Altitude { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public AirTrafficTrack(string rawData)
+        public AirTrafficRecord(string rawData)
         {
             RawData = rawData;
         }

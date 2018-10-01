@@ -2,6 +2,6 @@
 {
     public interface IView
     {
-        void Render(AirTrafficTrack track);
+        void Render(AirTrafficRecord record);
     }
 }

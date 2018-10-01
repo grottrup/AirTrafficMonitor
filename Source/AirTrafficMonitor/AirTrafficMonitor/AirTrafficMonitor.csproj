@@ -43,7 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Observer\AirTrafficTrack.cs" />
+    <Compile Include="Observer\AirTrafficRecord.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\AirTrafficObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
