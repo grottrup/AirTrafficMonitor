@@ -47,7 +47,9 @@
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\AirTrafficObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
+    <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
+    <Compile Include="IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

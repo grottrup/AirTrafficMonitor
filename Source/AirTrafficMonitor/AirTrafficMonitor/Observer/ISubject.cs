@@ -4,7 +4,7 @@ namespace AirTrafficMonitor.Observer
 {
     public interface ISubject<T>
     {
-        void Subscribe(IObserver<T> observer);
-        void Unsubscribe(IObserver<T> observer);
+        void Subscribe(System.IObserver<T> observer);
+        void Unsubscribe(System.IObserver<T> observer);
     }
 }

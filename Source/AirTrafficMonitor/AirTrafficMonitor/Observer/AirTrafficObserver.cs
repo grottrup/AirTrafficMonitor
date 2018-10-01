@@ -5,19 +5,16 @@ namespace AirTrafficMonitor
 {
     public class AirTrafficObserver : IObserver<AirTrafficReport>
     {
-        public void OnNext(AirTrafficReport value)
+        private readonly IView _view;
+
+        public AirTrafficObserver(IView view)
         {
-            throw new NotImplementedException();
+            _view = view;
         }
 
-        public void OnError(Exception error)
+        public void Update(AirTrafficReport update)
         {
-            throw new NotImplementedException();
-        }
-
-        public void OnCompleted()
-        {
-            throw new NotImplementedException();
+            _view.Display(update);
         }
     }
 }
