@@ -43,12 +43,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Observer\AirTrafficReport.cs" />
+    <Compile Include="Observer\AirTrafficTrack.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\AirTrafficObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
     <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
+    <Compile Include="Observer\Position.cs" />
     <Compile Include="View\ConsoleView.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

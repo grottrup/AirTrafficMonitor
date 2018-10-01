@@ -8,9 +8,9 @@ namespace AirTrafficMonitor.View
 {
     public class ConsoleView : IView
     {
-        public void Display(AirTrafficReport report)
+        public void Render(AirTrafficTrack track)
         {
-            Console.WriteLine(report.RawData);
+            Console.WriteLine(track.RawData);
         }
     }
 }

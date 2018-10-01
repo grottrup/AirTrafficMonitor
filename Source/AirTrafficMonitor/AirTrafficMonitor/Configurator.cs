@@ -18,8 +18,8 @@ namespace AirTrafficMonitor
         {
             container.Register<ILogger, Logger>();
 
-            container.Register<ISubject<AirTrafficReport>,AirTrafficSubject>();
-            container.Register<Observer.IObserver<AirTrafficReport>, AirTrafficObserver>();
+            container.Register<ISubject<AirTrafficTrack>,AirTrafficSubject>();
+            container.Register<Observer.IObserver<AirTrafficTrack>, AirTrafficObserver>();
 
             container.Register<IView, ConsoleView>();
 

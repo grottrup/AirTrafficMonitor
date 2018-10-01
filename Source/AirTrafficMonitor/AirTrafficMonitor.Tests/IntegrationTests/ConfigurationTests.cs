@@ -20,8 +20,8 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         public void Configurator_Resolving_ReturnsInstances()
         {
             var logger = _container.Resolve<ILogger>();
-            var subject = _container.Resolve<ISubject<AirTrafficReport>>();
-            var observer = _container.Resolve<IObserver<AirTrafficReport>>();
+            var subject = _container.Resolve<ISubject<AirTrafficTrack>>();
+            var observer = _container.Resolve<IObserver<AirTrafficTrack>>();
 
             Assert.IsNotNull(logger);
             Assert.IsNotNull(subject);
