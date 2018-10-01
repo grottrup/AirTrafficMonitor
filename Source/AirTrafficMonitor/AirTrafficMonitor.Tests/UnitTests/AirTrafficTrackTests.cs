@@ -25,6 +25,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
         }
     }
 
+
+    //TODO: use in implementation as well
     public interface IAirTrafficTrackFactory
     {
         AirTrafficTrack CreateTrack(string rawTrackData);
