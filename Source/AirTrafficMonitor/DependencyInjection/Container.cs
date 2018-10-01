@@ -18,7 +18,7 @@ namespace DependencyInjection
 
         public void Register<TTypeToResolve>(object instance)
         {
-            _registeredObjects.Add(new RegisteredObject(typeof(TTypeToResolve), instance));
+            _registeredObjects.Add(new RegisteredObject(typeof (TTypeToResolve), instance));
         }
 
         public TTypeToResolve Resolve<TTypeToResolve>()

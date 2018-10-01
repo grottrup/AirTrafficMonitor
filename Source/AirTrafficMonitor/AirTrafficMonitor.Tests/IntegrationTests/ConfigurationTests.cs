@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AirTrafficMonitor.Observer;
+﻿using AirTrafficMonitor.Observer;
 using DependencyInjection;
 using NUnit.Framework;
 
-namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests.IntegrationTests
 {
     [TestFixture]
     public class ConfigurationTests
@@ -26,12 +21,11 @@ namespace AirTrafficMonitor.Tests
         {
             var logger = _container.Resolve<ILogger>();
             var subject = _container.Resolve<ISubject<AirTrafficReport>>();
-            var subscriper = _container.Resolve<IObserver<AirTrafficReport>>();
-
+            var observer = _container.Resolve<IObserver<AirTrafficReport>>();
 
             Assert.IsNotNull(logger);
             Assert.IsNotNull(subject);
-            Assert.IsNotNull(subscriper);
+            Assert.IsNotNull(observer);
         }
     }
 }

@@ -20,16 +20,13 @@ namespace DependencyInjection
         public RegisteredObject(Type typeToResolve, object instance)
         {
             TypeToResolve = typeToResolve;
-            ConcreteType = instance.GetType();
             Instance = instance;
+            ConcreteType = instance.GetType();
         }
 
         public void CreateInstance(params object[] args)
         {
-            if (Instance == null || args.Length == 0) //rethink this
-            {
-                this.Instance = Activator.CreateInstance(this.ConcreteType, args);
-            }
+           Instance = Activator.CreateInstance(ConcreteType, args);
         }
     }
 }
