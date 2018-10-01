@@ -5,9 +5,10 @@ using TransponderReceiver;
 
 namespace AirTrafficMonitor.Observer
 {
-    public class AirTrafficSubject : IObservable<AirTrafficReport>
+    public class AirTrafficSubject : ISubject<AirTrafficReport>
     {
         private readonly List<IObserver<AirTrafficReport>> _observers;
+        private readonly ITransponderReceiver _receiver;
 
         public AirTrafficSubject()
         {
@@ -15,21 +16,24 @@ namespace AirTrafficMonitor.Observer
             _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();//dependency inject instead maybe
         }
 
-        public IDisposable Subscribe(IObserver<AirTrafficReport> observer)
+        public void Subscribe(IObserver<AirTrafficReport> observer)
         {
             if (!_observers.Contains(observer))
             {
                 _observers.Add(observer);
             }
-            throw new NotImplementedException();
         }
 
-        private void Notify(AirTrafficReport airTrafficReportReport)
+        public void Unsubscribe(IObserver<AirTrafficReport> observer)
         {
-            _observers.ForEach(o => o.OnNext(airTrafficReportReport));
+            _observers.Remove(observer);
         }
 
-        private readonly ITransponderReceiver _receiver;
+        private void Notify(AirTrafficReport report)
+        {
+            _observers.ForEach(o => o.OnNext(report));
+        }
+
 
         public void StartReceivingTransponderData()
         {
