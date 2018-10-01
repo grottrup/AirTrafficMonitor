@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Observer;
+using AirTrafficMonitor.View;
 using DependencyInjection;
 
 namespace AirTrafficMonitor
@@ -19,6 +20,8 @@ namespace AirTrafficMonitor
 
             container.Register<ISubject<AirTrafficReport>,AirTrafficSubject>();
             container.Register<IObserver<AirTrafficReport>, AirTrafficObserver>();
+
+            container.Register<IView, ConsoleView>();
 
             return container;
         }
