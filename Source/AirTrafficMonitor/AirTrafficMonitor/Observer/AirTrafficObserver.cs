@@ -3,9 +3,9 @@ using AirTrafficMonitor.Observer;
 
 namespace AirTrafficMonitor
 {
-    public class AirTrafficObserver : IObserver<AirTraffic>
+    public class AirTrafficObserver : IObserver<AirTrafficReport>
     {
-        public void OnNext(AirTraffic value)
+        public void OnNext(AirTrafficReport value)
         {
             throw new NotImplementedException();
         }
