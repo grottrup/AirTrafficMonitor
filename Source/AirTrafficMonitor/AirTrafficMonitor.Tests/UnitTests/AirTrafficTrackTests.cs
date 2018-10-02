@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitor.Domain;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -22,26 +23,6 @@ namespace AirTrafficMonitor.Tests.UnitTests
             Assert.AreEqual(95000, track.Position.Y);
             //Assert.AreEqual(16800, track.Altitude);
             //Assert.AreEqual(new DateTime(2018,10,01,16,06,09,975), track.Timestamp);
-        }
-    }
-
-
-    //TODO: use in implementation as well
-    public interface IAirTrafficTrackFactory
-    {
-        AirTrafficRecord CreateRecord(string rawTrackData);
-    }
-
-    public class AirTrafficTrackFactory : IAirTrafficTrackFactory
-    {
-        public AirTrafficRecord CreateRecord(string rawTrackData)
-        {
-            var split = rawTrackData.Split(';');
-            var track = new AirTrafficRecord(rawTrackData) //remove raw
-            {
-                Position = new Position(Int32.Parse(split[1]), Int32.Parse(split[2]))
-            }; 
-            return track;
         }
     }
 }
