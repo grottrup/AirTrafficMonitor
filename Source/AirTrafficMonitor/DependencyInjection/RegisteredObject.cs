@@ -13,7 +13,7 @@ namespace DependencyInjection
 
         public RegisteredObject(Type typeToResolve, Type concreteType)
         {
-            TypeToResolve = typeToResolve;
+            TypeToResolve = typeToResolve;  
             ConcreteType = concreteType;
         }
 

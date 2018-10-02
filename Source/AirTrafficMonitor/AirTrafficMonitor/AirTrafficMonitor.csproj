@@ -44,15 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\FlightRecordFactory.cs" />
+    <Compile Include="View\ConsoleView.cs" />
+    <Compile Include="SeparationHandler.cs" />
     <Compile Include="Domain\IAirTrafficTrackFactory.cs" />
     <Compile Include="Domain\AirTrafficRecord.cs" />
     <Compile Include="Configurator.cs" />
-    <Compile Include="Observer\AirTrafficObserver.cs" />
+    <Compile Include="Observer\FlightObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
     <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
     <Compile Include="Domain\Position.cs" />
-    <Compile Include="View\ConsoleView.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

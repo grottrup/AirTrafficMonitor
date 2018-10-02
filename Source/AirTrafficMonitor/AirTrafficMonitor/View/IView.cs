@@ -1,4 +1,4 @@
-﻿namespace AirTrafficMonitor
+﻿namespace AirTrafficMonitor.View
 {
     public interface IView
     {
