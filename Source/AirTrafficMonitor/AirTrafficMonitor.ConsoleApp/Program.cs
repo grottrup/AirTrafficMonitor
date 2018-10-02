@@ -20,6 +20,7 @@ namespace AirTrafficMonitor.ConsoleApp
             subject.Subscribe(observerSep);
             subject.Subscribe(observerviiew);
             Console.ReadKey();
+
         }
     }
 }

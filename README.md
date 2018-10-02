@@ -14,32 +14,31 @@ node('master'){
     }
     
     stage('Update NuGet packages')    {
-        bat '"C:\\Program Files (x86)\\NuGet\\nuget" restore AirTrafficMonitor.sln'
+        bat '"C:\\Program Files (x86)\\NuGet\\nuget" restore Source\\AirTrafficMonitor\\AirTrafficMonitor.sln'
     }
     
     stage('Build'){
     
-        bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe" AirTrafficMonitor.sln'
+        bat '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\BuildTools\\MSBuild\\15.0\\Bin\\MSBuild.exe" Source\\AirTrafficMonitor\\AirTrafficMonitor.sln'
     }
     
     try {
-        stage('Run unit tests') {
-            bat '"C:\\Program Files (x86)\\NUnit.org\\nunit-console\\nunit3-console.exe"  *** your test project***\\bin\\Debug\\AirTrafficMonitor.Tests.dll --result:TestResult.xml'
+        stage('Run coverage of unit tests') {
+            bat '"C:\\Program Files (x86)\\Jetbrains\\JetBrains.dotCover.CommandLineTools.2017.2.2\\dotCover.exe" analyze Source\\AirTrafficMonitor\\dotCoverCoverageConfig.xml'
         }
     }
     finally {
         stage('Publish Test Results') {
-            nunit testResultsPattern: 'TestResult.xml'
+            nunit testResultsPattern: 'AirTrafficMonitor.Tests.dll\\TestResult.xml'
         }
+    }
+     // Only publish coverage if all tests passed
+    stage('Publish Coverage Results') {
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '.', reportFiles: 'coverage_report.html', reportName: 'Coverage Report', reportTitles: ''])
     }
     
 }
+
 ```
 
 5. Add a GitHub Web Hook in GitHub Settings with the following address: `http://ci3.ase.au.dk:8080/github-webhook/`
-
-## How to add a Jenkins code coverage job
-
-1. Add a dotCoverCoverageConfig.xml:
-2. Make a new job: http://ci3.ase.au.dk:8080/view/all/newJob
-3. Give the job a name and choose a template. We used the TemplateBuildCoverage template given from the SWT course.
