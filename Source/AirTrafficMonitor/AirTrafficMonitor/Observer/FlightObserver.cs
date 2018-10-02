@@ -18,22 +18,27 @@ namespace AirTrafficMonitor.View
 
         public void Update(FlightRecord update)
         {
-            foreach (var track in _tracks)
+            if (update.Position.IsWithin(null)) // create Airspace
             {
-                if (track.Tag == update.Tag)
+                foreach (var track in _tracks)
                 {
-                   track._records.Add(update);
+                    if (track.Tag == update.Tag)
+                    {
+                        track._records.Add(update);
+                    }
                 }
+                _handler.DetectCollision(_tracks);
+                _view.Render(update); //only update updated tracks
             }
-            _handler.DetectCollision(_tracks);
-            _view.Render(update); //only update updated tracks
+            else{
+                //code for when record is not in airspace
+            }
         }
     }
 
-    public class FlightTrack
+    public class FlightTrack // refactor... only like this for simplicity and to make logic for the rest of the code
     {
         public string Tag;
         public readonly List<FlightRecord> _records= new List<FlightRecord>();
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AirTrafficMonitor
 {
-    public struct Position
+    public class Position
     {
         public int X, Y;
 
@@ -8,6 +8,11 @@
         {
             X = x;
             Y = y;
+        }
+
+        public bool IsWithin(Airspace airspace)
+        {
+            return true; //make checker
         }
     }
 }

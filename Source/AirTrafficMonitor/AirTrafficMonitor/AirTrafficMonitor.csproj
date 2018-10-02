@@ -43,6 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
     <Compile Include="ISeperationHandler.cs" />
     <Compile Include="View\ConsoleView.cs" />
