@@ -15,7 +15,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [TestCase(TestName = "Each record have the following data")]
         public void Test1() //should we make a track history?
         {
-            var factory = new AirTrafficRecordFactory();
+            var factory = new FlightRecordFactory();
             var record = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
 
             Assert.AreEqual("AGJ063", record.Tag);

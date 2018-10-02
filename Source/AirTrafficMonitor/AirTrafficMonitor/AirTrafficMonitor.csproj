@@ -43,7 +43,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\AirTrafficRecordFactory.cs" />
+    <Compile Include="Domain\FlightRecordFactory.cs" />
     <Compile Include="Domain\IAirTrafficTrackFactory.cs" />
     <Compile Include="Domain\AirTrafficRecord.cs" />
     <Compile Include="Configurator.cs" />
