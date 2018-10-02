@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitor.Domain;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -24,8 +25,4 @@ namespace AirTrafficMonitor.Tests.UnitTests
             //Assert.AreEqual(new DateTime(2018,10,01,16,06,09,975), track.Timestamp);
         }
     }
-
-
-    //TODO: use in implementation as well
-    
 }
