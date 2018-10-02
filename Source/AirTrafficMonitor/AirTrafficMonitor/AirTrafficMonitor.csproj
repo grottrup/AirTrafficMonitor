@@ -43,9 +43,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Observer\UpdateController.cs" />
+    <Compile Include="SeparationHandler.cs" />
     <Compile Include="Observer\AirTrafficRecord.cs" />
     <Compile Include="Configurator.cs" />
-    <Compile Include="Observer\AirTrafficObserver.cs" />
+    <Compile Include="Observer\ViewObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />
     <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
