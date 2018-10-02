@@ -15,10 +15,9 @@ namespace AirTrafficMonitor.Domain
             var flightDataSplitArr = rawRecordData.Split(';');
 
             var provider = CultureInfo.InvariantCulture;
-            var format = "yyyyMMddhhmmssfff";
-            DateTime time;
+            var format = "yyyyMMddHHmmssfff";
             DateTime.TryParseExact(flightDataSplitArr[4], format, provider,
-                DateTimeStyles.None, out time);
+                DateTimeStyles.None, out var time);
 
             var record = new FlightRecord(rawRecordData) //remove raw
             {

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\FlightRecordFactory.cs" />
+    <Compile Include="ISeperationHandler.cs" />
     <Compile Include="View\ConsoleView.cs" />
     <Compile Include="SeparationHandler.cs" />
     <Compile Include="Domain\IFlightRecordFactory.cs" />

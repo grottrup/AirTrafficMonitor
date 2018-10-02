@@ -7,9 +7,9 @@ namespace AirTrafficMonitor.View
     {
         private readonly List<FlightTrack> _tracks;
         private readonly IView _view;
-        private readonly SeparationHandler _handler;
+        private readonly ISeperationHandler _handler;
 
-        public FlightObserver(IView view, SeparationHandler handler)
+        public FlightObserver(IView view, ISeperationHandler handler)
         {
             _view = view;
             _handler = handler;

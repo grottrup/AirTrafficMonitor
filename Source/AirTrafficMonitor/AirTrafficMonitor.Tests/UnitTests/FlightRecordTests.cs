@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using NUnit.Framework.Internal;
 namespace AirTrafficMonitor.Tests.UnitTests
 {
     [TestFixture]
-    public class AirTrafficRecordTests
+    public class FlightRecordTests
     {
         [TestCase(TestName = "Each record have the following data")]
         public void Test1() //should we make a track history?
@@ -22,7 +23,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             Assert.AreEqual(39563, record.Position.X);
             Assert.AreEqual(95000, record.Position.Y);
             Assert.AreEqual(16800, record.Altitude);
-            Assert.AreEqual(new DateTime(2018,10,01,16,06,09,975), record.Timestamp);
+            Assert.AreEqual(new DateTime(2018, 10, 01, 16, 06, 09, 975), record.Timestamp);
         }
     }
 }

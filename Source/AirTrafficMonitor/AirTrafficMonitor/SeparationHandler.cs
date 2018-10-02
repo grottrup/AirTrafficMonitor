@@ -26,9 +26,4 @@ namespace AirTrafficMonitor
             }
         }
     }
-
-    public interface ISeperationHandler
-    {
-        void DetectCollision(List<FlightTrack> tracks);
-    }
 }
