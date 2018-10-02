@@ -27,21 +27,5 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
 
     //TODO: use in implementation as well
-    public interface IAirTrafficTrackFactory
-    {
-        AirTrafficRecord CreateRecord(string rawTrackData);
-    }
-
-    public class AirTrafficTrackFactory : IAirTrafficTrackFactory
-    {
-        public AirTrafficRecord CreateRecord(string rawTrackData)
-        {
-            var split = rawTrackData.Split(';');
-            var track = new AirTrafficRecord(rawTrackData) //remove raw
-            {
-                Position = new Position(Int32.Parse(split[1]), Int32.Parse(split[2]))
-            }; 
-            return track;
-        }
-    }
+    
 }

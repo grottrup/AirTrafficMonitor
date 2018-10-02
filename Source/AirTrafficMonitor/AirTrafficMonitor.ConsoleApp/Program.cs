@@ -18,6 +18,7 @@ namespace AirTrafficMonitor.ConsoleApp
             var observer = new AirTrafficObserver(new ConsoleView());
             subject.Subscribe(observer);
             Console.ReadKey();
+
         }
     }
 }
