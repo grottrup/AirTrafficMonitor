@@ -5,19 +5,19 @@ using TransponderReceiver;
 
 namespace AirTrafficMonitor.Observer
 {
-    public class AirTrafficSubject : ISubject<AirTrafficRecord>
+    public class AirTrafficSubject : ISubject<FlightRecord>
     {
-        private readonly List<IObserver<AirTrafficRecord>> _observers;
+        private readonly List<IObserver<FlightRecord>> _observers;
         private readonly ITransponderReceiver _receiver;
 
         public AirTrafficSubject()
         {
-            _observers = new List<IObserver<AirTrafficRecord>>();
+            _observers = new List<IObserver<FlightRecord>>();
             _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();//dependency inject instead maybe
             StartReceivingTransponderData();
         }
 
-        public void Subscribe(IObserver<AirTrafficRecord> observer)
+        public void Subscribe(IObserver<FlightRecord> observer)
         {
             if (!_observers.Contains(observer))
             {
@@ -25,12 +25,12 @@ namespace AirTrafficMonitor.Observer
             }
         }
 
-        public void Unsubscribe(IObserver<AirTrafficRecord> observer)
+        public void Unsubscribe(IObserver<FlightRecord> observer)
         {
             _observers.Remove(observer);
         }
 
-        private void Notify(AirTrafficRecord record)
+        private void Notify(FlightRecord record)
         {
             _observers.ForEach(o => o.Update(record));
         }
@@ -46,7 +46,7 @@ namespace AirTrafficMonitor.Observer
             var rawDataList = e.TransponderData;
             foreach (var rawData in rawDataList)
             {
-                Notify(new AirTrafficRecord(rawData)); // replace with a factory and make an abstraction of the AirTrafficRecord class
+                Notify(new FlightRecord(rawData)); // replace with a factory and make an abstraction of the FlightRecord class
             }
         }
     }
