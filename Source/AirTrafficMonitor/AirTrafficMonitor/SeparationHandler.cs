@@ -1,22 +1,31 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AirTrafficMonitor.View;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Observer
 {
-    public class SeparationHandler : Observer.IObserver<AirTrafficRecord>
+    public class SeparationHandler
     {
+
         public event EventHandler SeparationEvent;
 
         public int VertDist = 300;
         public int HoriDist = 5000;
-        
         //public SubscribePls = new AirTrafficMonitor.Observer;
-        public void Update(AirTrafficRecord update)
+        //public void Update(AirTrafficRecord update)
+        //{
+          
+           
+        //}
+
+        public void DetectCollision(List<FlightTrack> tracks)
         {
-            update.Altitude;
+            foreach (var flights in tracks)
+            {
+                
+            }
         }
     }
+
 }

@@ -3,7 +3,7 @@
     public class UpdateController
     {
 
-        IView view,;
+        IView view;
         private SeparationHandler handler;
 
         public UpdateController(IView view, SeparationHandler handler)

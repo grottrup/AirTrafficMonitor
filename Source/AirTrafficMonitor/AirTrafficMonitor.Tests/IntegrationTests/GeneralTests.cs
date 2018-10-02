@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AirTrafficMonitor.View;
 using DependencyInjection;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using AirTrafficMonitor;
 
 namespace AirTrafficMonitor.Tests.IntegrationTests
 {
@@ -20,7 +22,7 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         {
             _container = new Container();
             _container.Configure();
-            
+
         }
 
         [Test]

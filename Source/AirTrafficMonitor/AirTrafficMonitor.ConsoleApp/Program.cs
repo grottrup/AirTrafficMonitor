@@ -16,7 +16,7 @@ namespace AirTrafficMonitor.ConsoleApp
         {
             var subject = new AirTrafficSubject();
             var observerSep = new SeparationHandler();
-            var observerviiew = new ViewObserver(new ConsoleView());
+            var observerviiew = new FlightObserver(new ConsoleView());
             subject.Subscribe(observerSep);
             subject.Subscribe(observerviiew);
             Console.ReadKey();
