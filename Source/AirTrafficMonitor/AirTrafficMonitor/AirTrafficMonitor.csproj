@@ -46,8 +46,8 @@
     <Compile Include="Domain\FlightRecordFactory.cs" />
     <Compile Include="View\ConsoleView.cs" />
     <Compile Include="SeparationHandler.cs" />
-    <Compile Include="Domain\IAirTrafficTrackFactory.cs" />
-    <Compile Include="Domain\AirTrafficRecord.cs" />
+    <Compile Include="Domain\IFlightRecordFactory.cs" />
+    <Compile Include="Domain\FlightRecord.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\FlightObserver.cs" />
     <Compile Include="Observer\AirTrafficSubject.cs" />

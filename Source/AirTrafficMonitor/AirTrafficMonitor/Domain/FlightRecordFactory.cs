@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace AirTrafficMonitor.Domain
 {
 
-    public class FlightRecordFactory : IAirTrafficTrackFactory
+    public class FlightRecordFactory : IFlightRecordFactory
     {
-        public AirTrafficRecord CreateRecord(string rawTrackData)
+        public FlightRecord CreateRecord(string rawRecordData)
         {
-            var flightDataSplitArr = rawTrackData.Split(';');
+            var flightDataSplitArr = rawRecordData.Split(';');
 
             var provider = CultureInfo.InvariantCulture;
             var format = "yyyyMMddhhmmssfff";
@@ -20,7 +20,7 @@ namespace AirTrafficMonitor.Domain
             DateTime.TryParseExact(flightDataSplitArr[4], format, provider,
                 DateTimeStyles.None, out time);
 
-            var record = new AirTrafficRecord(rawTrackData) //remove raw
+            var record = new FlightRecord(rawRecordData) //remove raw
             {
                 Tag = flightDataSplitArr[0],
                 Position = new Position(Int32.Parse(flightDataSplitArr[1]), Int32.Parse(flightDataSplitArr[2])),

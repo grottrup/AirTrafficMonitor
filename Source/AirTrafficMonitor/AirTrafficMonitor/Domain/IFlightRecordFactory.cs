@@ -1,7 +1,7 @@
 ﻿namespace AirTrafficMonitor.Domain
 {
-    public interface IAirTrafficTrackFactory
+    public interface IFlightRecordFactory
     {
-        AirTrafficRecord CreateRecord(string rawTrackData);
+        FlightRecord CreateRecord(string rawRecordData);
     }
 }

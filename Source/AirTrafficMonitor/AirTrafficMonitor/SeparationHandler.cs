@@ -13,7 +13,7 @@ namespace AirTrafficMonitor.Observer
         public int VertDist = 300;
         public int HoriDist = 5000;
         //public SubscribePls = new AirTrafficMonitor.Observer;
-        //public void Update(AirTrafficRecord update)
+        //public void Update(FlightRecord update)
         //{
           
            

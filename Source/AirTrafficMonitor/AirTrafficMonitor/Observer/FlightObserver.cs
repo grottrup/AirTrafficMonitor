@@ -3,7 +3,7 @@ using AirTrafficMonitor.Observer;
 
 namespace AirTrafficMonitor.View
 {
-    public class FlightObserver : IObserver<AirTrafficRecord> //might be deleted later
+    public class FlightObserver : IObserver<FlightRecord> //might be deleted later
     {
         private readonly List<FlightTrack> _tracks;
         private readonly IView _view;
@@ -16,7 +16,7 @@ namespace AirTrafficMonitor.View
             _tracks = new List<FlightTrack>();
         }
 
-        public void Update(AirTrafficRecord update)
+        public void Update(FlightRecord update)
         {
             foreach (var track in _tracks)
             {
@@ -33,7 +33,7 @@ namespace AirTrafficMonitor.View
     public class FlightTrack
     {
         public string Tag;
-        public readonly List<AirTrafficRecord> _records= new List<AirTrafficRecord>();
+        public readonly List<FlightRecord> _records= new List<FlightRecord>();
 
     }
 }
