@@ -1,11 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using AirTrafficMonitor.View;
 
-namespace AirTrafficMonitor.Observer
+namespace AirTrafficMonitor
 {
-    public class SeparationHandler
+    public class SeparationHandler : ISeperationHandler
     {
 
         public event EventHandler SeparationEvent;
@@ -28,4 +27,8 @@ namespace AirTrafficMonitor.Observer
         }
     }
 
+    public interface ISeperationHandler
+    {
+        void DetectCollision(List<FlightTrack> tracks);
+    }
 }
