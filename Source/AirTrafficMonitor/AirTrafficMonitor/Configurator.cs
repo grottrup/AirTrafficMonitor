@@ -30,6 +30,7 @@ namespace AirTrafficMonitor
 
     public class Logger : ILogger //replace with logging framework
     {
+        
     }
 
     public interface ILogger //replace with logging framework
