@@ -9,10 +9,10 @@
             X = x;
             Y = y;
         }
-
+        /*
         public bool IsWithin(Airspace airspace)
         {
             return true; //make checker
-        }
+        }*/
     }
 }
