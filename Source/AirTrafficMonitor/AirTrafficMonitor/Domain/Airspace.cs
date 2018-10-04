@@ -10,15 +10,6 @@ namespace AirTrafficMonitor
         public int MaxAltitude;
         public int MinAltitude;
         
-        public Airspace(int maxPos, int minPos, int maxAlt, int minAlt)
-        {
-            MaxPosition = maxPos;
-            MinPosition = minPos;
-            MaxAltitude = maxAlt;
-            MinAltitude = minAlt;
-
-        }
-
         public Airspace()
         {
             MaxPosition = 90000;
