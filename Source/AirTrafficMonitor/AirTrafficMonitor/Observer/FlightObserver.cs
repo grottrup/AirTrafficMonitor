@@ -29,10 +29,6 @@ namespace AirTrafficMonitor.View
                 _handler.DetectCollision(_tracks);
                 _view.Render(update); //only update updated tracks
             }
-            else
-            {
-                //code for when record is not in airspace
-            }
         }
 
         

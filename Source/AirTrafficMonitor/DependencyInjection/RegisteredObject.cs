@@ -17,13 +17,6 @@ namespace DependencyInjection
             ConcreteType = concreteType;
         }
 
-        public RegisteredObject(Type typeToResolve, object instance)
-        {
-            TypeToResolve = typeToResolve;
-            Instance = instance;
-            ConcreteType = instance.GetType();
-        }
-
         public void CreateInstance(params object[] args)
         {
            Instance = Activator.CreateInstance(ConcreteType, args);
