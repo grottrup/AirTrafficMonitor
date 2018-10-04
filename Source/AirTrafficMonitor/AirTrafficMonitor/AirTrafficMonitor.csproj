@@ -68,7 +68,7 @@
     <Compile Include="Domain\FlightRecord.cs" />
     <Compile Include="Configurator.cs" />
     <Compile Include="Observer\FlightObserver.cs" />
-    <Compile Include="Observer\AirTrafficSubject.cs" />
+    <Compile Include="Observer\FlightSubject.cs" />
     <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Observer\ISubject.cs" />
     <Compile Include="Domain\Position.cs" />
