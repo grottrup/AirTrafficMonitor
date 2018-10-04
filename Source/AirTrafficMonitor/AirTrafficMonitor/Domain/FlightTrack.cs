@@ -21,6 +21,7 @@ namespace AirTrafficMonitor.View
 
         public void Add(FlightRecord record)
         {
+            _records.Add(record);
             LatestTime = record.Timestamp;
             Position = record.Position;
         }

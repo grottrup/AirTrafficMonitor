@@ -29,8 +29,7 @@ node('master'){
     }
     finally {
         stage('Publish Test Results') {
-            nunit testResultsPattern: 'Source\\AirTrafficMonitor\\AirTrafficMonitor.Tests\\TestResult.xml'
-
+            nunit testResultsPattern: 'AirTrafficMonitor.Tests.dll\\TestResult.xml'
         }
     }
      // Only publish coverage if all tests passed
@@ -39,7 +38,6 @@ node('master'){
     }
     
 }
-
 
 ```
 

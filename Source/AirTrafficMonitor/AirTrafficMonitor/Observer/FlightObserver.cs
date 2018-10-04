@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AirTrafficMonitor.Observer;
+using AirTrafficMonitor.Util;
 
 namespace AirTrafficMonitor.View
 {
@@ -24,34 +25,12 @@ namespace AirTrafficMonitor.View
         {
             if (update.Position.IsWithin(_space))
             {
-                SortRecordByTag(update);
+                _tracks.SortRecordByTag(update);
                 _handler.DetectCollision(_tracks);
                 _view.Render(update); //only update updated tracks
             }
-            else
-            {
-                //code for when record is not in airspace
-            }
         }
 
-        private void SortRecordByTag(FlightRecord update) //make testable
-        {
-            if (!_tracks.Any(track => track.Tag == update.Tag))
-            {
-                var newTrack = new FlightTrack(update.Tag);
-                newTrack.Add(update);
-                _tracks.Add(newTrack);
-            }
-            else
-            {
-                foreach (var track in _tracks)
-                {
-                    if (track.Tag == update.Tag)
-                    {
-                        track.Add(update);
-                    }
-                }
-            }
-        }
+        
     }
 }
