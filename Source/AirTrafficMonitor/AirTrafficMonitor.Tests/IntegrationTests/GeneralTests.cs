@@ -29,9 +29,9 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         {
             var fakeView = Substitute.For<IView>();
             fakeView
-                .Render(Arg.Do<FlightRecord>(arg => Console.Write(arg.RawData)));
+                .Render(Arg.Do<FlightRecord>(arg => Console.Write(arg.Tag)));
 
-            fakeView.Render(new FlightRecord("test"));
+            fakeView.Render(new FlightRecord());
         }
     }
 }
