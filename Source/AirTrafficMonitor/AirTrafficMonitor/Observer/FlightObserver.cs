@@ -42,5 +42,7 @@ namespace AirTrafficMonitor.View
     {
         public string Tag;
         public readonly List<FlightRecord> _records= new List<FlightRecord>();
+        
+        //Mangler GetCourse, GetVelocity og GetLatestPosition. Her?
     }
 }
