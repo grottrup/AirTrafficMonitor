@@ -62,7 +62,6 @@
     <Compile Include="ISeperationHandler.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Domain\FlightTrack.cs" />
-    <Compile Include="Util\TrackListRecordSorter.cs" />
     <Compile Include="View\ConsoleView.cs" />
     <Compile Include="SeparationHandler.cs" />
     <Compile Include="Domain\IFlightRecordFactory.cs" />

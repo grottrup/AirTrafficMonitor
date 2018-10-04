@@ -16,6 +16,11 @@ namespace DependencyInjection
             _registeredObjects.Add(new RegisteredObject(typeof (TTypeToResolve), typeof (TConcrete)));
         }
 
+        public void Register<TTypeToResolve>(object instance)
+        {
+            _registeredObjects.Add(new RegisteredObject(typeof (TTypeToResolve), instance));
+        }
+
         public TTypeToResolve Resolve<TTypeToResolve>()
         {
             return (TTypeToResolve) ResolveObject(typeof (TTypeToResolve));
