@@ -10,7 +10,7 @@ using NUnit.Framework;
 using NUnit.Framework.Internal;
 using AirTrafficMonitor;
 
-namespace AirTrafficMonitor.Tests.IntegrationTests
+/*namespace AirTrafficMonitor.Tests.IntegrationTests
 {
     [TestFixture()]
     public class GeneralTests
@@ -34,4 +34,4 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
             fakeView.Render(new FlightRecord());
         }
     }
-}
+}*/
