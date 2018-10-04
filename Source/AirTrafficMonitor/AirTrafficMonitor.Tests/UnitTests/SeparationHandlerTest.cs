@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace AirTrafficMonitor.Tests.UnitTests
 {
-   
+
     [TestFixture]
     class SeparationHandlerTest
     {
@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private FlightRecordFactory record;
         private SeparationHandler separation;
         private ILogger _logger;
-        
+
         //private Container _container;
 
         [SetUp]
@@ -54,7 +54,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             FT4 = new FlightTrack(record4.Tag);
             FT5 = new FlightTrack(record5.Tag);
             FT6 = new FlightTrack(record6.Tag);
-           
+
 
             FT1.Add(record1);
             FT2.Add(record2);
@@ -65,10 +65,11 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
 
         }
+
         [TestCase(TestName = "Test Istime")]
         public void Test2()
         {
-            tracks = new List<FlightTrack>() { FT1, FT2 };
+            tracks = new List<FlightTrack>() {FT1, FT2};
 
             separation.DetectCollision(tracks);
 
@@ -78,7 +79,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [TestCase(TestName = "Test horizontal compare")]
         public void Test3()
         {
-            tracks = new List<FlightTrack>() { FT1, FT2 };
+            tracks = new List<FlightTrack>() {FT1, FT2};
 
             separation.DetectCollision(tracks);
             // horizontial distance = 0
@@ -90,24 +91,25 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [TestCase(TestName = "Test vertical compare")]
         public void Test4()
         {
-            tracks = new List<FlightTrack> { FT1, FT2 };
+            tracks = new List<FlightTrack> {FT1, FT2};
 
             separation.DetectCollision(tracks);
 
             Assert.That(separation.CalculateVerticalDistance(tracks), Is.EqualTo(0));
 
         }
-
-        [TestCase(TestName = "Test its in list ")]
-        public void Test5()
-        {
-            tracks = new List<FlightTrack> { FT1, FT2, FT5, FT6 };
-
-            separation.DetectCollision(tracks);
-
-            Assert.That(separation.ProximityList.Count, Is.EqualTo(2));
-            //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
-        }
-
     }
 }
+/*[TestCase(TestName = "Test its in list ")]
+public void Test5()
+{
+    tracks = new List<FlightTrack> { FT1, FT2, FT5, FT6 };
+
+    separation.DetectCollision(tracks);
+
+    Assert.That(separation.ProximityList.Count, Is.EqualTo(2));
+    //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
+}
+
+}*/
+
