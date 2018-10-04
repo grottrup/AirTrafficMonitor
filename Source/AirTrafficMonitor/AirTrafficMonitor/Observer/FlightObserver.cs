@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AirTrafficMonitor.Observer;
 
 namespace AirTrafficMonitor.View
@@ -40,7 +41,21 @@ namespace AirTrafficMonitor.View
 
     public class FlightTrack // refactor... only like this for simplicity and to make logic for the rest of the code
     {
-        public string Tag;
-        public readonly List<FlightRecord> _records= new List<FlightRecord>();
+        //public string Tag;
+        private readonly List<FlightRecord> _records;
+
+        public DateTime LatestTime { get; set; }
+        public int Course { get; }
+        public int Velocity { get; }
+
+
+        public FlightTrack()
+        {
+            _records = new List<FlightRecord>();
+        }
+
+
+
+
     }
 }

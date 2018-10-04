@@ -7,7 +7,7 @@ namespace AirTrafficMonitor
         public string RawData { get; } //remove
         public string Tag { get; set; }
         public Position Position { get; set; }
-        public int Altitude { get; set; }
+        public int Altitude { get; set; } // put in position
         public DateTime Timestamp { get; set; }
 
         public FlightRecord(string rawData)
