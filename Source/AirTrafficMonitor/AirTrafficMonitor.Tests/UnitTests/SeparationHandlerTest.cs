@@ -98,16 +98,16 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         }
 
-        [TestCase(TestName = "Test its in list ")]
-        public void Test5()
-        {
-            tracks = new List<FlightTrack> { FT1, FT2, FT5, FT6 };
+        //[TestCase(TestName = "Test its in list ")]
+        //public void Test5()
+        //{
+        //    tracks = new List<FlightTrack> { FT1, FT2, FT5, FT6 };
 
-            separation.DetectCollision(tracks);
+        //    separation.DetectCollision(tracks);
 
-            Assert.That(separation.ProximityList.Count, Is.EqualTo(2));
-            //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
-        }
+        //    Assert.That(separation.ProximityList.Count, Is.EqualTo(2));
+        //    //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
+        //}
 
     }
 }
