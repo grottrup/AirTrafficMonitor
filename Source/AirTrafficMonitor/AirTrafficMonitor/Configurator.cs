@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.View;
 using DependencyInjection;
+using Serilog;
 
 namespace AirTrafficMonitor
 {
@@ -27,14 +28,4 @@ namespace AirTrafficMonitor
         }
 
     }
-
-    public class Logger : ILogger //replace with logging framework
-    {
-        
-    }
-
-    public interface ILogger //replace with logging framework
-    {
-    }
-
 }
