@@ -8,14 +8,91 @@ namespace AirTrafficMonitor
     public class SeparationHandler : ISeperationHandler
     {
 
-        public FlightInCollision _flightInCollisionData;
-        public List<FlightInCollision> _FlightInCollisionDetected;
-        public ILogger _Logger;
+        public event EventHandler<FlightInCollision> FlightsInProximity;
+        public List<FlightTrack> ProximityList;
+        protected virtual void OnFlightsInProximity(FlightInCollision eventArgs)
+        {
+            EventHandler<FlightInCollision> handler = FlightsInProximity;
+
+            handler?.Invoke(this, eventArgs);
+        }
+
+        public bool IstimeEquel(List<FlightTrack> tracks)
+        {
+                for (int i = 0; i < tracks.Count - 1; i++)
+                {
+                    return tracks[i].LatestTime == tracks[i + 1].LatestTime;
+                }
+            return false;
+        }
+
+        public double CalculateHorizontialDistance(List<FlightTrack> tracks)
+        {
+            for (int i = 0; i < tracks.Count-1; i++)
+            {
+                return Math.Round(Math.Abs(Math.Pow(tracks[i].Position.X - tracks[i + 1].Position.X, 2)
+                                    + Math.Pow(tracks[i].Position.Y - tracks[i + 1].Position.Y, 2)));
+            }
+            return 0;
+        }
+
+        public double CalculateVerticalDistance(List<FlightTrack> tracks)
+        {
+            for (int i = 0; i < tracks.Count-1; i++)
+            {
+                return Math.Abs(tracks[i].Position.Altitude - tracks[i + 1].Position.Altitude);
+            }
+            return 0;
+        }
+
+        //public void UpdateIsProximity(List<FlightInCollision> tracks, bool addOrRemove)
+        //{
+        //    if (addOrRemove)
+        //    {
+        //        //add to list
+                
+
+        //    }
+        //    else
+        //    {
+        //        //remove from list
+        //    }
+        //}
 
         public void DetectCollision(List<FlightTrack> tracks)
         {
-            throw new NotImplementedException();
+            if (IstimeEquel(tracks))
+            {
+                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300 )
+                {
+
+                     for (int i = 0; i < tracks.Count - 1; i++)
+                    { 
+                            //if (!ProximityList.Contains(tracks[i]))
+                            //{
+                                OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag,
+                                    tracks[i].LatestTime));
+                               // ProximityList.Add(tracks[i]);
+
+                            //}
+                           // else
+                           // {
+                                //ProximityList.Remove(tracks[i]);
+                           // }
+
+                     }
+                    
+
+                }
+            }
         }
+
+
+        //public flightincollision _flightincollisiondata;
+        //public list<flightincollision> _flightincollisiondetected;
+        //public ilogger _logger;
+
+
 
         //public SeparationHandler(FlightInCollision flightInCollisionData, ILogger logger)
         //{
