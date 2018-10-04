@@ -13,9 +13,6 @@ namespace AirTrafficMonitor.View
         public int Velocity { get; private set; }
         public Position Position { get; private set; }
 
-
-
-
         public FlightTrack(string tag)
         {
             Tag = tag;

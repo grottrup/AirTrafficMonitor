@@ -46,7 +46,7 @@ namespace AirTrafficMonitor.Observer
             var rawDataList = e.TransponderData;
             foreach (var rawData in rawDataList)
             {
-                Notify(new FlightRecord(rawData)); // replace with a factory and make an abstraction of the FlightRecord class
+                Notify(new FlightRecord()); // replace with a factory and make an abstraction of the FlightRecord class
             }
         }
     }

@@ -10,7 +10,7 @@ namespace AirTrafficMonitor.View
     {
         public void Render(FlightRecord record)
         {
-            Console.WriteLine(record.RawData);
+            Console.WriteLine(record.Tag);
         }
     }
 }
