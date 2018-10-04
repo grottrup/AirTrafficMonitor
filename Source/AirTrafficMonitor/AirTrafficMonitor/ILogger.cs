@@ -15,7 +15,7 @@ namespace AirTrafficMonitor
     {
        //void DataLog(string Tag1, string Tag2, DateTime Time);
        //void ConsoleLog(string Tag1, string Tag2, DateTime Time);
-        void DataLog(object test, FlightInCollision record);
+        void DataLog(object test, FlightInCollision eventArgs);
 
     }
 }
