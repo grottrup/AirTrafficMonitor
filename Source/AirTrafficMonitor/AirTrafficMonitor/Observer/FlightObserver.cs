@@ -27,7 +27,7 @@ namespace AirTrafficMonitor.View
                 {
                     if (track.Tag == update.Tag)
                     {
-                        track._records.Add(update);
+                        track.Add(update);
                     }
                 }
                 _handler.DetectCollision(_tracks);
@@ -37,25 +37,5 @@ namespace AirTrafficMonitor.View
                 //code for when record is not in airspace
             }
         }
-    }
-
-    public class FlightTrack // refactor... only like this for simplicity and to make logic for the rest of the code
-    {
-        //public string Tag;
-        private readonly List<FlightRecord> _records;
-
-        public DateTime LatestTime { get; set; }
-        public int Course { get; }
-        public int Velocity { get; }
-
-
-        public FlightTrack()
-        {
-            _records = new List<FlightRecord>();
-        }
-
-
-
-
     }
 }
