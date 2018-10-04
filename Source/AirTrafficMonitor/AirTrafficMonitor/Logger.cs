@@ -14,8 +14,8 @@ namespace AirTrafficMonitor
     {
         public void DataLog(string Tag1, string Tag2, DateTime Time)
         {
-            //Måske .AppendAllText istedet
-            File.WriteAllText(Directory.GetCurrentDirectory() + "DataLog.txt",
+            //Måske .AppendAllText i stedet. AppDomain.CurrentDomain.BaseDirectory placerer log filen samme sted som applicationen
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
                 "Warning, two planes are currently on collusion course! " +
                 "\n Plane Tag: " + Tag1 + "and tag: " + Tag2 + "\n Current time: " +
                 Time);

@@ -57,6 +57,7 @@
     <Compile Include="IntegrationTests\GeneralTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\FlightRecordTests.cs" />
+    <Compile Include="UnitTests\LoggerTests.cs" />
     <Compile Include="UnitTests\RenderTests.cs" />
   </ItemGroup>
   <ItemGroup>
