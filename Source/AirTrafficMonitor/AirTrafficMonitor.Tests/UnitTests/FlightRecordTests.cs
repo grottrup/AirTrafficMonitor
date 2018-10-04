@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             Assert.AreEqual("AGJ063", record.Tag);
             Assert.AreEqual(39563, record.Position.X);
             Assert.AreEqual(95000, record.Position.Y);
-            Assert.AreEqual(16800, record.Altitude);
+            Assert.AreEqual(16800, record.Position.Altitude);
             Assert.AreEqual(new DateTime(2018, 10, 01, 16, 06, 09, 975), record.Timestamp);
         }
     }

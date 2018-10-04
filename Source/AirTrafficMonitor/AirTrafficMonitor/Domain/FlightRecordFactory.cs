@@ -22,8 +22,7 @@ namespace AirTrafficMonitor.Domain
             var record = new FlightRecord()
             {
                 Tag = flightDataSplitArr[0],
-                Position = new Position(Int32.Parse(flightDataSplitArr[1]), Int32.Parse(flightDataSplitArr[2])),
-                Altitude = Int32.Parse(flightDataSplitArr[3]),
+                Position = new Position(Int32.Parse(flightDataSplitArr[1]), Int32.Parse(flightDataSplitArr[2]), Int32.Parse(flightDataSplitArr[3])),
                 Timestamp = time
             };
             return record;
