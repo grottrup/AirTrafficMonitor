@@ -23,6 +23,7 @@ namespace AirTrafficMonitor
             container.Register<Observer.IObserver<FlightRecord>, FlightObserver>();
             container.Register<IView, ConsoleView>();
             container.Register<ISeperationHandler, SeparationHandler>();
+            container.Register<FlightInCollision, FlightInCollision>();
 
             return container;
         }

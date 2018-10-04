@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
+    <Compile Include="FlightInCollision.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="ISeperationHandler.cs" />
     <Compile Include="Logger.cs" />

@@ -63,6 +63,7 @@
     <Compile Include="UnitTests\FlightRecordTests.cs" />
     <Compile Include="UnitTests\LoggerTests.cs" />
     <Compile Include="UnitTests\RenderTests.cs" />
+    <Compile Include="UnitTests\SeparationHandlerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -14,10 +14,16 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var subject = new AirTrafficSubject();
-            var observerSep = new SeparationHandler();
-            var observerviiew = new FlightObserver(new ConsoleView(), new SeparationHandler());
-            subject.Subscribe(observerviiew);
+            var container = new Container();
+            container.Configure();
+            var subject = container.Resolve<ISubject<FlightRecord>>();
+            var observer = container.Resolve<Observer.IObserver<FlightRecord>>();
+
+            subject.Subscribe(observer);
+            //var subject = new AirTrafficSubject();
+            //var observerSep = new SeparationHandler();
+            //var observerviiew = new FlightObserver(new ConsoleView(), new SeparationHandler());
+            //subject.Subscribe(observerviiew);
             Console.ReadKey();
 
         }
