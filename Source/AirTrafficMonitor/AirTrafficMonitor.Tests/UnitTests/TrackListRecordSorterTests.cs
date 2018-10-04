@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Util;
 using AirTrafficMonitor.View;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
@@ -16,7 +17,22 @@ namespace AirTrafficMonitor.Tests.UnitTests
     {
         //ZOMBIES
         [Test]
-        public void Sort_WhenListIsEmpty_ShouldCreateANewTrackWithASingleRecord()
+        public void Sort_NullRecordWhenListIsEmpty_ShouldNotBeAccepeted()
+        {
+            // Arrange
+            var tracks = new List<FlightTrack>();
+
+            //Act
+            Assert.Throws<NullReferenceException>( () =>
+                tracks.SortRecordByTag(null)
+            );
+
+            //Assert
+            Assert.AreEqual(0, tracks.Count());
+        }
+
+        [Test]
+        public void Sort_OneRecordWhenListIsEmpty_ShouldCreateANewTrackWithASingleRecord()
         {
             // Arrange
             var tracks = new List<FlightTrack>();
@@ -31,6 +47,10 @@ namespace AirTrafficMonitor.Tests.UnitTests
             //Assert
             Assert.AreEqual(1, tracks.Count());
             Assert.AreEqual(expectedTrack.Tag, tracks.First().Tag);
+            Assert.AreEqual(expectedTrack.Course, tracks.First().Course);
+            Assert.AreEqual(expectedTrack.Position, tracks.First().Position);
+            Assert.AreEqual(expectedTrack.LatestTime, tracks.First().LatestTime);
+            Assert.AreEqual(expectedTrack.Velocity, tracks.First().Velocity);
         }
     }
 }
