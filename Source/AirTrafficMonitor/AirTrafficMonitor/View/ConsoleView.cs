@@ -12,17 +12,15 @@ namespace AirTrafficMonitor.View
         public void Render(FlightRecord record)
         {
             //Console.WriteLine(record.Tag1, record.Tag2, record.TimeStamp);
-            Console.WriteLine(FlightRecord.Tag);
-            Console.WriteLine("Warning, two planes are currently on collision course! " +
-                              "\n Plane Tag: " + record.Tag1 + " and plane Tag: " + record.Tag2 + "\n Current time: " +
-                              record.TimeStamp);
+            Console.WriteLine(record.Tag);
+            
         }
 
         public void ConsoleData(FlightInCollision eventArgs)
         {
             Console.WriteLine("Warning, two planes are currently on collision course! " +
-                              "\n Plane Tag: " + record.Tag1 + " and plane Tag: " + record.Tag2 + "\n Current time: " +
-                              record.TimeStamp);
+                              "\n Plane Tag: " + eventArgs.Tag1 + " and plane Tag: " + eventArgs.Tag2 + "\n Current time: " +
+                              eventArgs.TimeStamp);
         }
         
     }
