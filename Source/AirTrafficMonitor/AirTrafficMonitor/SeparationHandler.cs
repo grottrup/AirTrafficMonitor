@@ -10,11 +10,13 @@ namespace AirTrafficMonitor
 
         public FlightInCollision _flightInCollisionData;
         public List<FlightInCollision> _FlightInCollisionDetected;
+        public ILogger _Logger;
 
-        public SeparationHandler(FlightInCollision flightInCollisionData)
+        public SeparationHandler(FlightInCollision flightInCollisionData, ILogger logger)
         {
             _flightInCollisionData = flightInCollisionData;
             _FlightInCollisionDetected = new List<FlightInCollision>();
+            _Logger = logger;
         }
 
         public void DetectCollision(List<FlightTrack> tracks)
@@ -33,11 +35,12 @@ namespace AirTrafficMonitor
                                 _flightInCollisionData.Tag2 = tracks[i+1]._records[tracks[i+1]._records.Count - 1].Tag;
                                 _flightInCollisionData.TimeStamp = tracks[i]._records[tracks[i]._records.Count - 1].Timestamp;
 
-                                _FlightInCollisionDetected.Add(_flightInCollisionData);
                                 
-                                //Log Event?
-                                //Console Event?
-                             
+                                
+                                _Logger.DataLog(_flightInCollisionData.Tag1, _flightInCollisionData.Tag2, _flightInCollisionData.TimeStamp);
+                                _Logger.ConsoleLog(_flightInCollisionData.Tag1, _flightInCollisionData.Tag2,
+                                _flightInCollisionData.TimeStamp);
+                           
                             }
                         }
                     }

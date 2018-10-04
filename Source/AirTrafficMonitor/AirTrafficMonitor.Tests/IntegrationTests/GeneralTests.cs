@@ -22,7 +22,6 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         {
             _container = new Container();
             _container.Configure();
-
         }
 
         [Test]
