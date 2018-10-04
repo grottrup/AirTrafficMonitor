@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.View;
+using DependencyInjection;
 using NUnit.Framework;
 
 namespace AirTrafficMonitor.Tests.UnitTests
@@ -12,21 +13,30 @@ namespace AirTrafficMonitor.Tests.UnitTests
     [TestFixture]
     class SeparationHandlerTest
     {
+        
         private List<FlightTrack> tracks;
         private List<FlightInCollision> flightsFlightInCollisionsDetected;
         private FlightInCollision flightsCollisionData;
         private FlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
         private FlightRecordFactory record;
         private SeparationHandler separation;
+        private ILogger _logger;
+        
+        ´//private Container _container;
 
         [SetUp]
         public void SetUp()
         {
+         //   _container = new Container();
+          //  _container.Configure();
+            
             tracks = new List<FlightTrack>();
             flightsFlightInCollisionsDetected = new List<FlightInCollision>();
             flightsCollisionData = new FlightInCollision();
+            _logger = new Logger();
             record = new FlightRecordFactory();
-            separation = new SeparationHandler(flightsCollisionData);
+            separation = new SeparationHandler(flightsCollisionData, _logger );
+            
 
             //Alt er ens untagen tag
             var record1 = record.CreateRecord("AAJ063;39563;95000;16800;20181001160609975");
@@ -109,5 +119,6 @@ namespace AirTrafficMonitor.Tests.UnitTests
             Assert.That(separation._FlightInCollisionDetected.Count, Is.EqualTo(2));
             //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
         }
+        
     }
 }

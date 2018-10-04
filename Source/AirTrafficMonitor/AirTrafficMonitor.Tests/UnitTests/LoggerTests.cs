@@ -10,7 +10,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
     public class LoggerTests
     {
         private Logger _uut;
-        private string 
+        //private string 
             
             
         [SetUp]
@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         }
 
         [Test]
-        public void (NavnPåFørsteTestHer())
+        public void NavnPåFørsteTestHer()
         {
             //Arrange
 
@@ -32,7 +32,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         }
         
         [Test]
-        public void (NavnPåAndenTestHer())
+        public void NavnPåAndenTestHer()
         {
             //Arrange
 
