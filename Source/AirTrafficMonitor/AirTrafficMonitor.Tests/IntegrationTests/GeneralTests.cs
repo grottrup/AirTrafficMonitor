@@ -9,6 +9,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using AirTrafficMonitor;
+using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Tests.IntegrationTests
 {
@@ -27,11 +28,27 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         [Test]
         public void Test1()
         {
+            var factory = new FlightRecordFactory();
             var fakeView = Substitute.For<IView>();
-            fakeView
-                .Render(Arg.Do<FlightRecord>(arg => Console.Write(arg.Tag)));
 
-            fakeView.Render(new FlightRecord());
+            var str = string.Empty;
+
+            //stub
+            fakeView
+                .Render(Arg.Do<FlightRecord>(arg => str = arg.Tag));
+
+            var record1 = factory.CreateRecord("AGJ063;39563;80000;16800;20181001160609975");
+
+            fakeView.Render(record1);
+            
+            Assert.AreEqual(record1.Tag, str);
+        }
+
+        [Test]
+        public void Test2()
+        {
+            var factory = new FlightRecordFactory();
+            
         }
     }
 }

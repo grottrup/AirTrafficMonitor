@@ -6,12 +6,6 @@
         public int Y { get; set; }
         public int Altitude { get; set; }
 
-        public Position(int x, int y) // remove this constructor
-        {
-            X = x;
-            Y = y;
-        }
-
         public Position(int x, int y, int altitude)
         {
             X = x;

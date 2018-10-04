@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
+using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
 namespace AirTrafficMonitor.Tests.UnitTests
 {
     [TestFixture]
-    public class AirspaceTests
+    public class PositionTests
     {
-        [TestCase(TestName = "Check position of new flights")]
+        [TestCase(TestName = "Check that position of new flights is within airspace")]
         public void test1()
         {
             var factory = new FlightRecordFactory();
