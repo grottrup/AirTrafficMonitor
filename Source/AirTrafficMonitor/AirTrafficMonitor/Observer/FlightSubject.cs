@@ -5,12 +5,12 @@ using TransponderReceiver;
 
 namespace AirTrafficMonitor.Observer
 {
-    public class AirTrafficSubject : ISubject<FlightRecord>
+    public class FlightSubject : ISubject<FlightRecord>
     {
         private readonly List<IObserver<FlightRecord>> _observers;
         private readonly ITransponderReceiver _receiver;
 
-        public AirTrafficSubject()
+        public FlightSubject()
         {
             _observers = new List<IObserver<FlightRecord>>();
             _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();//dependency inject instead maybe

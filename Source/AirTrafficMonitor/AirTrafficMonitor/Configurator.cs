@@ -19,7 +19,7 @@ namespace AirTrafficMonitor
         {
             container.Register<ILogger, Logger>();
 
-            container.Register<ISubject<FlightRecord>,AirTrafficSubject>();
+            container.Register<ISubject<FlightRecord>,FlightSubject>();
             container.Register<Observer.IObserver<FlightRecord>, FlightObserver>();
             container.Register<IView, ConsoleView>();
             container.Register<ISeperationHandler, SeparationHandler>();
