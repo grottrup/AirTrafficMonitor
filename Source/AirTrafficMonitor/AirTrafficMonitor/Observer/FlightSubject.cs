@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using AirTrafficMonitor.Domain;
 using TransponderReceiver;
 
 namespace AirTrafficMonitor.Observer
@@ -9,11 +10,13 @@ namespace AirTrafficMonitor.Observer
     {
         private readonly List<IObserver<FlightRecord>> _observers;
         private readonly ITransponderReceiver _receiver;
+        private FlightRecordFactory _factory;
 
         public FlightSubject()
         {
             _observers = new List<IObserver<FlightRecord>>();
             _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();//dependency inject instead maybe
+            _factory = new FlightRecordFactory();
             StartReceivingTransponderData();
         }
 
@@ -46,7 +49,8 @@ namespace AirTrafficMonitor.Observer
             var rawDataList = e.TransponderData;
             foreach (var rawData in rawDataList)
             {
-                Notify(new FlightRecord()); // replace with a factory and make an abstraction of the FlightRecord class
+                var record = _factory.CreateRecord(rawData);
+                Notify(record); // replace with a factory and make an abstraction of the FlightRecord class
             }
         }
     }

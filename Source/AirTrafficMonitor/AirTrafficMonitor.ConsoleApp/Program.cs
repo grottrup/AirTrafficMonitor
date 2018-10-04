@@ -20,10 +20,7 @@ namespace AirTrafficMonitor.ConsoleApp
             var observer = container.Resolve<Observer.IObserver<FlightRecord>>();
 
             subject.Subscribe(observer);
-            //var subject = new FlightSubject();
-            //var observerSep = new SeparationHandler();
-            //var observerviiew = new FlightObserver(new ConsoleView(), new SeparationHandler());
-            //subject.Subscribe(observerviiew);
+
             Console.ReadKey();
 
         }

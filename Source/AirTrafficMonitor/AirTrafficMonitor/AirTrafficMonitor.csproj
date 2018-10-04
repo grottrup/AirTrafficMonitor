@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurator.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
     <Compile Include="FlightInCollision.cs" />
@@ -67,7 +68,6 @@
     <Compile Include="SeparationHandler.cs" />
     <Compile Include="Domain\IFlightRecordFactory.cs" />
     <Compile Include="Domain\FlightRecord.cs" />
-    <Compile Include="Configurator.cs" />
     <Compile Include="Observer\FlightObserver.cs" />
     <Compile Include="Observer\FlightSubject.cs" />
     <Compile Include="Observer\IObserver.cs" />
