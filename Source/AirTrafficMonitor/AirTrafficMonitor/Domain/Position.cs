@@ -19,10 +19,16 @@
             Altitude = altitude;
         }
 
-        /*
         public bool IsWithin(Airspace airspace)
         {
-            return true; //make checker
-        }*/
+            if (X < airspace.MinPosition || X > airspace.MaxPosition)
+                return false;
+            if (Y < airspace.MinPosition || Y > airspace.MaxPosition)
+                return false;
+            if (Altitude < airspace.MinAltitude || Altitude > airspace.MaxAltitude)
+                return false;
+            return true;
+        }
     }
+
 }
