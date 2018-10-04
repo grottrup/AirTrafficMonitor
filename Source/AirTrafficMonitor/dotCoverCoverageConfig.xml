@@ -11,15 +11,14 @@
   <!-- Coverage filters. It's possible to use asterisks as wildcard symbols.-->
   <Filters>
     <IncludeFilters>
-      <!--<FilterEntry>
-        <ModuleMask> Module mask. </ModuleMask>
-        <ClassMask> Class mask. </ClassMask>
-        <FunctionMask> Function mask. </FunctionMask>
-      </FilterEntry>
-    </IncludeFilters>-->
-      
+    </IncludeFilters>
     <ExcludeFilters>
-    <!--Omit test coverage of nunit.framework-->
+      
+      <FilterEntry>
+      	<ModuleMask>DependencyInjection</ModuleMask>
+      </FilterEntry>
+      
+      <!--Omit test coverage of nunit.framework-->
       <FilterEntry>
       	<ModuleMask>nunit.framework</ModuleMask>
       </FilterEntry>
