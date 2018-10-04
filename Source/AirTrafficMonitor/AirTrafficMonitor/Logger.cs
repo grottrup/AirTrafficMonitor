@@ -13,12 +13,12 @@ namespace AirTrafficMonitor
    public class Logger : ILogger
     //internal class Logger
     {
-        public void DataLog(object test, FlightInCollision eventArgs)
+        public void DataLog(object test, FlightInCollision record)
         {
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
                 "Warning, two planes are currently on collision course! " +
-                "\n Plane Tag: " + eventArgs.Tag1 + " and plane Tag: " + eventArgs.Tag2 + "\n Current time: " +
-                eventArgs.TimeStamp);
+                "\n Plane Tag: " + record.Tag1 + " and plane Tag: " + record.Tag2 + "\n Current time: " +
+                record.TimeStamp);
             /*File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
                 "Warning, two planes are currently on collision course! " +
                 "\n Plane Tag: " + eventArgs.Tag1 + " and plane Tag: " + eventArgs.Tag2 + "\n Current time: " +
