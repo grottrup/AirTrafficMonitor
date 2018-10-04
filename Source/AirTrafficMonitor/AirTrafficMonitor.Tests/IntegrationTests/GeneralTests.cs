@@ -11,7 +11,7 @@ using NUnit.Framework.Internal;
 using AirTrafficMonitor;
 using AirTrafficMonitor.Domain;
 
-namespace AirTrafficMonitor.Tests.IntegrationTests
+/*namespace AirTrafficMonitor.Tests.IntegrationTests
 {
     [TestFixture()]
     public class GeneralTests
@@ -51,4 +51,4 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
             
         }
     }
-}
+}*/

@@ -10,9 +10,23 @@ using System.IO;
 
 namespace AirTrafficMonitor
 {
-    public class Logger : ILogger
+   public class Logger : ILogger
+    //internal class Logger
     {
-        public void DataLog(string Tag1, string Tag2, DateTime Time)
+        public void DataLog(object test, FlightInCollision eventArgs)
+        {
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
+                "Warning, two planes are currently on collision course! " +
+                "\n Plane Tag: " + eventArgs.Tag1 + " and plane Tag: " + eventArgs.Tag2 + "\n Current time: " +
+                eventArgs.TimeStamp);
+            /*File.AppendAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
+                "Warning, two planes are currently on collision course! " +
+                "\n Plane Tag: " + eventArgs.Tag1 + " and plane Tag: " + eventArgs.Tag2 + "\n Current time: " +
+                eventArgs.TimeStamp);*/
+        }
+        
+        
+        /*public void DataLog(string Tag1, string Tag2, DateTime Time)
         {
             //Måske .AppendAllText i stedet. AppDomain.CurrentDomain.BaseDirectory placerer log filen samme sted som applicationen
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
@@ -21,13 +35,13 @@ namespace AirTrafficMonitor
                 Time);
         }
 
-        public void ConsoleLog(string Tag1, string Tag2, DateTime Time)
+        //public void ConsoleLog(string Tag1, string Tag2, DateTime Time)
         {
             Console.WriteLine("Warning, two planes are currently on collusion course! " +
             "\n Plane Tag: " + Tag1 + "and tag: " + Tag2 + "\n Current time: " +
                 Time);
             Console.ReadLine();
-        }
+        }*/
     }
 }
 

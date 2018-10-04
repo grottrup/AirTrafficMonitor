@@ -13,8 +13,9 @@ namespace AirTrafficMonitor
 
     public interface ILogger
     {
-       void DataLog(string Tag1, string Tag2, DateTime Time);
-       void ConsoleLog(string Tag1, string Tag2, DateTime Time);
+       //void DataLog(string Tag1, string Tag2, DateTime Time);
+       //void ConsoleLog(string Tag1, string Tag2, DateTime Time);
+        void DataLog(object test, FlightInCollision eventArgs);
 
     }
 }

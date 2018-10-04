@@ -65,7 +65,6 @@
     <Compile Include="UnitTests\LoggerTests.cs" />
     <Compile Include="UnitTests\RenderTests.cs" />
     <Compile Include="UnitTests\SeparationHandlerTest.cs" />
-    <Compile Include="UnitTests\TrackListRecordSorterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
