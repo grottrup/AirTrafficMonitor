@@ -4,7 +4,7 @@ using AirTrafficMonitor.Observer;
 
 namespace AirTrafficMonitor.View
 {
-    public class FlightObserver : IObserver<FlightRecord> //might be deleted later
+    public class FlightObserver : Observer.IObserver<FlightRecord> //might be deleted later
     {
         private readonly List<FlightTrack> _tracks;
         private readonly IView _view;
@@ -21,7 +21,7 @@ namespace AirTrafficMonitor.View
 
         public void Update(FlightRecord update)
         {
-            if (_space.IsWithin(update.Position, update.Altitude)) // create Airspace
+            if (update.Position.IsWithin(_space))
             {
                 foreach (var track in _tracks)
                 {
