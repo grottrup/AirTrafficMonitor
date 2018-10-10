@@ -5,10 +5,10 @@ namespace AirTrafficMonitor
 {
     public class Airspace
     {
-        public int MaxPosition;
-        public int MinPosition;
-        public int MaxAltitude;
-        public int MinAltitude;
+        public int MaxPosition { get; }
+        public int MinPosition { get; }
+        public int MaxAltitude { get; }
+        public int MinAltitude { get; }
         
         public Airspace()
         {
