@@ -26,15 +26,11 @@ namespace AirTrafficMonitor.View
             {
                 SortRecordByTag(update);
                 _handler.DetectCollision(_tracks);
-                _view.Render(update); //only update updated tracks
-            }
-            else
-            {
-                //code for when record is not in airspace
+                _view.Render(update);
             }
         }
 
-        private void SortRecordByTag(FlightRecord update) //make testable
+        private void SortRecordByTag(FlightRecord update)
         {
             if (!_tracks.Any(track => track.Tag == update.Tag))
             {

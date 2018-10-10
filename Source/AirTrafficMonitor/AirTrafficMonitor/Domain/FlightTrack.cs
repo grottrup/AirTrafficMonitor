@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AirTrafficMonitor.View
 {
-    public class FlightTrack // refactor... only like this for simplicity and to make logic for the rest of the code
+    public class FlightTrack
     {
         private readonly List<FlightRecord> _records;
 
