@@ -16,10 +16,7 @@ namespace AirTrafficMonitor.ConsoleApp
         {
             var container = new Container();
             container.Configure();
-            var subject = container.Resolve<ISubject<FlightRecord>>();
-            var observer = container.Resolve<Observer.IObserver<FlightRecord>>();
-
-            subject.Subscribe(observer);
+            var observer = container.Resolve<IFlightObserver<FlightRecord>>();
 
             Console.ReadKey();
 
