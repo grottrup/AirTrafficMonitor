@@ -1,5 +1,7 @@
 # AirTrafficMonitor
 
+Pushing to master now requires code reviews by 1 other member of the team. Please use feature branches.
+
 ## How to add a Jenkins test job
 
 1. Make a new job: http://ci3.ase.au.dk:8080/view/all/newJob
@@ -35,7 +37,7 @@ node('master'){
     }
      // Only publish coverage if all tests passed
     stage('Publish Coverage Results') {
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '.', reportFiles: 'coverage_report.html', reportName: 'Coverage Report', reportTitles: ''])
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '.', reportFiles: 'Source\\AirTrafficMonitor\\coverage_report.html', reportName: 'Coverage Report', reportTitles: ''])
     }
     
 }
