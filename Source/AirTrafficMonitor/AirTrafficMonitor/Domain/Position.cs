@@ -3,6 +3,7 @@
     public class Position
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704: Identifiers should be spelled correctly", MessageId = "Position coordinate naming")]
+        [System.Diagnotics.Conditional("Conditional_ANALYSIS")]
         public int X { get; set; }
         public int Y { get; set; }
         public int Altitude { get; set; }
