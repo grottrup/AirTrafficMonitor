@@ -7,7 +7,7 @@ using AirTrafficMonitor.Util;
 
 namespace AirTrafficMonitor.View
 {
-    public class FlightObserver
+    public class FlightObserver : IFlightObserver
     {
         private readonly List<FlightTrack> _tracks;
         private readonly IView _view;
@@ -30,9 +30,9 @@ namespace AirTrafficMonitor.View
             var flightUpdate = e.FlightRecord;
             if (flightUpdate.Position.IsWithin(_space))
             {
-                _tracks.SortRecordByTag(flightUpdate);
+                var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
                 _handler.DetectCollision(_tracks);
-                _view.Render(flightUpdate);
+                _view.Render(updatedTrack);
             }
         }
     }

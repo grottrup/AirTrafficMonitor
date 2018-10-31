@@ -9,11 +9,9 @@ namespace AirTrafficMonitor.View
     public class ConsoleView : IView
     {
         //Printer ALLE fly.
-        public void Render(FlightRecord record)
+        public void Render(FlightTrack track)
         {
-            //Console.WriteLine(record.Tag1, record.Tag2, record.TimeStamp);
-            Console.WriteLine(record.Tag);
-            
+            Console.WriteLine(track.Tag);
         }
 
         public void ConsoleData(FlightInCollision eventArgs)

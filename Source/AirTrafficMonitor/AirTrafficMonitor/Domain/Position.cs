@@ -1,5 +1,6 @@
 ﻿namespace AirTrafficMonitor
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704: Identifiers should be spelled correctly", MessageId = "Position coordinate naming")]
     public class Position
     {
         public int X { get; set; }

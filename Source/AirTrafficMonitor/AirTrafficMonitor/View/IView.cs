@@ -2,7 +2,7 @@
 {
     public interface IView
     {
-        void Render(FlightRecord record);
+        void Render(FlightTrack track);
         void ConsoleData(FlightInCollision eventArgs);
     }
 }
