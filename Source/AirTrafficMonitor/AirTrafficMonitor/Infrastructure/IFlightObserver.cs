@@ -1,7 +1,6 @@
 ﻿namespace AirTrafficMonitor.Observer
 {
-    public interface IFlightObserver<T>
+    public interface IFlightObserver
     {
-        void Update(T flightUpdate);
     }
 }

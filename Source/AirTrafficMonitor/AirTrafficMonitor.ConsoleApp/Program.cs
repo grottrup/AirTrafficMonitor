@@ -14,9 +14,14 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var container = new Container();
-            container.Configure();
-            var observer = container.Resolve<IFlightObserver<FlightRecord>>();
+            //var container = new Container();
+            //container.Configure();
+            //var observer = container.Resolve<IFlightObserver<FlightRecord>>();
+
+            IFlightRecordReceiver recordReceiver = new FlightRecordReceiver();
+            IView view = new ConsoleView();
+            ISeperationHandler handler = new SeparationHandler();
+            IFlightObserver observer = new FlightObserver(recordReceiver, view, handler);
 
             Console.ReadKey();
 

@@ -9,23 +9,20 @@ namespace AirTrafficMonitor.Util
 {
     public static class TrackListRecordSorter
     {
-        public static void SortRecordByTag(this List<FlightTrack> tracks, FlightRecord update)
+        public static FlightTrack SortRecordByTag(this List<FlightTrack> tracks, FlightRecord update)
         {
             if (!tracks.Any(track => track.Tag == update.Tag))
             {
                 var newTrack = new FlightTrack(update.Tag);
                 newTrack.Add(update);
                 tracks.Add(newTrack);
+                return newTrack;
             }
             else
             {
-                foreach (var track in tracks)
-                {
-                    if (track.Tag == update.Tag)
-                    {
-                        track.Add(update);
-                    }
-                }
+                var updatedTrack = tracks.First(track => track.Tag == update.Tag);
+                updatedTrack.Add(update);
+                return updatedTrack;
             }
         }
     }
