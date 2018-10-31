@@ -13,11 +13,11 @@ using NUnit.Framework.Internal;
 namespace AirTrafficMonitor.Tests.UnitTests
 {
     [TestFixture]
-    public class ObserverTests
+    public class FlightObserver_Should
     {
 
         [Test]
-        public void FlightObserver_ShouldCall_RenderAndCollisionDivider()
+        public void Call_RenderAndCollisionDivider()
         {
             //arrange
             var fakeView = Substitute.For<IView>();
@@ -26,13 +26,16 @@ namespace AirTrafficMonitor.Tests.UnitTests
             var observer = new FlightObserver(fakeFlight, fakeView, fakeSeperation);
 
             //act
-            //observer.UpdateFlightTracks(new FlightRecord()
-            //{
-            //    Tag = "default",
-            //    Position = new Position(20000, 20000, 19000),
-            //    Timestamp = DateTime.MinValue
-            //});
-            
+
+            var record = new FlightRecord()
+            {
+                Tag = "default",
+                Position = new Position(20000, 20000, 19000),
+                Timestamp = DateTime.MinValue
+            };
+
+            fakeFlight.FlightRecordReceived += Raise.EventWith(fakeFlight, new FlightRecordEventArgs(record));
+
             //assert
             fakeView.Received().Render(Arg.Any<FlightTrack>());
             fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());

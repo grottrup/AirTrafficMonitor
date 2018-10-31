@@ -56,7 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTests\ObserverTests.cs" />
+    <Compile Include="UnitTests\FlightObserver_Should.cs" />
     <Compile Include="UnitTests\PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\FlightRecordTests.cs" />
