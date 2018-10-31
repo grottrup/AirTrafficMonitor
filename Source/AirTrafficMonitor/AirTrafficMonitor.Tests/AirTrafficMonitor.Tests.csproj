@@ -58,8 +58,6 @@
   <ItemGroup>
     <Compile Include="UnitTests\ObserverTests.cs" />
     <Compile Include="UnitTests\PositionTests.cs" />
-    <Compile Include="IntegrationTests\ConfigurationTests.cs" />
-    <Compile Include="IntegrationTests\GeneralTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTests\FlightRecordTests.cs" />
     <Compile Include="UnitTests\LoggerTests.cs" />
