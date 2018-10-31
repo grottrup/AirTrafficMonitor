@@ -34,7 +34,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             //});
             
             //assert
-            fakeView.Received().Render(Arg.Any<FlightRecord>());
+            fakeView.Received().Render(Arg.Any<FlightTrack>());
             fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
         }
 
