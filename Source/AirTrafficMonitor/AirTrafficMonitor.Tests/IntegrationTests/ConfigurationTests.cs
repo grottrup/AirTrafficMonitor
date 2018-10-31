@@ -21,7 +21,7 @@ namespace AirTrafficMonitor.Tests.IntegrationTests
         {
             var logger = _container.Resolve<ILogger>();
             var subject = _container.Resolve<IFlightRecordReceiver>();
-            var observer = _container.Resolve<IFlightObserver<FlightRecord>>();
+            var observer = _container.Resolve<IFlightObserver>();
 
             Assert.IsNotNull(logger);
             Assert.IsNotNull(subject);
