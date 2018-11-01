@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Domain
 {
     public class FlightRecord
     {

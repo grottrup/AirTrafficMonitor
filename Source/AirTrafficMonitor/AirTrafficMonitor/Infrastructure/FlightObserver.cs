@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using AirTrafficMonitor.AntiCorruptionLayer;
+using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.Util;
+using AirTrafficMonitor.View;
 
-namespace AirTrafficMonitor.View
+namespace AirTrafficMonitor.Infrastructure
 {
     public class FlightObserver : IFlightObserver
     {

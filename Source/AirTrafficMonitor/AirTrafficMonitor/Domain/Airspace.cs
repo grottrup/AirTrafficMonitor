@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Dynamic;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Domain
 {
     public class Airspace
     {

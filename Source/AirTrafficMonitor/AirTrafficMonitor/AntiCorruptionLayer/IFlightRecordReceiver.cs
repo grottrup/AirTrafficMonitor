@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AirTrafficMonitor.Observer
+namespace AirTrafficMonitor.AntiCorruptionLayer
 {
 
     public interface IFlightRecordReceiver

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AirTrafficMonitor.View
+namespace AirTrafficMonitor.Domain
 {
     public class FlightTrack
     {

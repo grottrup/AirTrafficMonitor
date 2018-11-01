@@ -1,6 +1,7 @@
-﻿using System;
+﻿using AirTrafficMonitor.Domain;
+using System;
 
-namespace AirTrafficMonitor.Observer
+namespace AirTrafficMonitor.AntiCorruptionLayer
 {
     public class FlightRecordEventArgs : EventArgs
     {
