@@ -27,8 +27,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
             var record = _uut.CreateRecord("AGJ063;39563;95000;16800;20181001160609975"); //make into test cases
 
             Assert.That(record.Tag, Is.EqualTo("AGJ063"));
-            Assert.That(record.Position.X, Is.EqualTo(39563));
-            Assert.That(record.Position.Y, Is.EqualTo(95000));
+            Assert.That(record.Position.Latitude, Is.EqualTo(39563));
+            Assert.That(record.Position.Longitude, Is.EqualTo(95000));
             Assert.That(record.Position.Altitude, Is.EqualTo(16800));
             Assert.That(record.Timestamp, Is.EqualTo(new DateTime(2018, 10, 01, 16, 06, 09, 975)));
         }

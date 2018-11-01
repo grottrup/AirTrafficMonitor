@@ -31,8 +31,8 @@ namespace AirTrafficMonitor
         {
             for (int i = 0; i < tracks.Count-1; i++)
             {
-                return Math.Round(Math.Abs(Math.Pow(tracks[i].Position.X - tracks[i + 1].Position.X, 2)
-                                    + Math.Pow(tracks[i].Position.Y - tracks[i + 1].Position.Y, 2)));
+                return Math.Round(Math.Abs(Math.Pow(tracks[i].Position.Latitude - tracks[i + 1].Position.Latitude, 2)
+                                    + Math.Pow(tracks[i].Position.Longitude - tracks[i + 1].Position.Longitude, 2)));
             }
             return 0;
         }
@@ -167,8 +167,8 @@ namespace AirTrafficMonitor
         //    { 
         //        for (int i = 0; i < tracks.Count-1; i++)
         //        {
-        //            return Math.Round(Math.Abs(Math.Pow(tracks[i]._records[tracks[i]._records.Count - 1].Position.X - tracks[i + 1]._records[tracks[i + 1]._records.Count - 1].Position.X, 2) 
-        //                                       + Math.Pow(tracks[i]._records[tracks[i]._records.Count - 1].Position.Y - tracks[i + 1]._records[tracks[i + 1]._records.Count - 1].Position.Y, 2)));
+        //            return Math.Round(Math.Abs(Math.Pow(tracks[i]._records[tracks[i]._records.Count - 1].Position.Latitude - tracks[i + 1]._records[tracks[i + 1]._records.Count - 1].Position.Latitude, 2) 
+        //                                       + Math.Pow(tracks[i]._records[tracks[i]._records.Count - 1].Position.Longitude - tracks[i + 1]._records[tracks[i + 1]._records.Count - 1].Position.Longitude, 2)));
         //        }
         //    }
 
