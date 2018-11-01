@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using AirTrafficMonitor.AntiCorruptionLayer;
@@ -12,7 +13,7 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class FlightObserver : IFlightObserver
     {
-        private readonly List<FlightTrack> _tracks;
+        private readonly ICollection<FlightTrack> _tracks;
         private readonly IView _view;
         private readonly ISeperationHandler _handler;
         private readonly Airspace _monitoredAirspace;
@@ -34,7 +35,7 @@ namespace AirTrafficMonitor.Infrastructure
             if (flightUpdate.Position.IsWithin(_monitoredAirspace))
             {
                 var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                _handler.DetectCollision(_tracks);
+                _handler.DetectCollision(_tracks as List<FlightTrack>); // Handler needs to be more implementation agnostic
                 _view.Render(updatedTrack);
             }
         }

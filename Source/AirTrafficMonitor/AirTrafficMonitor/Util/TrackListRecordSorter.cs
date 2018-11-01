@@ -2,6 +2,7 @@
 using AirTrafficMonitor.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace AirTrafficMonitor.Util
 {
     public static class TrackListRecordSorter
     {
-        public static FlightTrack SortRecordByTag(this List<FlightTrack> tracks, FlightRecord update)
+        public static FlightTrack SortRecordByTag(this ICollection<FlightTrack> tracks, FlightRecord update)
         {
             if (!tracks.Any(track => track.Tag == update.Tag))
             {
