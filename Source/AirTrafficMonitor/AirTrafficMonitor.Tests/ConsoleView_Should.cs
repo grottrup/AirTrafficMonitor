@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace AirTrafficMonitor.Tests.UnitTests
+namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class ConsoleView_Should

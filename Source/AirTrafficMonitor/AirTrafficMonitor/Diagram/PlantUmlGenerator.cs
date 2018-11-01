@@ -15,35 +15,27 @@ namespace AirTrafficMonitor.Diagram
     {
         public PlantUmlGenerator()
         {
-            //container.Register<ILogger, Logger>();
-            //container.Register<IFlightRecordReceiver, FlightRecordReceiver>();
-            //container.Register<Observer.IFlightObserver, FlightObserver>();
-            //container.Register<IView, ConsoleView>();
-            //container.Register<ISeperationHandler, SeparationHandler>();
-            //container.Register<FlightInCollision, FlightInCollision>();
             this.GenerationOptions.ShowMethods();
+            this.GenerationOptions.ShowMembers();
+            base.Named("class AirTrafficMonitor");
 
+            // Domain
             base.AddClass<Position>();
             base.AddClass<Airspace>();
             base.AddClass<FlightTrack>();
             base.AddClass<FlightRecord>();
-
+            base.AddClass<FlightInCollision>();
             base.AddClass<FlightRecordFactory>();
 
-            //Anti
+            // ACL
             base.AddClass<FlightRecordEventArgs>();
             base.AddClass<FlightRecordFactory>();
 
-            //Infra
+            // Infrastructure
             base.AddClass<FlightObserver>();
-            base.AddClass<FlightInCollision>();
             base.AddClass<SeparationHandler>();
             base.AddClass<Logger>();
-
-            //View
             base.AddClass<ConsoleView>();
-
         }
-
     }
 }

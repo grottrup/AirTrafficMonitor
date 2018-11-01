@@ -7,7 +7,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests.UnitTests
+namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class FlightObserver_Should
