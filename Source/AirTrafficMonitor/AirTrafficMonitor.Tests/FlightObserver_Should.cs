@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
-using AirTrafficMonitor.Observer;
-using AirTrafficMonitor.View;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -20,7 +15,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private IView _fakeView;
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
-        private FlightObserver _uut;
+        private Infrastructure.FlightObserver _uut;
         private Airspace _fakeMonitoredAirspace;
 
         [SetUp]
@@ -30,7 +25,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
             _fakeMonitoredAirspace = Substitute.For<Airspace>();
-            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
+            _uut = new Infrastructure.FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
         }
 
         [Test]

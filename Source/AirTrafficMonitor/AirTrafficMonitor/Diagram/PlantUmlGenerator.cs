@@ -7,7 +7,6 @@ using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Util;
-using AirTrafficMonitor.View;
 using NPlant;
 
 namespace AirTrafficMonitor.Diagram
@@ -36,7 +35,7 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<FlightRecordFactory>();
 
             //Infra
-            base.AddClass<FlightObserver>();
+            base.AddClass<Infrastructure.FlightObserver>();
             base.AddClass<FlightInCollision>();
             base.AddClass<SeparationHandler>();
             base.AddClass<Logger>();

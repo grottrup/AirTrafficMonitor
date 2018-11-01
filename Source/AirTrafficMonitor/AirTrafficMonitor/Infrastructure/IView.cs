@@ -1,6 +1,6 @@
 ﻿using AirTrafficMonitor.Domain;
 
-namespace AirTrafficMonitor.View
+namespace AirTrafficMonitor.Infrastructure
 {
     public interface IView
     {

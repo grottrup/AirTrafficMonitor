@@ -1,18 +1,13 @@
 ﻿using AirTrafficMonitor.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AirTrafficMonitor.View
+namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        //Printer ALLE fly.
         public void Render(FlightTrack track)
         {
-            Console.WriteLine(track.Tag);
+            Console.WriteLine(track.ToString());
         }
 
         public void ConsoleData(FlightInCollision eventArgs)

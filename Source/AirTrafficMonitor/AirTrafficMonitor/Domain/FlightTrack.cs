@@ -24,5 +24,10 @@ namespace AirTrafficMonitor.Domain
             LatestTime = record.Timestamp;
             Position = record.Position;
         }
+
+        public override string ToString()
+        {
+            return $"[Tag: {Tag}, Time: {LatestTime}, Position: {Position}]";
+        }
     }
 }

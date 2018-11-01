@@ -68,22 +68,21 @@
     <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
-    <Compile Include="Infrastructure\FlightInCollision.cs" />
+    <Compile Include="Domain\FlightInCollision.cs" />
     <Compile Include="Infrastructure\ILogger.cs" />
     <Compile Include="Infrastructure\ISeperationHandler.cs" />
     <Compile Include="Infrastructure\Logger.cs" />
     <Compile Include="Domain\FlightTrack.cs" />
     <Compile Include="AntiCorruptionLayer\FlightRecordReceiver.cs" />
     <Compile Include="Util\TrackListRecordSorter.cs" />
-    <Compile Include="View\ConsoleView.cs" />
+    <Compile Include="Infrastructure\ConsoleView.cs" />
     <Compile Include="Infrastructure\SeparationHandler.cs" />
     <Compile Include="Domain\IFlightRecordFactory.cs" />
     <Compile Include="Domain\FlightRecord.cs" />
-    <Compile Include="Infrastructure\FlightObserver.cs" />
-    <Compile Include="Infrastructure\IFlightObserver.cs" />
+    <Compile Include="FlightObserver.cs" />
     <Compile Include="AntiCorruptionLayer\IFlightRecordReceiver.cs" />
     <Compile Include="Domain\Position.cs" />
-    <Compile Include="View\IView.cs" />
+    <Compile Include="Infrastructure\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

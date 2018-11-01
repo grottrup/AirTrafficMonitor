@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AirTrafficMonitor.Domain;
-using AirTrafficMonitor.View;
+using AirTrafficMonitor.Infrastructure;
 using NUnit.Framework;
 
 namespace AirTrafficMonitor.Tests.UnitTests
@@ -22,14 +18,9 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private SeparationHandler separation;
         private ILogger _logger;
 
-        //private Container _container;
-
         [SetUp]
         public void SetUp()
         {
-            //   _container = new Container();
-            //  _container.Configure();
-
             tracks = new List<FlightTrack>();
             flightsFlightInCollisionsDetected = new List<FlightInCollision>();
             _logger = new Logger();
