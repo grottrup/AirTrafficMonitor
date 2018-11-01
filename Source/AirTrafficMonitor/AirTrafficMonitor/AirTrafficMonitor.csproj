@@ -30,6 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NPlant, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.dll</HintPath>
+    </Reference>
+    <Reference Include="NPlant.Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.Console.exe</HintPath>
+    </Reference>
+    <Reference Include="NPlant.Samples, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.Samples.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\packages\Serilog.2.7.2-dev-01027\lib\net46\Serilog.dll</HintPath>
       <Private>True</Private>
@@ -56,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiCorruptionLayer\FlightRecordEventArgs.cs" />
-    <Compile Include="Configurator.cs" />
+    <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
     <Compile Include="Infrastructure\FlightInCollision.cs" />
@@ -76,12 +85,6 @@
     <Compile Include="Domain\Position.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj">
-      <Project>{1ecafc10-13db-42bf-a65d-d5599834d525}</Project>
-      <Name>DependencyInjection</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

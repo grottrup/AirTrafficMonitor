@@ -1,4 +1,6 @@
-﻿namespace AirTrafficMonitor.View
+﻿using AirTrafficMonitor.Domain;
+
+namespace AirTrafficMonitor.View
 {
     public interface IView
     {

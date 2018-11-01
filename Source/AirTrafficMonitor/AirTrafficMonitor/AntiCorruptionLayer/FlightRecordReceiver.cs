@@ -2,7 +2,7 @@
 using AirTrafficMonitor.Domain;
 using TransponderReceiver;
 
-namespace AirTrafficMonitor.Observer
+namespace AirTrafficMonitor.AntiCorruptionLayer
 {
     public class FlightRecordReceiver : IFlightRecordReceiver
     {
