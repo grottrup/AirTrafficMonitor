@@ -59,7 +59,7 @@
     <Compile Include="FlightObserver_Should.cs" />
     <Compile Include="OldTests\PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="OldTests\FlightRecordTests.cs" />
+    <Compile Include="FlightRecordFactory_Should.cs" />
     <Compile Include="OldTests\LoggerTests.cs" />
     <Compile Include="ConsoleView_Should.cs" />
     <Compile Include="OldTests\SeparationHandlerTest.cs" />
