@@ -17,20 +17,20 @@ namespace AirTrafficMonitor.Tests.UnitTests
     [TestFixture]
     public class FlightObserver_Should
     {
-        private IView fakeView;
-        private ISeperationHandler fakeSeperation;
-        private IFlightRecordReceiver fakeFlight;
-        private FlightObserver uut;
-        private Airspace fakeMonitoredAirspace;
+        private IView _fakeView;
+        private ISeperationHandler _fakeSeperation;
+        private IFlightRecordReceiver _fakeFlight;
+        private FlightObserver _uut;
+        private Airspace _fakeMonitoredAirspace;
 
         [SetUp]
         public void SetUp()
         {
-            fakeView = Substitute.For<IView>();
-            fakeSeperation = Substitute.For<ISeperationHandler>();
-            fakeFlight = Substitute.For<IFlightRecordReceiver>();
-            fakeMonitoredAirspace = Substitute.For<Airspace>();
-            uut = new FlightObserver(fakeMonitoredAirspace, fakeFlight, fakeView, fakeSeperation);
+            _fakeView = Substitute.For<IView>();
+            _fakeSeperation = Substitute.For<ISeperationHandler>();
+            _fakeFlight = Substitute.For<IFlightRecordReceiver>();
+            _fakeMonitoredAirspace = Substitute.For<Airspace>();
+            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
         }
 
         [Test]
@@ -44,11 +44,11 @@ namespace AirTrafficMonitor.Tests.UnitTests
                 Timestamp = DateTime.MinValue
             };
 
-            fakeFlight.FlightRecordReceived += Raise.EventWith(fakeFlight, new FlightRecordEventArgs(record));
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
 
             // Assert
-            fakeView.Received().Render(Arg.Any<FlightTrack>());
-            fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
+            _fakeView.Received().Render(Arg.Any<FlightTrack>());
+            _fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
         }
 
         [Test]
