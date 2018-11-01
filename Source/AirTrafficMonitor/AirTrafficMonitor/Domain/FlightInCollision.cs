@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Domain
 {
     public class FlightInCollision
     {

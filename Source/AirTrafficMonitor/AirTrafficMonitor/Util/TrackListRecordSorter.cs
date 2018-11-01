@@ -1,5 +1,4 @@
 ﻿using AirTrafficMonitor.Domain;
-using AirTrafficMonitor.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

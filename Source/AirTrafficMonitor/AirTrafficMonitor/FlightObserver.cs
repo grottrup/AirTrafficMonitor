@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
-using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.Util;
-using AirTrafficMonitor.View;
 
 namespace AirTrafficMonitor.Infrastructure
 {
-    public class FlightObserver : IFlightObserver
+    public class FlightObserver
     {
         private readonly ICollection<FlightTrack> _tracks;
         private readonly IView _view;
         private readonly ISeperationHandler _handler;
+        private readonly IFlightRecordReceiver _recordReceiver;
         private readonly Airspace _monitoredAirspace;
-        private IFlightRecordReceiver _recordReceiver;
 
         public FlightObserver(Airspace airspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler)
         {
@@ -35,7 +29,7 @@ namespace AirTrafficMonitor.Infrastructure
             if (flightUpdate.Position.IsWithin(_monitoredAirspace))
             {
                 var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                _handler.DetectCollision(_tracks as List<FlightTrack>); // Handler needs to be more implementation agnostic
+                _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic
                 _view.Render(updatedTrack);
             }
         }
