@@ -15,14 +15,14 @@ namespace AirTrafficMonitor.Util
             if (!tracks.Any(track => track.Tag == update.Tag))
             {
                 var newTrack = new FlightTrack(update.Tag);
-                newTrack.Add(update);
+                newTrack.Update(update);
                 tracks.Add(newTrack);
                 return newTrack;
             }
             else
             {
                 var updatedTrack = tracks.First(track => track.Tag == update.Tag);
-                updatedTrack.Add(update);
+                updatedTrack.Update(update);
                 return updatedTrack;
             }
         }

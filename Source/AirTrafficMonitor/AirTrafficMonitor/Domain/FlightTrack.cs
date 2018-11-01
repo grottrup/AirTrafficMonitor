@@ -21,7 +21,7 @@ namespace AirTrafficMonitor.Domain
             _records = new Queue<FlightRecord>(2);
         }
 
-        public void Add(FlightRecord record)
+        public void Update(FlightRecord record)
         {
             if(_records.Count == 2) _records.Dequeue();  
             _records.Enqueue(record);

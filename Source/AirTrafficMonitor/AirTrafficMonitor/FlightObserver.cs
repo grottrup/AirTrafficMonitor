@@ -15,7 +15,7 @@ namespace AirTrafficMonitor
         private readonly IFlightRecordReceiver _recordReceiver;
         private readonly Airspace _monitoredAirspace;
 
-        public FlightObserver(Airspace airspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
+        public FlightObserver(Airspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
             _recordReceiver = recordReceiver;
             _recordReceiver.FlightRecordReceived += UpdateFlightTracks;
@@ -23,7 +23,7 @@ namespace AirTrafficMonitor
             _view = view;
             _handler = handler;
             _tracks = new List<FlightTrack>();
-            _monitoredAirspace = airspace;
+            _monitoredAirspace = monitoredAirspace;
         }
 
         private void UpdateFlightTracks(object sender, FlightRecordEventArgs e)

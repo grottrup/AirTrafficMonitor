@@ -9,13 +9,13 @@ using NUnit.Framework.Internal;
 namespace AirTrafficMonitor.Tests.UnitTests
 {
     [TestFixture]
-    public class TrackListRecordSorterTests
+    public class TrackListRecordSorter_Should
     {
         //ZOMBIES
 
         //Z
         [Test]
-        public void Sort_NullRecordWhenListIsEmpty_ShouldNotBeAccepeted()
+        public void NotAccept_NullRecordWhenListIsEmpty()
         {
             // Arrange
             var tracks = new List<FlightTrack>();
@@ -31,14 +31,14 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         //O
         [Test]
-        public void Sort_OneRecordWhenListIsEmpty_ShouldCreateANewTrackWithASingleRecord()
+        public void CreateANewTrackWithASingleRecord_WhenListIsEmpty()
         {
             // Arrange
             var tracks = new List<FlightTrack>();
             var factory = new FlightRecordFactory();
             var record = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
             var expectedTrack = new FlightTrack("AGJ063");
-            expectedTrack.Add(record);
+            expectedTrack.Update(record);
 
             //Act
             tracks.SortRecordByTag(record);
@@ -54,7 +54,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         //M
         [Test]
-        public void Sort_TwhoRecordsForDifferentFlights_ShouldCreateTwoIndependentTracks()
+        public void CreateTwoIndependentTracks_ForDifferentFlights()
 
         {
             // Arrange
@@ -65,10 +65,10 @@ namespace AirTrafficMonitor.Tests.UnitTests
             var record2 = factory.CreateRecord("BBJ011;30563;90000;10800;20191001160609975");
 
             var expectedTrack1 = new FlightTrack("AGJ063");
-            expectedTrack1.Add(record1);
+            expectedTrack1.Update(record1);
 
             var expectedTrack2 = new FlightTrack("BBJ011");
-            expectedTrack2.Add(record2);
+            expectedTrack2.Update(record2);
 
             //Act
             tracks.SortRecordByTag(record1);
@@ -81,7 +81,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         //M
         [Test]
-        public void Sort_TwhoRecordsForSameFlight_ShouldUpdateTheCurrentTrackOfTheFlight()
+        public void UpdateTheCurrentTrackOfTheFlight_ForTwoRecordsOfSameFlight()
 
         {
             // Arrange
@@ -90,8 +90,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
             var record1 = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
             var record2 = factory.CreateRecord("AGJ063;0;0;0;20191001160609975");
             var expectedTrack = new FlightTrack("AGJ063");
-            expectedTrack.Add(record1);
-            expectedTrack.Add(record2);
+            expectedTrack.Update(record1);
+            expectedTrack.Update(record2);
 
             //Act
             tracks.SortRecordByTag(record1);
