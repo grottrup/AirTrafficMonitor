@@ -15,7 +15,7 @@
     <ExcludeFilters>
       
       <FilterEntry>
-      	<ModuleMask>DependencyInjection</ModuleMask>
+      	<ModuleMask>AirTrafficMonotor.Diagram</ModuleMask>
       </FilterEntry>
       
       <!--Omit test coverage of nunit.framework-->
