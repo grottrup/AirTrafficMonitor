@@ -15,7 +15,7 @@
     <ExcludeFilters>
       
       <FilterEntry>
-        <ClassMask>AirTrafficMonotor.Diagram.PlantUmlGenerator</ClassMask>
+        <ClassMask>AirTrafficMonitor.Diagram.*</ClassMask>
       </FilterEntry>
       
       <!--Omit test coverage of nunit.framework-->
