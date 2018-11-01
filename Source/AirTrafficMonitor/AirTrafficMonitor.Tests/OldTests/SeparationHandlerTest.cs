@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace AirTrafficMonitor.Tests.UnitTests
@@ -16,16 +17,16 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private FlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
         private FlightRecordFactory record;
         private SeparationHandler separation;
-        private ILogger _logger;
+        private ILogger _fakeLogger;
 
         [SetUp]
         public void SetUp()
         {
             tracks = new List<FlightTrack>();
             flightsFlightInCollisionsDetected = new List<FlightInCollision>();
-            _logger = new Logger();
             record = new FlightRecordFactory();
-            separation = new SeparationHandler();
+            _fakeLogger = Substitute.For<ILogger>();
+            separation = new SeparationHandler(_fakeLogger);
 
 
             //Alt er ens untagen tag
