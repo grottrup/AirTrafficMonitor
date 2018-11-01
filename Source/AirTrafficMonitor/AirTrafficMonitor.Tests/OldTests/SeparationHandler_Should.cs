@@ -8,7 +8,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 {
 
     [TestFixture]
-    class SeparationHandlerTest
+    class SeparationHandler_Should
     {
 
         private List<FlightTrack> tracks;
@@ -47,18 +47,18 @@ namespace AirTrafficMonitor.Tests.UnitTests
             FT6 = new FlightTrack(record6.Tag);
 
 
-            FT1.Add(record1);
-            FT2.Add(record2);
-            FT3.Add(record3);
-            FT4.Add(record4);
-            FT5.Add(record5);
-            FT6.Add(record6);
+            FT1.Update(record1);
+            FT2.Update(record2);
+            FT3.Update(record3);
+            FT4.Update(record4);
+            FT5.Update(record5);
+            FT6.Update(record6);
 
 
         }
 
-        [TestCase(TestName = "Test Istime")]
-        public void Test2()
+        [Test]
+        public void Istime()
         {
             tracks = new List<FlightTrack>() {FT1, FT2};
 
@@ -67,8 +67,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
             Assert.IsTrue(separation.IsTimeEqual(tracks));
         }
 
-        [TestCase(TestName = "Test horizontal compare")]
-        public void Test3()
+        [Test]
+        public void horizontalcompare()
         {
             tracks = new List<FlightTrack>() {FT1, FT2};
 
@@ -79,8 +79,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         }
 
-        [TestCase(TestName = "Test vertical compare")]
-        public void Test4()
+        [Test]
+        public void verticalcompare()
         {
             tracks = new List<FlightTrack> {FT1, FT2};
 
