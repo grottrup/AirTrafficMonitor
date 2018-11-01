@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace AirTrafficMonitor.Tests.UnitTests
 {
     [TestFixture]
-    public class RenderTests
+    public class ConsoleView_Should
     {
         [TestCase(TestName = "The system shall render all tracks currently in the monitored airspace.")]
         public void Test1()

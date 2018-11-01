@@ -17,18 +17,24 @@ namespace AirTrafficMonitor.Tests.UnitTests
     [TestFixture]
     public class FlightObserver_Should
     {
+        private IView fakeView;
+        private ISeperationHandler fakeSeperation;
+        private IFlightRecordReceiver fakeFlight;
+        private FlightObserver uut;
+
+        [SetUp]
+        public void SetUp()
+        {
+            fakeView = Substitute.For<IView>();
+            fakeSeperation = Substitute.For<ISeperationHandler>();
+            fakeFlight = Substitute.For<IFlightRecordReceiver>();
+            uut = new FlightObserver(fakeFlight, fakeView, fakeSeperation);
+        }
 
         [Test]
         public void Call_RenderAndCollisionDivider()
         {
-            //arrange
-            var fakeView = Substitute.For<IView>();
-            var fakeSeperation = Substitute.For<ISeperationHandler>();
-            var fakeFlight = Substitute.For<IFlightRecordReceiver>();
-            var observer = new FlightObserver(fakeFlight, fakeView, fakeSeperation);
-
-            //act
-
+            // Act
             var record = new FlightRecord()
             {
                 Tag = "default",
@@ -38,7 +44,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
             fakeFlight.FlightRecordReceived += Raise.EventWith(fakeFlight, new FlightRecordEventArgs(record));
 
-            //assert
+            // Assert
             fakeView.Received().Render(Arg.Any<FlightTrack>());
             fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
         }
