@@ -8,7 +8,6 @@ using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.View;
-using DependencyInjection;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;

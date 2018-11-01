@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.View;
-using DependencyInjection;
 using System.IO;
 
 namespace AirTrafficMonitor

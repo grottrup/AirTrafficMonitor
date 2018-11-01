@@ -8,7 +8,6 @@ using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Observer;
 using AirTrafficMonitor.View;
-using Container = DependencyInjection.Container;
 
 namespace AirTrafficMonitor.ConsoleApp
 {
@@ -16,10 +15,6 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            //var container = new Container();
-            //container.Configure();
-            //var observer = container.Resolve<IFlightObserver<FlightRecord>>();
-
             IFlightRecordReceiver recordReceiver = new FlightRecordReceiver();
             IView view = new ConsoleView();
             ISeperationHandler handler = new SeparationHandler();

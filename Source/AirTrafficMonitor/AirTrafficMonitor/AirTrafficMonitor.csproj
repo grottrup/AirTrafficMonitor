@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntiCorruptionLayer\FlightRecordEventArgs.cs" />
-    <Compile Include="Configurator.cs" />
     <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="Domain\FlightRecordFactory.cs" />
@@ -86,12 +85,6 @@
     <Compile Include="Domain\Position.cs" />
     <Compile Include="View\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj">
-      <Project>{1ecafc10-13db-42bf-a65d-d5599834d525}</Project>
-      <Name>DependencyInjection</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

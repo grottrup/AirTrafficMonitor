@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.View;
-using DependencyInjection;
 using NUnit.Framework;
 
 namespace AirTrafficMonitor.Tests.UnitTests

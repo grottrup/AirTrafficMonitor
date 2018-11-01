@@ -73,10 +73,6 @@
       <Project>{024fe206-f9e3-4658-82a4-991fc77247d3}</Project>
       <Name>AirTrafficMonitor</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj">
-      <Project>{1ECAFC10-13DB-42BF-A65D-D5599834D525}</Project>
-      <Name>DependencyInjection</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

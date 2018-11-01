@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor", "AirTra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.Tests", "AirTrafficMonitor.Tests\AirTrafficMonitor.Tests.csproj", "{DA3E88A7-9D57-47E8-AB50-C0C5EA0A892B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "DependencyInjection\DependencyInjection.csproj", "{1ECAFC10-13DB-42BF-A65D-D5599834D525}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.ConsoleApp", "AirTrafficMonitor.ConsoleApp\AirTrafficMonitor.ConsoleApp.csproj", "{C84FC12C-F78F-49DE-9991-3B5E9AB3EF85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirTrafficMonitor.IntegrationTests", "AirTrafficMonitor.IntegrationTests\AirTrafficMonitor.IntegrationTests.csproj", "{EF154996-E75D-478B-A872-0C77136ADF80}"
@@ -27,10 +25,6 @@ Global
 		{DA3E88A7-9D57-47E8-AB50-C0C5EA0A892B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA3E88A7-9D57-47E8-AB50-C0C5EA0A892B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA3E88A7-9D57-47E8-AB50-C0C5EA0A892B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1ECAFC10-13DB-42BF-A65D-D5599834D525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1ECAFC10-13DB-42BF-A65D-D5599834D525}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1ECAFC10-13DB-42BF-A65D-D5599834D525}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1ECAFC10-13DB-42BF-A65D-D5599834D525}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C84FC12C-F78F-49DE-9991-3B5E9AB3EF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C84FC12C-F78F-49DE-9991-3B5E9AB3EF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C84FC12C-F78F-49DE-9991-3B5E9AB3EF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
