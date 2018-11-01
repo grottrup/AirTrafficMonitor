@@ -16,9 +16,10 @@ namespace AirTrafficMonitor.ConsoleApp
         {
             IFlightRecordReceiver recordReceiver = new FlightRecordReceiver();
             IView view = new ConsoleView();
-            ISeperationHandler handler = new SeparationHandler();
+            ILogger logger = new Logger();
+            ISeperationHandler handler = new SeparationHandler(logger);
             Airspace monitoredAirspace = new Airspace();
-            FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler);
+            FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
 
             Console.ReadKey();
         }

@@ -6,6 +6,7 @@ using AirTrafficMonitor.Infrastructure;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using ILogger = AirTrafficMonitor.Infrastructure.ILogger;
 
 namespace AirTrafficMonitor.Tests
 {
@@ -13,6 +14,7 @@ namespace AirTrafficMonitor.Tests
     public class FlightObserver_Should
     {
         private IView _fakeView;
+        private ILogger _fakeLogger;
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
         private FlightObserver _uut;
@@ -24,8 +26,9 @@ namespace AirTrafficMonitor.Tests
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
+            _fakeLogger = Substitute.For<ILogger>();
             _fakeMonitoredAirspace = Substitute.For<Airspace>();
-            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
+            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
         }
 
         [Test]

@@ -10,14 +10,16 @@ namespace AirTrafficMonitor
     {
         private readonly ICollection<FlightTrack> _tracks;
         private readonly IView _view;
+        private readonly ILogger _logger;
         private readonly ISeperationHandler _handler;
         private readonly IFlightRecordReceiver _recordReceiver;
         private readonly Airspace _monitoredAirspace;
 
-        public FlightObserver(Airspace airspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler)
+        public FlightObserver(Airspace airspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
             _recordReceiver = recordReceiver;
             _recordReceiver.FlightRecordReceived += UpdateFlightTracks;
+            _logger = logger;
             _view = view;
             _handler = handler;
             _tracks = new List<FlightTrack>();
@@ -32,6 +34,7 @@ namespace AirTrafficMonitor
                 var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
                 _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic
                 _view.Render(updatedTrack);
+                // TODO... logger?
             }
         }
     }

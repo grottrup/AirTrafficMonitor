@@ -7,9 +7,15 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {
+        private List<FlightTrack> ProximityList;
+        private readonly ILogger _logger;
 
         public event EventHandler<FlightInCollision> FlightsInProximity;
-        private List<FlightTrack> ProximityList;
+
+        public SeparationHandler(ILogger logger)
+        {
+            _logger = logger;
+        }
 
         protected virtual void OnFlightsInProximity(FlightInCollision eventArgs)
         {
