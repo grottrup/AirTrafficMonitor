@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Util;
 
-namespace AirTrafficMonitor.Infrastructure
+namespace AirTrafficMonitor
 {
     public class FlightObserver
     {

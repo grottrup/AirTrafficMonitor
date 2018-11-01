@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AirTrafficMonitor.Domain;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {

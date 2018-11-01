@@ -35,7 +35,7 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<FlightRecordFactory>();
 
             //Infra
-            base.AddClass<Infrastructure.FlightObserver>();
+            base.AddClass<FlightObserver>();
             base.AddClass<FlightInCollision>();
             base.AddClass<SeparationHandler>();
             base.AddClass<Logger>();
