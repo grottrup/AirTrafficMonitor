@@ -8,7 +8,7 @@ using AirTrafficMonitor.Domain;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests.UnitTests
+namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class FlightRecordFactory_Should

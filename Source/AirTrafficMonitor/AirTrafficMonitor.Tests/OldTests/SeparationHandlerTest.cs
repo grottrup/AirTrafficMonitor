@@ -63,7 +63,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
             separation.DetectCollision(tracks);
 
-            Assert.IsTrue(separation.IstimeEquel(tracks));
+            Assert.IsTrue(separation.IsTimeEqual(tracks));
         }
 
         [TestCase(TestName = "Test horizontal compare")]

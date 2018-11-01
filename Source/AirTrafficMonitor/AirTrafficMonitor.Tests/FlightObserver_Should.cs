@@ -7,7 +7,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests.UnitTests
+namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class FlightObserver_Should
@@ -15,7 +15,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private IView _fakeView;
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
-        private Infrastructure.FlightObserver _uut;
+        private FlightObserver _uut;
         private Airspace _fakeMonitoredAirspace;
 
         [SetUp]
@@ -25,7 +25,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
             _fakeMonitoredAirspace = Substitute.For<Airspace>();
-            _uut = new Infrastructure.FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
+            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
         }
 
         [Test]
