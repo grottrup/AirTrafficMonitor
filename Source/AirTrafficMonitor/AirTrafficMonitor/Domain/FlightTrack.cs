@@ -22,11 +22,15 @@ namespace AirTrafficMonitor.Domain
 
         public void Update(FlightRecord record)
         {
-            if(_records.Count == 2) _records.Dequeue();  
-            _records.Enqueue(record);
-            LatestTime = record.Timestamp;
-            Position = record.Position;
-            Course = CalculateCourse();
+            if (record != null)
+            {
+                if(_records.Count == 2) _records.Dequeue();  
+                _records.Enqueue(record);
+                LatestTime = record.Timestamp;
+                Position = record.Position;
+                Course = CalculateCourse();
+                Velocity = 0;
+            }
         }
 
         private int CalculateCourse() // TODO: Test
