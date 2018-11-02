@@ -13,6 +13,10 @@
             Altitude = altitude;
         }
 
+        public Position()
+        {
+        }
+
         public bool IsWithin(Airspace airspace)
         {
             if (Latitude < airspace.MinPosition || Latitude > airspace.MaxPosition)
