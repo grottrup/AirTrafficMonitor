@@ -1,7 +1,5 @@
 # AirTrafficMonitor
 
-Pushing to master now requires a code review by 1 other member of the team. Please use feature branches.
-
 ## How to add a Jenkins test job
 
 1. Make a new job: http://ci3.ase.au.dk:8080/view/all/newJob
