@@ -2,7 +2,7 @@
 
 namespace AirTrafficMonitor.Domain
 {
-    public class FlightInCollision
+    public class FlightInCollision // TODO: this class is kinda bad... We could just have a tuple of tracks
     {
         public FlightInCollision(string tag1, string tag2, DateTime timestamp)
         {

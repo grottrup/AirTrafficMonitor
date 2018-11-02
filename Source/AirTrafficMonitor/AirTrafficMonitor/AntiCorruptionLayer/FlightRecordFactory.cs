@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AirTrafficMonitor.Domain;
+using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AirTrafficMonitor.Domain
+namespace AirTrafficMonitor.AntiCorruptionLayer
 {
 
     public class FlightRecordFactory : IFlightRecordFactory

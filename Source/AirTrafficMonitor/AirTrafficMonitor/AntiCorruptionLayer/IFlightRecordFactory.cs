@@ -1,4 +1,6 @@
-﻿namespace AirTrafficMonitor.Domain
+﻿using AirTrafficMonitor.Domain;
+
+namespace AirTrafficMonitor.AntiCorruptionLayer
 {
     public interface IFlightRecordFactory
     {
