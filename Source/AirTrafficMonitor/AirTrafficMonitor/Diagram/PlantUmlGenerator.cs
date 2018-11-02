@@ -12,7 +12,15 @@ namespace AirTrafficMonitor.Diagram
             this.GenerationOptions.ShowMethods();
             this.GenerationOptions.ShowMembers();
             base.Named("class AirTrafficMonitor");
-
+            
+            // Root
+            base.AddClass<FlightObserver>();
+            
+            // Infrastructure
+            base.AddClass<SeparationHandler>();
+            base.AddClass<Logger>();
+            base.AddClass<ConsoleView>();
+            
             // Domain
             base.AddClass<Position>();
             base.AddClass<Airspace>();
@@ -25,12 +33,6 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<FlightRecordEventArgs>();
             base.AddClass<FlightRecordFactory>();
             base.AddClass<FlightRecordReceiver>();
-
-            // Infrastructure
-            base.AddClass<FlightObserver>();
-            base.AddClass<SeparationHandler>();
-            base.AddClass<Logger>();
-            base.AddClass<ConsoleView>();
         }
     }
 }
