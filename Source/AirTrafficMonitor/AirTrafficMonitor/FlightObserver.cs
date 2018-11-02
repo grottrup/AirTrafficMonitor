@@ -2,7 +2,7 @@
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
-using AirTrafficMonitor.Util;
+using AirTrafficMonitor.Utilities;
 
 namespace AirTrafficMonitor
 {

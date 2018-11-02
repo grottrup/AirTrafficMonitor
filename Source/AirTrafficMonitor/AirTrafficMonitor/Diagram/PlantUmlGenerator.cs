@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AirTrafficMonitor.AntiCorruptionLayer;
+﻿using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
-using AirTrafficMonitor.Util;
 using NPlant;
 
 namespace AirTrafficMonitor.Diagram
@@ -30,6 +24,7 @@ namespace AirTrafficMonitor.Diagram
             // ACL
             base.AddClass<FlightRecordEventArgs>();
             base.AddClass<FlightRecordFactory>();
+            base.AddClass<FlightRecordReceiver>();
 
             // Infrastructure
             base.AddClass<FlightObserver>();
