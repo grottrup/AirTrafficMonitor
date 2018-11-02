@@ -1,4 +1,5 @@
 ﻿using AirTrafficMonitor.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,9 @@ namespace AirTrafficMonitor.Utilities
     {
         public static FlightTrack SortRecordByTag(this ICollection<FlightTrack> tracks, FlightRecord update)
         {
+            if (tracks == null)
+                throw new ArgumentNullException(nameof(tracks));
+
             if (!tracks.Any(track => track.Tag == update.Tag))
             {
                 var newTrack = new FlightTrack(update.Tag);
