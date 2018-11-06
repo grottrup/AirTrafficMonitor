@@ -57,9 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlightObserver_Should.cs" />
+    <Compile Include="FlightTrack_Should.cs" />
     <Compile Include="Position_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FlightRecordFactory_Should.cs" />
+    <Compile Include="AntiCorruptionLayerTests\FlightRecordFactory_Should.cs" />
     <Compile Include="ConsoleView_Should.cs" />
     <Compile Include="OldTests\SeparationHandler_Should.cs" />
     <Compile Include="TrackListRecordSorter_Should.cs" />

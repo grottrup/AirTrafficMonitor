@@ -32,12 +32,12 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void Call_RenderAndCollisionDivider()
+        public void Call_Render()
         {
             // Act
             var record = new FlightRecord()
             {
-                Tag = "default",
+                Tag = "test flight",
                 Position = new Position(20000, 20000, 19000),
                 Timestamp = DateTime.MinValue
             };
@@ -46,6 +46,22 @@ namespace AirTrafficMonitor.Tests
 
             // Assert
             _fakeView.Received().Render(Arg.Any<FlightTrack>());
+        }
+
+        [Test]
+        public void Call_CollisionDivider()
+        {
+            // Act
+            var record = new FlightRecord()
+            {
+                Tag = "test flight",
+                Position = new Position(20000, 20000, 19000),
+                Timestamp = DateTime.MinValue
+            };
+
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+
+            // Assert
             _fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
         }
 
