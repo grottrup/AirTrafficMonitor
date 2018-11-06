@@ -45,7 +45,7 @@ namespace AirTrafficMonitor.Domain
                 var lat2 = _records.Last().Position.Latitude;
                 var time2 = _records.Last().Timestamp;
 
-                int deltaPosition = (int) Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lon2 - lat2, 2));
+               int deltaPosition = (int) Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lat1 - lat2, 2));
 
                 double deltaTime = (time2 - time1).TotalSeconds;
 
