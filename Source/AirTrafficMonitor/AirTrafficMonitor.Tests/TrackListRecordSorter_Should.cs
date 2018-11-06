@@ -47,7 +47,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             //Assert
             Assert.AreEqual(1, tracks.Count());
             Assert.AreEqual(expectedTrack.Tag, tracks.First().Tag);
-            Assert.AreEqual(expectedTrack.Course, tracks.First().Course);
+            Assert.AreEqual(expectedTrack.NavigationCourse, tracks.First().NavigationCourse);
             Assert.AreEqual(expectedTrack.Position, tracks.First().Position);
             Assert.AreEqual(expectedTrack.LatestTime, tracks.First().LatestTime);
             Assert.AreEqual(expectedTrack.Velocity, tracks.First().Velocity);
