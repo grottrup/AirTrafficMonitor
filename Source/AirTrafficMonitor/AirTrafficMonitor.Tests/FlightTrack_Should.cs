@@ -17,13 +17,15 @@ namespace AirTrafficMonitor.Tests
         private FlightRecord record2;
 
 
-        [TestCase(0, 10000, 0, 10000, 0)] //north
-        [TestCase(10, 1000, 20, 1000, 90)] //east
-        [TestCase(1, 0, 20, 0, 180)] //south
-        [TestCase(1, 0, 0, 0, 270)] //west
+        [TestCase(15000, 20000, 25000, 10000, 315)]
+        [TestCase(-10, 1000, -20, 1500, 0)]
+        [TestCase(10, 1000, 20, 1500, 181)]
+        [TestCase(65000, 30000, 45000, 14000, 0)]
         public void GivenTwoPositionRecords_CalculateANavigationCourse(int lon1, int lat1, int lon2, int lat2, int expectedCourse)
         {
             _uut = new FlightTrack("AAA123");
+            var record1 = new FlightRecord() {Position = new Position(lat1, lon1, 0)};
+            var record2 = new FlightRecord() { Position = new Position(lat2, lon2, 0) };
             _uut.Update(record1);
             _uut.Update(record2);
 
