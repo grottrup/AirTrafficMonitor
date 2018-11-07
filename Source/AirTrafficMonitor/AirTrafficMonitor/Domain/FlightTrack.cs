@@ -70,7 +70,7 @@ namespace AirTrafficMonitor.Domain
                 var radians = Math.Atan2(deltaLon, deltaLat);
                 var course = (Math.Round((radians * (180 / Math.PI)),0));
 
-                if (course < 0)
+                if (course < 0 && course<360)
                 {
                     double output = course + 360;
                     return (int) output;

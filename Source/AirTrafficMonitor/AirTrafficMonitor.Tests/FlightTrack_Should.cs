@@ -16,11 +16,18 @@ namespace AirTrafficMonitor.Tests
         private FlightRecord record1;
         private FlightRecord record2;
 
-
+        //0 = nord
+        //1-89 = nord/øst
+        //90 = øst
+        //91-179 = syd/øst
+        //180 = syd
+        //181-269 = syd/west
+        //270 = west
+        //271-359 = nord/west
         [TestCase(15000, 20000, 25000, 10000, 315)]
         [TestCase(-10, 1000, -20, 1500, 0)]
         [TestCase(10, 1000, 20, 1500, 181)]
-        [TestCase(65000, 30000, 45000, 14000, 0)]
+        [TestCase(65000, 30000, 45000, 14000, 0)] 
         public void GivenTwoPositionRecords_CalculateANavigationCourse(int lon1, int lat1, int lon2, int lat2, int expectedCourse)
         {
             _uut = new FlightTrack("AAA123");
