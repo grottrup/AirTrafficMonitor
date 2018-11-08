@@ -10,7 +10,7 @@ namespace AirTrafficMonitor.Domain
 
         public string Tag { get; }
         public DateTime LatestTime { get; private set; }
-        public int NavigationCourse { get; private set; }
+        public double NavigationCourse { get; private set; }
         public double Velocity { get; private set; }
         public Position Position { get; private set; }
 
@@ -45,7 +45,7 @@ namespace AirTrafficMonitor.Domain
                 var lat2 = _records.Last().Position.Latitude;
                 var time2 = _records.Last().Timestamp;
 
-                int deltaPosition = (int) Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lon2 - lat2, 2));
+               int deltaPosition = (int) Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lat1 - lat2, 2));
 
                 double deltaTime = (time2 - time1).TotalSeconds;
 
@@ -63,25 +63,33 @@ namespace AirTrafficMonitor.Domain
                 int lat1 = _records.First().Position.Latitude;
                 int lon2 = _records.Last().Position.Longitude;
                 int lat2 = _records.Last().Position.Latitude;
-                int deltaLon = Math.Abs(lon1 - lon2);
-                int deltaLat = Math.Abs(lat1 - lat2);
 
-                if (deltaLat > 0)
+                int deltaLon = (lon1 - lon2);
+                int deltaLat = (lat1 - lat2);
+
+                var radians = Math.Atan2(deltaLon, deltaLat);
+                var course = (Math.Round((radians * (180 / Math.PI)),0));
+
+                if (course < 0 && course<360)
                 {
-                    return (int) (90 - Math.Atan(Math.Sin(deltaLat / deltaLon)) * 180 / Math.PI);
-                }
-                else if (deltaLat < 0)
-                {
-                    return (int) (270 - Math.Atan(Math.Sin(deltaLon / deltaLat)) * 180 / Math.PI);
-                }
-                else if (deltaLat == 0 && deltaLon < 0) // south
-                {
-                    return 180;
-                }
-                else if (deltaLat == 0 && deltaLon > 0) // north
-                {
-                    return 0;
-                }
+                    double output = course + 360;
+                    return (int) output;
+                    //return course += 360;
+                    //return (int) (90 - Math.Atan(Math.Sin(deltaLat / deltaLon)) * 180 / Math.PI);
+                }        
+                //else if (course > 0)
+                //{
+                //    return 0;
+                //    //return (int) (270 - Math.Atan(Math.Sin(deltaLon / deltaLat)) * 180 / Math.PI);
+                //}
+                //else if (deltaLat == 0 && deltaLon < 0) // south
+                //{
+                //    return 180;
+                //}
+                //else if (deltaLat == 0 && deltaLon > 0) // north
+                //{
+                //    return 0;
+                //}
             }
             return 0;
         }
