@@ -24,11 +24,13 @@ namespace AirTrafficMonitor.Domain
         {
             if (record != null)
             {
-                if(_records.Count == 2) _records.Dequeue();  
+                if (_records.Count == 2) _records.Dequeue();
                 _records.Enqueue(record);
                 LatestTime = record.Timestamp;
                 Position = record.Position;
-                NavigationCourse = CalculateNavigationCourse();
+
+
+                NavigationCourse = CalculateNavigationCourse(_records.First().Position.Latitude, _records.First().Position.Longitude, _records.Last().Position.Latitude, _records.Last().Position.Longitude);
                 Velocity = CalculateVelocity();
             }
         }
@@ -45,7 +47,7 @@ namespace AirTrafficMonitor.Domain
                 var lat2 = _records.Last().Position.Latitude;
                 var time2 = _records.Last().Timestamp;
 
-               int deltaPosition = (int) Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lat1 - lat2, 2));
+                int deltaPosition = (int)Math.Sqrt(Math.Pow(lon1 - lon2, 2) + Math.Pow(lat1 - lat2, 2));
 
                 double deltaTime = (time2 - time1).TotalSeconds;
 
@@ -55,43 +57,27 @@ namespace AirTrafficMonitor.Domain
             return 0;
         }
 
-        private int CalculateNavigationCourse()
+        // http://mathforum.org/library/drmath/view/55417.html
+        // https://aerocontent.honeywell.com/aero/common/documents/myaerospacecatalog-documents/Defense_Brochures-documents/Magnetic__Literature_Application_notes-documents/AN203_Compass_Heading_Using_Magnetometers.pdf
+        private double CalculateNavigationCourse(int lat1, int lon1, int lat2, int lon2)
         {
-            if (_records.Count == 2)
-            {
-                int lon1 = _records.First().Position.Longitude;
-                int lat1 = _records.First().Position.Latitude;
-                int lon2 = _records.Last().Position.Longitude;
-                int lat2 = _records.Last().Position.Latitude;
+            int deltaLat = (lat2 - lat1);
+            int deltaLon = (lon2 - lon1);
 
-                int deltaLon = (lon1 - lon2);
-                int deltaLat = (lat1 - lat2);
+            double x = Math.Sin(lon2 - lon1) * Math.Cos(lat2);
+            double y = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1);
 
-                var radians = Math.Atan2(deltaLon, deltaLat);
-                var course = (Math.Round((radians * (180 / Math.PI)),0));
+            double course = double.NaN;
 
-                if (course < 0 && course<360)
-                {
-                    double output = course + 360;
-                    return (int) output;
-                    //return course += 360;
-                    //return (int) (90 - Math.Atan(Math.Sin(deltaLat / deltaLon)) * 180 / Math.PI);
-                }        
-                //else if (course > 0)
-                //{
-                //    return 0;
-                //    //return (int) (270 - Math.Atan(Math.Sin(deltaLon / deltaLat)) * 180 / Math.PI);
-                //}
-                //else if (deltaLat == 0 && deltaLon < 0) // south
-                //{
-                //    return 180;
-                //}
-                //else if (deltaLat == 0 && deltaLon > 0) // north
-                //{
-                //    return 0;
-                //}
-            }
-            return 0;
+            if (y > 0)
+                course = 90 - Math.Atan(x/y) * 180 / Math.PI;
+            else if (y < 0)
+                course = 270 - Math.Atan(x/y) * 180 / Math.PI;
+            else if (y == 0 && x < 0)
+                course = 180.0;
+            else if (y == 0 && x > 0)
+                course = 0.0;
+            return course;
         }
 
         public override string ToString()
