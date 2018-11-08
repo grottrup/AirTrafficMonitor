@@ -72,24 +72,9 @@ namespace AirTrafficMonitor.Domain
 
                 if (course < 0 && course<360)
                 {
-                    double output = course + 360;
-                    return (int) output;
-                    //return course += 360;
-                    //return (int) (90 - Math.Atan(Math.Sin(deltaLat / deltaLon)) * 180 / Math.PI);
+                    return (int) course + 360;
                 }        
-                //else if (course > 0)
-                //{
-                //    return 0;
-                //    //return (int) (270 - Math.Atan(Math.Sin(deltaLon / deltaLat)) * 180 / Math.PI);
-                //}
-                //else if (deltaLat == 0 && deltaLon < 0) // south
-                //{
-                //    return 180;
-                //}
-                //else if (deltaLat == 0 && deltaLon > 0) // north
-                //{
-                //    return 0;
-                //}
+               
             }
             return 0;
         }
