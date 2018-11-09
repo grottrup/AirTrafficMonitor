@@ -34,7 +34,7 @@ namespace AirTrafficMonitor.Tests
         [TestCase(0, 0, 1, 0, 90)] // East
         [TestCase(0, 0, 0, 1, 0)] // North
         [TestCase(0, 0, 0, 0, double.NaN)] // No course
-        [TestCase(0, 1, 0, 1, 315)] // North West
+        [TestCase(1, 0, 0, 1, 315)] // North West
         [TestCase(1, 1, 0, 0, 225)] // Sorth West
         [TestCase(0, 1, 1, 0, 135)] // Sorth East
         [TestCase(0, 0, 1, 1, 45)] // North East
