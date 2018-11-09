@@ -38,6 +38,7 @@ namespace AirTrafficMonitor.Tests
         [TestCase(1, 1, 0, 0, 225)] // Sorth West
         [TestCase(0, 1, 1, 0, 135)] // Sorth East
         [TestCase(0, 0, 1, 1, 45)] // North East
+        [TestCase(100000, 0, 0, 1, 359.999)] // North North West testing decimals
         public void GivenTwoPositionRecords_CalculateNavigationCourse(int lat1, int lon1, int lat2, int lon2, double expectedCourse)
         {
             _uut = new FlightTrack("AAA123");
@@ -46,7 +47,7 @@ namespace AirTrafficMonitor.Tests
             _uut.Update(record1);
             _uut.Update(record2);
 
-            Assert.That(_uut.NavigationCourse, Is.EqualTo(expectedCourse));
+            Assert.That(_uut.NavigationCourse, Is.EqualTo(expectedCourse).Within(0.001));
         }
 
         [TestCase(40000, 30000, 12000, 20000, 10000, 8000, 5, 5656.8)]
