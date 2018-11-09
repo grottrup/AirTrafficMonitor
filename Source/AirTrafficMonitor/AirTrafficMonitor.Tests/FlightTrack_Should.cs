@@ -33,7 +33,12 @@ namespace AirTrafficMonitor.Tests
         [TestCase(0, 1, 0, 0, 180)] // Sourth
         [TestCase(0, 0, 1, 0, 90)] // East
         [TestCase(0, 0, 0, 1, 0)] // North
-        public void GivenTwoPositionRecords_CalculateNavigationCourse(int lat1, int lon1, int lat2, int lon2, int expectedCourse)
+        [TestCase(0, 0, 0, 0, double.NaN)] // No course
+        [TestCase(0, 1, 0, 1, 315)] // North West
+        [TestCase(1, 1, 0, 0, 225)] // Sorth West
+        [TestCase(0, 1, 1, 0, 135)] // Sorth East
+        [TestCase(0, 0, 1, 1, 45)] // North East
+        public void GivenTwoPositionRecords_CalculateNavigationCourse(int lat1, int lon1, int lat2, int lon2, double expectedCourse)
         {
             _uut = new FlightTrack("AAA123");
             var record1 = new FlightRecord() {Position = new Position(lat1, lon1, 0)};

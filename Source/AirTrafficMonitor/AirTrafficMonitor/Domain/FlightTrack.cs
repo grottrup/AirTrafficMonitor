@@ -64,19 +64,29 @@ namespace AirTrafficMonitor.Domain
             int deltaLat = (lat2 - lat1);
             int deltaLon = (lon2 - lon1);
 
-            double x = Math.Sin(lon2 - lon1) * Math.Cos(lat2);
-            double y = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(lon2 - lon1);
+            double x = Math.Cos(lat1) * Math.Sin(lat2) - Math.Sin(lat1) * Math.Cos(lat2) * Math.Cos(deltaLon);
+            double y = Math.Sin(deltaLon) * Math.Cos(lat2);
 
             double course = double.NaN;
 
-            if (y > 0)
-                course = 90 - Math.Atan(x/y) * 180 / Math.PI;
-            else if (y < 0)
-                course = 270 - Math.Atan(x/y) * 180 / Math.PI;
-            else if (y == 0 && x < 0)
-                course = 180.0;
-            else if (y == 0 && x > 0)
-                course = 0.0;
+            if (x > 0)
+            {
+                if (y > 0) course = Math.Atan(y /x);
+                else if (y < 0) course = 180 - Math.Atan(-y / x);
+                else if (y == 0) course = 90;
+            }
+            else if (x < 0)
+            {
+                if (y > 0) course = Math.Atan(-y/x);
+                else if (y < 0) course = Math.Atan(y/x) - 180;
+                else if (y == 0) course = 270;
+            }
+            else if (x == 0)
+            {
+                if (y > 0) course = 0;
+                else if (y < 0) course = 180;
+                else if (y == 0) course = double.NaN;
+            }
             return course;
         }
 
