@@ -12,21 +12,30 @@ namespace AirTrafficMonitor.Tests.UnitTests
     [TestFixture]
     public class TrackListRecordSorter_Should
     {
-        //ZOMBIES
+        //ZOMBIES //TODO: this is an integration test. Also make a unit test and move this to integration tests
 
         //Z
         [Test]
+        public void NotAccept_NullCollection()
+        {
+            ICollection<FlightTrack> tracks = null;
+            var factory = new FlightRecordFactory();
+            var record = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
+
+            Assert.Throws<ArgumentNullException>(() =>
+                tracks.SortRecordByTag(record)
+            );
+        }
+
+        [Test]
         public void NotAccept_NullRecordWhenListIsEmpty()
         {
-            // Arrange
             var tracks = new List<FlightTrack>();
 
-            //Act
             Assert.Throws<NullReferenceException>(() =>
                tracks.SortRecordByTag(null)
             );
 
-            //Assert
             Assert.AreEqual(0, tracks.Count());
         }
 
