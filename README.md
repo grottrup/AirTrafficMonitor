@@ -45,3 +45,4 @@ node('master'){
 ```
 
 5. Add a GitHub Web Hook in GitHub Settings with the following address: `http://ci3.ase.au.dk:8080/github-webhook/`
+6. Add a dotCoverCoverageConfig.xml in the root of the solution. It should reference the working directory of the test project to cover.
