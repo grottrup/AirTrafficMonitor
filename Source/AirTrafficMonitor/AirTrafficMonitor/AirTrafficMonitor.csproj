@@ -62,8 +62,10 @@
     <Reference Include="TransponderReceiver">
       <HintPath>..\Library\TransponderReceiver.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirspaceEventHandler.cs" />
     <Compile Include="AntiCorruptionLayer\FlightRecordEventArgs.cs" />
     <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
