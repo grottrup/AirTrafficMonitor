@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AirTrafficMonitor.Observer;
-using AirTrafficMonitor.View;
-using Container = DependencyInjection.Container;
+using AirTrafficMonitor.AntiCorruptionLayer;
+using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 
 namespace AirTrafficMonitor.ConsoleApp
 {
@@ -14,12 +14,14 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var subject = new AirTrafficSubject();
-            var observerSep = new SeparationHandler();
-            var observerviiew = new FlightObserver(new ConsoleView(), new SeparationHandler());
-            subject.Subscribe(observerviiew);
-            Console.ReadKey();
+            IFlightRecordReceiver recordReceiver = new FlightRecordReceiver();
+            IView view = new ConsoleView();
+            ILogger logger = new Logger();
+            ISeperationHandler handler = new SeparationHandler(logger);
+            Airspace monitoredAirspace = new Airspace();
+            FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
 
+            Console.ReadKey();
         }
     }
 }

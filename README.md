@@ -7,6 +7,7 @@
 3. In `Configure` set the project URL to https://github.com/grottrup/AirTrafficMonitor
 4. In `Configure` make the Jenkinsfile pipeline script like so:
 
+
 ``` Jenkinsfile
 node('master'){
     stage('Fetch from Git'){
@@ -29,16 +30,19 @@ node('master'){
     }
     finally {
         stage('Publish Test Results') {
-            nunit testResultsPattern: 'AirTrafficMonitor.Tests.dll\\TestResult.xml'
+            nunit testResultsPattern: 'Source\\AirTrafficMonitor\\AirTrafficMonitor.Tests\\TestResult.xml'
+
         }
     }
      // Only publish coverage if all tests passed
     stage('Publish Coverage Results') {
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '.', reportFiles: 'coverage_report.html', reportName: 'Coverage Report', reportTitles: ''])
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '.', reportFiles: 'Source\\AirTrafficMonitor\\coverage_report.html', reportName: 'Coverage Report', reportTitles: ''])
     }
     
 }
 
+
 ```
 
 5. Add a GitHub Web Hook in GitHub Settings with the following address: `http://ci3.ase.au.dk:8080/github-webhook/`
+6. Add a dotCoverCoverageConfig.xml in the root of the solution. It should reference the working directory of the test project to cover.

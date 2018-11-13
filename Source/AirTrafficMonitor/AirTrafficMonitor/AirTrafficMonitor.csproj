@@ -30,12 +30,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NPlant, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.dll</HintPath>
+    </Reference>
+    <Reference Include="NPlant.Console, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.Console.exe</HintPath>
+    </Reference>
+    <Reference Include="NPlant.Samples, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPlant.API.0.1.56.0\lib\net40\NPlant.Samples.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\packages\Serilog.2.7.2-dev-01027\lib\net46\Serilog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Serilog.Sinks.Console, Version=3.1.2.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\packages\Serilog.Sinks.Console.3.1.2-dev-00779\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.1-dev-00798\lib\net45\Serilog.Sinks.File.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,30 +64,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AntiCorruptionLayer\FlightRecordEventArgs.cs" />
+    <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
-    <Compile Include="Domain\FlightRecordFactory.cs" />
-    <Compile Include="ISeperationHandler.cs" />
-    <Compile Include="View\ConsoleView.cs" />
-    <Compile Include="SeparationHandler.cs" />
-    <Compile Include="Domain\IFlightRecordFactory.cs" />
+    <Compile Include="AntiCorruptionLayer\FlightRecordFactory.cs" />
+    <Compile Include="Domain\FlightInCollision.cs" />
+    <Compile Include="Infrastructure\ILogger.cs" />
+    <Compile Include="Infrastructure\ISeperationHandler.cs" />
+    <Compile Include="Infrastructure\Logger.cs" />
+    <Compile Include="Domain\FlightTrack.cs" />
+    <Compile Include="AntiCorruptionLayer\FlightRecordReceiver.cs" />
+    <Compile Include="Utilities\ConsoleOutput.cs" />
+    <Compile Include="Utilities\TrackListRecordSorter.cs" />
+    <Compile Include="Infrastructure\ConsoleView.cs" />
+    <Compile Include="Infrastructure\SeparationHandler.cs" />
+    <Compile Include="AntiCorruptionLayer\IFlightRecordFactory.cs" />
     <Compile Include="Domain\FlightRecord.cs" />
-    <Compile Include="Configurator.cs" />
-    <Compile Include="Observer\FlightObserver.cs" />
-    <Compile Include="Observer\AirTrafficSubject.cs" />
-    <Compile Include="Observer\IObserver.cs" />
-    <Compile Include="Observer\ISubject.cs" />
+    <Compile Include="FlightObserver.cs" />
+    <Compile Include="AntiCorruptionLayer\IFlightRecordReceiver.cs" />
     <Compile Include="Domain\Position.cs" />
-    <Compile Include="View\IView.cs" />
+    <Compile Include="Infrastructure\IView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj">
-      <Project>{1ecafc10-13db-42bf-a65d-d5599834d525}</Project>
-      <Name>DependencyInjection</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
