@@ -84,5 +84,12 @@ namespace AirTrafficMonitor.Tests
             _fakeView.Received().Render(Arg.Any<FlightTrack>());
 
         }
+
+        [Test]
+        public void Test_Timer()
+        {
+
+        }
+
     }
 }
