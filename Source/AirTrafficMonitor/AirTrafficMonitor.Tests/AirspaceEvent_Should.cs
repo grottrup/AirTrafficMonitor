@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace AirTrafficMonitor.Tests
     [TestFixture]
     public class AirspaceEvent_Should
     {
+        private ITimer _aTimer;
         private IView _fakeView;
         private ILogger _fakeLogger;
         private ISeperationHandler _fakeSeperation;
@@ -29,7 +31,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-         
+            _aTimer = new EventTimer();
             _fakeTracks = Substitute.For<List<FlightTrack>>();
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
@@ -88,6 +90,16 @@ namespace AirTrafficMonitor.Tests
         [Test]
         public void Test_Timer()
         {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            _aTimer.WaitTimer();
+            watch.Stop();
+
+            var output = watch.ElapsedMilliseconds;
+
+            Assert.AreEqual(5000, output);
+
+            // Assert
 
         }
 

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 using System.Timers;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Utilities;
 
 
 namespace AirTrafficMonitor
 {
     public class AirspaceEventHandler
     {
-        private static System.Timers.Timer aTimer;
+        private ITimer atimer = new EventTimer();
         private List<FlightRecord> records = new List<FlightRecord>();
         private Airspace _monitoredAirspace = new Airspace();
 
-        private async Task PutTaskDelay()
+        private async Task PutTaskDelay() //bruges ikke lige nu 
         {
             await Task.Delay(5000);
         }
@@ -28,7 +29,9 @@ namespace AirTrafficMonitor
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Flight {0} entered airspace at {1}", flightUpdate.Tag, flightUpdate.Timestamp);
-                await PutTaskDelay();
+
+                atimer.WaitTimer();
+                //await PutTaskDelay();
               
                 Console.ResetColor();
 
@@ -43,7 +46,9 @@ namespace AirTrafficMonitor
                     Console.WriteLine("Flight {0} left airspace at {1}", flightUpdate.Tag, flightUpdate.Timestamp);
                     records.RemoveAt(i);
                     records.Remove(flightUpdate);
-                    await PutTaskDelay();
+
+                    atimer.WaitTimer();
+                   // await PutTaskDelay();
                    
                     Console.ResetColor();
                 }
@@ -52,8 +57,10 @@ namespace AirTrafficMonitor
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Flight {0} entered airspace at {1}", flightUpdate.Tag,
                         flightUpdate.Timestamp);
-                    await PutTaskDelay();
-                   
+
+                    atimer.WaitTimer();
+                    //await PutTaskDelay();
+
                     Console.ResetColor();
                 }
 
