@@ -1,10 +1,11 @@
-﻿using AirTrafficMonitor.Domain;
+﻿using System;
+using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Infrastructure
 {
     public interface IView
     {
         void Render(FlightTrack track);
-        void ConsoleData(FlightInCollision eventArgs);
+        void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision);
     }
 }

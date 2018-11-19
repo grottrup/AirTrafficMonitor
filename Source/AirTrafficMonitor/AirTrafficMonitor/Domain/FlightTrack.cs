@@ -89,7 +89,7 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Position: {Position}]";
+            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Position: {Position.Latitude},{Position.Longitude}, {Position.Altitude}]";
         }
     }
 }

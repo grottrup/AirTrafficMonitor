@@ -12,14 +12,12 @@ namespace AirTrafficMonitor.Infrastructure
             Console.WriteLine(track.ToString());
         }
 
-        public void ConsoleData(FlightInCollision eventArgs)
+        public void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision)
         {
-            string tag1 = eventArgs.Tag1;
-            string tag2 = eventArgs.Tag2;
-            DateTime time = eventArgs.TimeStamp;
-            Console.WriteLine("Warning, two planes are currently on collision course! " +
-                              "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}", tag1, tag2, time);
+            string flight1 = flightsInCollision.ToString();
+            string flight2 = flightsInCollision.ToString();
+            
+            Console.WriteLine($"Warning, two planes are currently on collision course! \n Plane Tag: {flight1} and plane Tag: {flight2}\n");
         }
-        
     }
 }
