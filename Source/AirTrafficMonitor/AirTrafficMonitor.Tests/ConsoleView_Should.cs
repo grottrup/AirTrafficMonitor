@@ -9,7 +9,7 @@ using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
 using NUnit.Framework;
 
-namespace AirTrafficMonitor.Tests
+/*namespace AirTrafficMonitor.Tests
 {
 
     [TestFixture]
@@ -29,19 +29,19 @@ namespace AirTrafficMonitor.Tests
         [TestCase("CC123", "DD123", "11-09-2018", "Warning, two planes are currently on collision course! " +
                                                   "\n Plane Tag: CC123 and plane Tag: DD123\n Current time: 11-09-2018 00:00:00\r\n")]
 
-        public void ConsoleView_test_that_it_prints(string tag1, string tag2, string time, string outputstring)
+        public void ConsoleView_test_that_it_prints(Tuple<FlightTrack, FlightTrack)
         {
             
             var _currentConsoleOut = Console.Out;
-            FlightInCollision _flightsCollision = new FlightInCollision(tag1, tag2, DateTime.Parse(time));
+            ConsoleView flightsInCollision = flight1, flight2;
 
             using (var consoleOutput = new ConsoleOutput())
             {
-                _uut.ConsoleData(_flightsCollision);
+                _uut.RenderCollision(flightsInCollision);
                 Assert.AreEqual(outputstring, ConsoleOutput.GetOutput());
             }
 
             Assert.AreEqual(_currentConsoleOut, Console.Out);
         }
     }
-}
+}*/

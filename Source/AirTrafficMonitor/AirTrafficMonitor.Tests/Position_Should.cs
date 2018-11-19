@@ -13,12 +13,31 @@ namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class Position_Should
+
     {
+        //Random Numbers both inside and outside the airspace
         [TestCase(39563,80000,16800, true)]
         [TestCase(80000,09000,26800, false)]
         [TestCase(39563,91000,16800, false)]
         [TestCase(40563,80000,13800, true)]
-        public void BeAbleToCheck_WhetherItIsWitin_Airspace(int lat, int lon, int alt, bool expectedResult)
+        
+        //Negative numbers
+        [TestCase(-40563,-80000,-13800, false)]
+        
+        //Null
+        [TestCase(0,0,0, false)]
+        
+        //Testing the minimum and maximum coordinates at the upper and lower boundary
+        [TestCase(10000, 10000, 500, true)]
+        [TestCase(90000, 90000, 20000, true)]
+        [TestCase(90000, 10000, 500, true)]
+        [TestCase(10000, 90000, 500, true)]
+        [TestCase(10000, 10000, 20000, true)]
+        [TestCase(90000, 10000, 20000, true)]
+        [TestCase(10000, 90000, 20000, true)]
+        
+        
+        public void BeAbleToCheck_WhetherItIsWithin_Airspace(int lat, int lon, int alt, bool expectedResult)
         {
             var uut = new Position()
             {
@@ -29,6 +48,11 @@ namespace AirTrafficMonitor.Tests
             var airspace = new Airspace();
 
             Assert.That(uut.IsWithin(airspace), Is.EqualTo(expectedResult));
-        }
+        } 
+   
     }
+        
+    
+    
+    
 }
