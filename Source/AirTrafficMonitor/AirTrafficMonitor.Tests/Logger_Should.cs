@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -10,7 +11,7 @@ using AirTrafficMonitor.Utilities;
 using NUnit.Framework;
 
 
-/*namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class Logger_Should
@@ -23,11 +24,37 @@ using NUnit.Framework;
         {
             _uut = new Logger();
         }
+
+        [Test]
+        //TestKomponent -> Scenarie -> Forventning
+        public void LogFile_WriteFileDoesntExist_ReturnTrue()
+        {
+            string path = @"DataLog.txt";
+
+            //Sletter og asserter
+            File.Delete("DataLog.txt");
+            Assert.IsFalse(File.Exists(path));
+
+            //Kalder og asserter.
+            //_uut.DataLog("hej");
+            //Assert.IsTrue(File.Exists(path));
+        }
+
+        [Test]
+        //TestKomponent -> Scenarie -> Forventning
+        public void LogFile_WriteFileDoesExist_ReturnTrue()
+        {
+            string path = @"DataLog.txt";
+            
+            File.Delete("DataLog.txt");
+            _uut.DataLog("Test Besked");
+            var writeFileDoesExist = (File.Exists("DataLog.txt"));
+
+            Assert.That(writeFileDoesExist, Is.EqualTo(true));
+        }
         
-        [TestCase("AA123","BB123", "2018-08-11", "Warning, two planes are currently on collision course! " +
-                                                 "\n Plane Tag: AA123 and plane Tag: BB123\n Current time: 11-08-2018 00:00:00\r\n")]
-        [TestCase("CC123", "DD123", "2018-09-11", "Warning, two planes are currently on collision course! " +
-                                                  "\n Plane Tag: CC123 and plane Tag: DD123\n Current time: 11-09-2018 00:00:00\r\n")]
-        public void 
+        //[Test]
+        //TODO: public void LogFile_LogNewEvent_ReturnString()
+        
     }
-}*/
+}
