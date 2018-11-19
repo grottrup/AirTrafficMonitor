@@ -15,11 +15,10 @@ namespace AirTrafficMonitor.Infrastructure
             Path = path;
         }
         
-        public void DataLog(FlightInCollision eventArgs)
+        public void DataLog(Tuple<FlightTrack, FlightTrack> flightsInCollision)
         {
-            string tag1 = eventArgs.Tag1;
-            string tag2 = eventArgs.Tag2;
-            DateTime time = eventArgs.TimeStamp;
+            string flight1 = flightsInCollision.ToString();
+            string flight2 = flightsInCollision.ToString();
 
             if (!File.Exists(Path))
             {
@@ -29,8 +28,7 @@ namespace AirTrafficMonitor.Infrastructure
 
             using (var DL = File.AppendText(Path))
             {
-                DL.WriteLine("Warning, two planes are currently on collision course! " +
-                             "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}",tag1,tag2,time);
+                DL.WriteLine($"Warning, two planes are currently on collision course! \n Plane Tag: {flight1} and plane Tag: {flight2}\n");;
             }      
         }
         //Til test purpose:
