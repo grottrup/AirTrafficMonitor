@@ -1,4 +1,6 @@
-﻿namespace AirTrafficMonitor.Domain
+﻿using System;
+
+namespace AirTrafficMonitor.Domain
 {
     public class Position
     {
