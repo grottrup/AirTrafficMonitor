@@ -4,6 +4,6 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public interface ILogger
     {
-        void DataLog(object test, FlightInCollision eventArgs);
+        void DataLog(FlightInCollision eventArgs);
     }
 }

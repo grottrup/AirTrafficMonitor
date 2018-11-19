@@ -18,7 +18,7 @@ namespace AirTrafficMonitor.Infrastructure
             string tag2 = eventArgs.Tag2;
             DateTime time = eventArgs.TimeStamp;
             Console.WriteLine("Warning, two planes are currently on collision course! " +
-                                             "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}",tag1,tag2,time);
+                              "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}", tag1, tag2, time);
         }
         
     }

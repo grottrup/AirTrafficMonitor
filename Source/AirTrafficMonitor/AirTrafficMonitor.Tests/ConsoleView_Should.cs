@@ -24,9 +24,9 @@ namespace AirTrafficMonitor.Tests
           
         }
 
-        [TestCase("AA123","BB123", "2018-08-11", "Warning, two planes are currently on collision course! " +
+        [TestCase("AA123","BB123", "11-08-2018", "Warning, two planes are currently on collision course! " +
                                                                 "\n Plane Tag: AA123 and plane Tag: BB123\n Current time: 11-08-2018 00:00:00\r\n")]
-        [TestCase("CC123", "DD123", "2018-09-11", "Warning, two planes are currently on collision course! " +
+        [TestCase("CC123", "DD123", "11-09-2018", "Warning, two planes are currently on collision course! " +
                                                   "\n Plane Tag: CC123 and plane Tag: DD123\n Current time: 11-09-2018 00:00:00\r\n")]
 
         public void ConsoleView_test_that_it_prints(string tag1, string tag2, string time, string outputstring)
