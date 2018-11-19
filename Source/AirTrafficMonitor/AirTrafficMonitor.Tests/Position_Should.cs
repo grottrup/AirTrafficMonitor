@@ -29,10 +29,11 @@ namespace AirTrafficMonitor.Tests
         
         //Testing the minimum and maximum coordinates at the upper and lower boundary
         [TestCase(10000, 10000, 500, true)]
-        [TestCase(90000, 90000, 20000, true)]
+        [TestCase(90000, 90000, 500, true)]
         [TestCase(90000, 10000, 500, true)]
         [TestCase(10000, 90000, 500, true)]
         [TestCase(10000, 10000, 20000, true)]
+        [TestCase(90000, 90000, 20000, true)]
         [TestCase(90000, 10000, 20000, true)]
         [TestCase(10000, 90000, 20000, true)]
         
