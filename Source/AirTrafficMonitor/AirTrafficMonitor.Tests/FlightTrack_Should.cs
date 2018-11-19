@@ -18,12 +18,20 @@ namespace AirTrafficMonitor.Tests
         [TestCase(0, 1, 0, 0, 180)] // Sourth
         [TestCase(0, 0, 1, 0, 90)] // East
         [TestCase(0, 0, 0, 1, 0)] // North
-        [TestCase(0, 0, 0, 0, double.NaN)] // No course
         [TestCase(1, 0, 0, 1, 315)] // North West
         [TestCase(1, 1, 0, 0, 225)] // Sorth West
         [TestCase(0, 1, 1, 0, 135)] // Sorth East
         [TestCase(0, 0, 1, 1, 45)] // North East
+        [TestCase(0, 0, 0, 0, double.NaN)] // No course
         [TestCase(100000, 0, 0, 1, 359.999)] // North North West testing decimals
+        [TestCase(1, 0, -1, 0, 270)] // West
+        [TestCase(0, 1, 0, -1, 180)] // Sourth
+        [TestCase(-1, 0, 1, 0, 90)] // East
+        [TestCase(0, -1, 0, 1, 0)] // North
+        [TestCase(1, -1, -1, 1, 315)] // North West
+        [TestCase(1, 1, -1, -1, 225)] // Sorth West
+        [TestCase(-1, 1, 1, -1, 135)] // Sorth East
+        [TestCase(-1, -1, 1, 1, 45)] // North East
         public void GivenTwoPositionRecords_CalculateNavigationCourse(int lat1, int lon1, int lat2, int lon2, double expectedCourse)
         {
             _uut = new FlightTrack("AAA123");
