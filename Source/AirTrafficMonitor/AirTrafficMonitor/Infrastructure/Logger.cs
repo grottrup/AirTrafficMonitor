@@ -1,6 +1,8 @@
 using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 using System;
 using System.IO;
+using System.Text;
 
 namespace AirTrafficMonitor.Infrastructure
 {
@@ -11,11 +13,21 @@ namespace AirTrafficMonitor.Infrastructure
             string tag1 = eventArgs.Tag1;
             string tag2 = eventArgs.Tag2;
             DateTime time = eventArgs.TimeStamp;
-            
-            
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "DataLog.txt",
-                "Warning, two planes are currently on collision course! " +
-                "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}",tag1,tag2,time);
+
+
+            string path = @"DataLog.txt";
+
+            if (!File.Exists(path))
+            {
+                var DL = File.CreateText(path);
+                DL.Close();
+            }
+
+            using (var DL = File.AppendText(path))
+            {
+                DL.WriteLine("Warning, two planes are currently on collision course! " +
+                             "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}",tag1,tag2,time);
+            }      
         }
-    }
+    }  
 }

@@ -10,7 +10,7 @@ using AirTrafficMonitor.Utilities;
 using NUnit.Framework;
 
 
-namespace AirTrafficMonitor.Tests
+/*namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
     public class Logger_Should
@@ -30,4 +30,4 @@ namespace AirTrafficMonitor.Tests
                                                   "\n Plane Tag: CC123 and plane Tag: DD123\n Current time: 11-09-2018 00:00:00\r\n")]
         public void 
     }
-}
+}*/
