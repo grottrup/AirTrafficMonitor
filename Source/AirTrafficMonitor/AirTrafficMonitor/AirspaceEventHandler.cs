@@ -6,65 +6,41 @@ using System.Threading.Tasks;
 using System.Timers;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
+using Timer = System.Threading.Timer;
 
 
 namespace AirTrafficMonitor
 {
     public class AirspaceEventHandler
     {
-        private ITimer atimer = new EventTimer();
-        private List<FlightRecord> records = new List<FlightRecord>();
-        private Airspace _monitoredAirspace = new Airspace();
+        private readonly ITimer _timer;
+        private readonly List<FlightTrack> _track;
+        private readonly IFlightObserver _observerEvents;
+        private IView _view;
 
-        private async Task PutTaskDelay() //bruges ikke lige nu 
+        public AirspaceEventHandler(ITimer timer, IFlightObserver observerEvents, IView view) 
         {
-            await Task.Delay(5000);
+            _observerEvents = observerEvents;
+            _view = view;
+            _observerEvents.EnteredAirspace += EnterAirspaceEvent;
+            _observerEvents.LeftAirspace += LeftAirspaceEvent;
+            _timer = timer;
+            _track = new List<FlightTrack>();   
         }
-        public async void AirspaceEvent(object sender, FlightRecordEventArgs e)
+
+        public void EnterAirspaceEvent(object sender,FlightTrackEventArgs e)
         {
-            var flightUpdate = e.FlightRecord;
-            records.Add(flightUpdate);
-            if (records.Count <= 1 && flightUpdate.Position.IsWithin(_monitoredAirspace))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Flight {0} entered airspace at {1}", flightUpdate.Tag, flightUpdate.Timestamp);
-
-                atimer.WaitTimer();
-                //await PutTaskDelay();
+                var flightUpdate = e.FlightTrack;
+                _view.RenderWithRedTillTimerEnds("Flight "+flightUpdate.Tag+" entered airspace at"+flightUpdate.LatestTime+"",_timer);
               
-                Console.ResetColor();
+        }
 
-
-            }
-
-            for (int i = 0; i < records.Count - 1; i++)
-            {
-                if (flightUpdate.Tag == records[i].Tag && !flightUpdate.Position.IsWithin(_monitoredAirspace))
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Flight {0} left airspace at {1}", flightUpdate.Tag, flightUpdate.Timestamp);
-                    records.RemoveAt(i);
-                    records.Remove(flightUpdate);
-
-                    atimer.WaitTimer();
-                   // await PutTaskDelay();
-                   
-                    Console.ResetColor();
-                }
-                else if (flightUpdate.Tag != records[i].Tag)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Flight {0} entered airspace at {1}", flightUpdate.Tag,
-                        flightUpdate.Timestamp);
-
-                    atimer.WaitTimer();
-                    //await PutTaskDelay();
-
-                    Console.ResetColor();
-                }
-
-            }
+        public void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
+        {
+            var flightUpdate = e.FlightTrack;
+            _view.RenderWithGreenTillTimerEnds("Flight "+flightUpdate.Tag+" left airspace at"+flightUpdate.LatestTime+"",_timer);
         }
     }
 }

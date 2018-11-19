@@ -25,7 +25,7 @@ namespace AirTrafficMonitor.AntiCorruptionLayer
             {
                 var record = _flightRecordFactory.CreateRecord(rawData);
                 FlightRecordEventArgs args = new FlightRecordEventArgs(record);
-                FlightRecordReceived(this, args);
+                FlightRecordReceived?.Invoke(this, args);
             }
         }
     }
