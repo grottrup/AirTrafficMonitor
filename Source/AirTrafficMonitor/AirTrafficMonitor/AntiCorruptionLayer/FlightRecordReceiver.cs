@@ -11,9 +11,9 @@ namespace AirTrafficMonitor.AntiCorruptionLayer
 
         public event EventHandler<FlightRecordEventArgs> FlightRecordReceived;
 
-        public FlightRecordReceiver(IFlightRecordFactory flightRecordFlightRecordFactory)
+        public FlightRecordReceiver(ITransponderReceiver transponderReceiver, IFlightRecordFactory flightRecordFlightRecordFactory)
         {
-            _receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            _receiver = transponderReceiver;
             _receiver.TransponderDataReady += RawDataReceived;
             _flightRecordFactory = flightRecordFlightRecordFactory;
         }
