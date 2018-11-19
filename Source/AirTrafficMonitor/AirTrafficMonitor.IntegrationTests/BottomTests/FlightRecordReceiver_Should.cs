@@ -17,8 +17,8 @@ namespace AirTrafficMonitor.IntegrationTests
         [SetUp]
         public void SetUp()
         {
-            var subSystem = new FlightRecordFactory();
-            _sut = new FlightRecordReceiver(subSystem);
+            var subSystem1 = new FlightRecordFactory();
+            _sut = new FlightRecordReceiver(subSystem1);
         }
 
         [Test]
