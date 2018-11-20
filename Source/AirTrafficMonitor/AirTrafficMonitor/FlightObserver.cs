@@ -3,6 +3,7 @@ using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
+using NPlant.MetaModel.ClassDiagraming;
 
 namespace AirTrafficMonitor
 {
@@ -15,10 +16,15 @@ namespace AirTrafficMonitor
         private readonly IFlightRecordReceiver _recordReceiver;
         private readonly Airspace _monitoredAirspace;
 
+        //added for AirspaceEventHandler
+        private readonly AirspaceEventHandler _airspaceEvent = new AirspaceEventHandler();
+
         public FlightObserver(Airspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
+
             _recordReceiver = recordReceiver;
             _recordReceiver.FlightRecordReceived += UpdateFlightTracks;
+            _recordReceiver.FlightRecordReceived += _airspaceEvent.AirspaceEvent; //AirspaceEventhandler
             _logger = logger;
             _view = view;
             _handler = handler;
