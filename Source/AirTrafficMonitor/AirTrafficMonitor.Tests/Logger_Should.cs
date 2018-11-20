@@ -36,7 +36,7 @@ namespace AirTrafficMonitor.Tests
             Assert.IsFalse(File.Exists(path));
 
             //Kalder og asserter.
-            //_uut.DataLog("hej");
+            //_uut.DataLog("Test");
             //Assert.IsTrue(File.Exists(path));
         }
 
