@@ -71,6 +71,7 @@
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="AntiCorruptionLayer\FlightRecordFactory.cs" />
     <Compile Include="Domain\FlightInCollision.cs" />
+    <Compile Include="Domain\IAirspace.cs" />
     <Compile Include="FlightTrackEventArgs.cs" />
     <Compile Include="IFlightObserver.cs" />
     <Compile Include="Infrastructure\ILogger.cs" />

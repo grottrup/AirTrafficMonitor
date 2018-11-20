@@ -12,8 +12,7 @@ using NUnit.Framework.Internal;
 namespace AirTrafficMonitor.Tests
 {
     [TestFixture]
-    public class Position_Should
-
+    public class Airspace_Should
     {
         //Random Numbers both inside and outside the airspace
         [TestCase(39563,80000,16800, true)]
@@ -40,14 +39,16 @@ namespace AirTrafficMonitor.Tests
         
         public void BeAbleToCheck_WhetherItIsWithin_Airspace(int lat, int lon, int alt, bool expectedResult)
         {
-            var uut = new Position()
+            var uut = new Airspace();
+            var position = new Position()
             {
                 Latitude = lat,
                 Longitude = lon,
                 Altitude = alt
             };
-            var airspace = new Airspace();
 
+            Assert.That(uut.HasPositionWithinBoundaries(position), Is.EqualTo(expectedResult));
+        }
             Assert.That(uut.IsWithin(airspace), Is.EqualTo(expectedResult));
         } 
    

@@ -46,6 +46,7 @@ namespace AirTrafficMonitor.Tests
         [TestCase(40000, 30000, 12000, 20000, 10000, 8000, 5, 5656.8)]
         [TestCase(4000, 4000, 1000, 4100, 4100, 1000, 10, 14.1)]
         [TestCase(4850, 4850, 1000, 5000, 5000, 1000, 2, 106)]
+        [TestCase(1000, 1000, 1000, 1000, 1000, 1000, 1, 0)]
         public void GivenTwoPositionRecords_CalculateVelocity(int lon1, int lat1, int alt1, int lon2, int lat2, int alt2, int time, double expectedVelocity)
         {
             _uut = new FlightTrack("AAA123");
