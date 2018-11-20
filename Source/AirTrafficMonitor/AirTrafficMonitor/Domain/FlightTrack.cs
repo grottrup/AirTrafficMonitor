@@ -9,7 +9,7 @@ namespace AirTrafficMonitor.Domain
         private readonly Queue<FlightRecord> _records;
 
         public string Tag { get; }
-        public DateTime LatestTime { get; private set; }
+        public DateTime LatestTime { get; set; }
         public double NavigationCourse { get; private set; }
         public double Velocity { get; private set; }
         public Position Position { get; private set; }
@@ -89,7 +89,7 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Latitude:{Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
+            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
         }
     }
 }
