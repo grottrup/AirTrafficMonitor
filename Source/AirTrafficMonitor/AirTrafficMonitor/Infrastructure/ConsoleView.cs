@@ -1,4 +1,4 @@
-﻿using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Domain;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,14 +18,14 @@ namespace AirTrafficMonitor.Infrastructure
         {
             Console.WriteLine(track.ToString());
         }
-        
-        public void ConsoleData(FlightInCollision eventArgs)
+
+        public void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision)
         {
-            string tag1 = eventArgs.Tag1;
-            string tag2 = eventArgs.Tag2;
-            DateTime time = eventArgs.TimeStamp;
-            Console.WriteLine("Warning, two planes are currently on collision course! " +
-                              "\n Plane Tag: {0} and plane Tag: {1}\n Current time: {2}", tag1, tag2, time);
+            string flight1 = flightsInCollision.Item1.Tag;
+            string flight2 = flightsInCollision.Item2.Tag;
+            DateTime timeFlight = flightsInCollision.Item2.LatestTime;
+            
+            Console.WriteLine("Warning, two planes are currently on collision course! \n Plane Tag: {0}, Plane Tag: {1} and Time: {2}\n", flight1, flight2, timeFlight);
         }
 
         public void RenderWithGreenTillTimerEnds(string renderstr, ITimer timer)

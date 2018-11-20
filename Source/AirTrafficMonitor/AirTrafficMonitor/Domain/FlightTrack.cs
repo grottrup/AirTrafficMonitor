@@ -13,7 +13,6 @@ namespace AirTrafficMonitor.Domain
         public double NavigationCourse { get; set; }
         public double Velocity { get; set; }
         public Position Position { get; set; }
-
         public FlightTrack(string tag)
         {
             Tag = tag;
@@ -89,7 +88,7 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Position: {Position}]";
+            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
         }
     }
 }
