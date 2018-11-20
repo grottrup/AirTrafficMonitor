@@ -21,17 +21,16 @@ namespace AirTrafficMonitor.Tests
         private FlightTrack _fakeFlightTrack;
         private FlightTrack _fakeFlightTrack1;
         
-
+//TODO: Der er syntax fejl grundet Datetime Parse konvertering. Der skal kigges yderligere på CultureInfo. 
         [SetUp]
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<FlightTrack>("TestFlight1");
-            _fakeFlightTrack1 = Substitute.For<FlightTrack>("TestFlight2");
+            _fakeFlightTrack = Substitute.For<FlightTrack>("AA123");
+            _fakeFlightTrack1 = Substitute.For<FlightTrack>("BB123");
         }
        
-
-        [TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
+        [TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00\n\n")]
         
         public void ConsoleView_test_that_it_prints(string tag1, string tag2, string time, string outputstring)
         {
@@ -61,7 +60,6 @@ namespace AirTrafficMonitor.Tests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 /*
-        [
 
         [Test]
         public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(FlightTrack track, string flight1)
