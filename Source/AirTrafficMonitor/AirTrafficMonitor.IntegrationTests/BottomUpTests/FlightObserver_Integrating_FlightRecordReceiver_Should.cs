@@ -1,30 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 using NSubstitute;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using TransponderReceiver;
 
-namespace AirTrafficMonitor.IntegrationTests
+namespace AirTrafficMonitor.IntegrationTests.TopTests
 {
     [TestFixture]
-    public class FlightRecordReceiver_Integrating_FlightRecordFactory_Should
+    public class FlightObserver_Integrating_FlightRecordReceiver_Should
     {
-        private FlightRecordReceiver _sut;
-        private FlightRecordFactory _ssut_flightRecordFactory;
+        private FlightRecordReceiver _ssut_flightRecordReceiver;
+        private FlightObserver _sut;
+
         private ITransponderReceiver _fakeTransponder;
 
         [SetUp]
         public void SetUp()
         {
+            var fakeView = Substitute.For<IView>();
+            var fakeSeperation = Substitute.For<ISeperationHandler>();     
+            var fakeLogger = Substitute.For<Infrastructure.ILogger>();
+            var fakeMonitoredAirspace = Substitute.For<Airspace>();
+
             _fakeTransponder = Substitute.For<ITransponderReceiver>();
-            _ssut_flightRecordFactory = new FlightRecordFactory();
-            _sut = new FlightRecordReceiver(_fakeTransponder, _ssut_flightRecordFactory);
+            var _factory = new FlightRecordFactory();
+            _ssut_flightRecordReceiver = new FlightRecordReceiver(_fakeTransponder, _factory);
+            _sut = new FlightObserver(fakeMonitoredAirspace, _ssut_flightRecordReceiver, fakeView, fakeSeperation, fakeLogger);
         }
 
         [TestCase("AGJ063;39563;95000;16800;20181001160609975", "AGJ063", 39563, 95000, 16800)]
@@ -34,11 +39,10 @@ namespace AirTrafficMonitor.IntegrationTests
             var transponderData = new List<string>();
             transponderData.Add(rawData);
 
-            FlightRecord persistedArgs = null;
-            var expectedFlightRecord = new FlightRecord();
-            _sut.FlightRecordReceived += (sender, e) =>
+            FlightTrack persistedArgs = null;
+            _sut.EnteredAirspace += (sender, e) =>
             {
-                persistedArgs = e.FlightRecord;
+                persistedArgs = e.FlightTrack;
             };
 
             //ACT
@@ -47,10 +51,7 @@ namespace AirTrafficMonitor.IntegrationTests
             // ASSERT
             Assert.That(persistedArgs.Tag, Is.Not.Null);
             Assert.That(persistedArgs.Tag, Is.EqualTo(expTag));
-            Assert.That(persistedArgs.Position.Altitude, Is.EqualTo(expAlt));
-            Assert.That(persistedArgs.Position.Latitude, Is.EqualTo(expLat));
-            Assert.That(persistedArgs.Position.Longitude, Is.EqualTo(expLong));
-            Assert.That(persistedArgs.Timestamp, Is.Not.EqualTo(DateTime.MinValue));
+            Assert.That(persistedArgs.Position.Altitude, Is.EqualTo(int.MaxValue));
         }
     }
 }
