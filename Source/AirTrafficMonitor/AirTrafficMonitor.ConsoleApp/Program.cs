@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.ConsoleApp
             IView view = new ConsoleView();
             ILogger logger = new Logger();
             ISeperationHandler handler = new SeparationHandler(logger);
-            Airspace monitoredAirspace = new Airspace();
+            IAirspace monitoredAirspace = new Airspace();
             FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
             AirspaceEventHandler airspaceEventHandler = new AirspaceEventHandler(_timer, flightObserver, view);
             Console.ReadKey();

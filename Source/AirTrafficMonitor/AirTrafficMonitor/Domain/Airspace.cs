@@ -1,7 +1,7 @@
 ﻿namespace AirTrafficMonitor.Domain
 {
 
-    public class Airspace
+    public class Airspace : IAirspace
     {
         public int MaxPosition { get; private set; } // both x and y... consider splitting
         public int MinPosition { get; private set; } // both x and y... consider splitting
