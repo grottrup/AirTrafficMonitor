@@ -9,16 +9,27 @@ namespace AirTrafficMonitor.Infrastructure
         private List<FlightTrack> ProximityList;
         private readonly ILogger _logger;
 
-        public event EventHandler<FlightInCollision> FlightsInProximity;
+        public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
 
         public SeparationHandler(ILogger logger)
         {
             _logger = logger;
         }
 
-        protected virtual void OnFlightsInProximity(FlightInCollision eventArgs)
+        public class FlightInProximityEventArgs : EventArgs
         {
-            EventHandler<FlightInCollision> handler = FlightsInProximity;
+            public FlightTrack FlightTrack { get; private set; }
+            private List<FlightTrack> ProximityList;
+
+            public FlightInProximityEventArgs(List<FlightTrack> tracks)
+            {
+                ProximityList = tracks;
+            }
+        }
+
+        protected virtual void OnFlightsInProximity(FlightInProximityEventArgs eventArgs)
+        {
+            EventHandler<FlightInProximityEventArgs> handler = FlightsInProximity;
 
             handler?.Invoke(this, eventArgs);
         }
@@ -60,8 +71,10 @@ namespace AirTrafficMonitor.Infrastructure
 
                     for (int i = 0; i < tracks.Count - 1; i++)
                     {
-                        OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag,
-                            tracks[i].LatestTime));
+                        var args = new FlightInProximityEventArgs(tracks);
+                        OnFlightsInProximity(args);
+
+                        //OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag, tracks[i].LatestTime));
                     }
                 }
             }
