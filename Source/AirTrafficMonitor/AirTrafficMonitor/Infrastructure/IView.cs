@@ -1,5 +1,6 @@
 ﻿using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Utilities;
+//﻿using System;
 
 namespace AirTrafficMonitor.Infrastructure
 {
@@ -9,5 +10,6 @@ namespace AirTrafficMonitor.Infrastructure
         void ConsoleData(FlightInCollision eventArgs);
         void RenderWithGreenTillTimerEnds(string renderstr, ITimer timer);
         void RenderWithRedTillTimerEnds(string renderstr, ITimer timer);
-    }
+
+        //void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision);}
 }
