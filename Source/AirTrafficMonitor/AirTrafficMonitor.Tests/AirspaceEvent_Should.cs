@@ -72,7 +72,7 @@ namespace AirTrafficMonitor.Tests
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            _aTimer.WaitTimer();
+            //_aTimer.WaitTimer();
             watch.Stop();
 
             var output = watch.ElapsedMilliseconds;
