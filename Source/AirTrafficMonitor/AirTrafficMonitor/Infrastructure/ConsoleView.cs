@@ -1,6 +1,7 @@
 ﻿using AirTrafficMonitor.Domain;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using AirTrafficMonitor.Utilities;
@@ -39,6 +40,13 @@ namespace AirTrafficMonitor.Infrastructure
             Console.ResetColor();
 
         }
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
 
         public async void RenderWithRedTillTimerEnds(string renderstr, ITimer timer)
         {
@@ -50,14 +58,16 @@ namespace AirTrafficMonitor.Infrastructure
             //{
 
             //}
-            await Task.Delay(5000);
+            //await Task.Delay(5000);
             //timer.WaitTimer();
-
+            //timer.WaitFive();
             //Console.ResetColor();
-
+           // Thread.Sleep(5000);
             //timer.Interval = 5;
             //timer.Start();  
 
+            //ClearCurrentConsoleLine();
+            //Console.SetCursorPosition(0, Console.CursorTop - 1);
             Console.ResetColor();
         }
     }
