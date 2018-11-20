@@ -16,31 +16,36 @@ namespace AirTrafficMonitor.Tests.AntiCorruptionLayerTests
     public class FlightRecordReceiver_Should
     {
         private FlightRecordReceiver _sut;
-        private FlightRecordFactory _ssut_flightRecordFactory;
+        private IFlightRecordFactory _fakeFlightRecordFactory;
         private ITransponderReceiver _fakeTransponder;
 
         [SetUp]
         public void SetUp()
         {
             _fakeTransponder = Substitute.For<ITransponderReceiver>();
-            _ssut_flightRecordFactory = new FlightRecordFactory();
-            _sut = new FlightRecordReceiver(_fakeTransponder, _ssut_flightRecordFactory);
+            _fakeFlightRecordFactory = Substitute.For<IFlightRecordFactory>();
+            _sut = new FlightRecordReceiver(_fakeTransponder, _fakeFlightRecordFactory);
         }
 
         [TestCase("AGJ063;39563;95000;16800;20181001160609975")]
-        public void RaiseEventWithFlightRecord(string rawData)
+        public void WhenRaisingTransponderDataReady_CallCreateRecord(string rawData)
         {
+            // ARRANGE
             var transponderData = new List<string>();
             transponderData.Add(rawData);
+
+            FlightRecord persistedArgs = null;
+            var expectedFlightRecord = new FlightRecord();
+            _sut.FlightRecordReceived += (sender, e) =>
+            {
+                persistedArgs = e.FlightRecord;
+            };
+
+            //ACT
             _fakeTransponder.TransponderDataReady += Raise.EventWith(_fakeTransponder, new RawTransponderDataEventArgs(transponderData));
 
-            EventHandler<FlightRecordEventArgs> sut_event = (sender, e) =>
-            {
-                var expectedFlightRecord = new FlightRecord();
-                Assert.That(e.FlightRecord.Tag, Is.Not.Null);
-                Assert.That(e.FlightRecord.Tag, Is.EqualTo("fail"));
-                Assert.That(e.FlightRecord.Tag, Is.EqualTo(expectedFlightRecord.Tag));
-            };
+            // ASSERT
+            _fakeFlightRecordFactory.Received().CreateRecord(Arg.Any<string>());
         }
     }
 }
