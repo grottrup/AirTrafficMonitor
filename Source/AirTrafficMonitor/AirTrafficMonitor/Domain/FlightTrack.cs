@@ -10,10 +10,9 @@ namespace AirTrafficMonitor.Domain
 
         public string Tag { get; }
         public DateTime LatestTime { get; set; }
-        public double NavigationCourse { get; private set; }
-        public double Velocity { get; private set; }
-        public Position Position { get; private set; }
-
+        public double NavigationCourse { get; set; }
+        public double Velocity { get; set; }
+        public Position Position { get; set; }
         public FlightTrack(string tag)
         {
             Tag = tag;

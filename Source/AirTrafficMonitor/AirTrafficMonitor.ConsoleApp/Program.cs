@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
+using AirTrafficMonitor.Utilities;
+using TransponderReceiver;
 
 namespace AirTrafficMonitor.ConsoleApp
 {
@@ -14,13 +16,15 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            IFlightRecordReceiver recordReceiver = new FlightRecordReceiver();
+            ITimer _timer = new EventTimer();
+            IFlightRecordFactory factory = new FlightRecordFactory();
+            IFlightRecordReceiver recordReceiver = new FlightRecordReceiver(TransponderReceiverFactory.CreateTransponderDataReceiver(), factory);
             IView view = new ConsoleView();
             ILogger logger = new Logger();
             ISeperationHandler handler = new SeparationHandler(logger);
             Airspace monitoredAirspace = new Airspace();
             FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
-
+            AirspaceEventHandler airspaceEventHandler = new AirspaceEventHandler(_timer, flightObserver, view);
             Console.ReadKey();
         }
     }
