@@ -16,17 +16,6 @@ namespace AirTrafficMonitor.Domain
             Longitude = longitude;
             Altitude = altitude;
         }
-
-        public bool IsWithin(Airspace airspace)
-        {
-            if (Latitude < airspace.MinPosition || Latitude > airspace.MaxPosition)
-                return false;
-            if (Longitude < airspace.MinPosition || Longitude > airspace.MaxPosition)
-                return false;
-            if (Altitude < airspace.MinAltitude || Altitude > airspace.MaxAltitude)
-                return false;
-            return true;
-        }
     }
 
 }
