@@ -67,21 +67,21 @@ namespace AirTrafficMonitor.Tests
             _fakeView.Received().RenderWithRedTillTimerEnds("Flight " + track.Tag + " entered airspace at" + track.LatestTime + "", _aTimer);
         }
 
-        //[Test]
-        //public void Test_Timer()
-        //{
-        //    Stopwatch watch = new Stopwatch();
-        //    watch.Start();
-        //    _aTimer.WaitTimer();
-        //    watch.Stop();
+        [Test]
+        public void Test_Timer()
+        {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            _aTimer.WaitTimer();
+            watch.Stop();
 
-        //    var output = watch.ElapsedMilliseconds;
+            var output = watch.ElapsedMilliseconds;
 
-        //    Assert.AreEqual(5000, output);
+            Assert.AreEqual(5000, output);
 
-        //    // Assert
+            // Assert
 
-        //}
+        }
 
     }
 }

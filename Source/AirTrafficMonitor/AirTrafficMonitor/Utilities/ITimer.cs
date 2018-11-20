@@ -7,30 +7,29 @@ using System.Timers;
 namespace AirTrafficMonitor.Utilities
 {
    public interface ITimer
-   {
-       //void WaitFive();
-       //bool flag { get; set; }
-       //void waittimer();
-       //#region Public Events
+    {
+        //bool Flag { get; set; }
+        //void WaitTimer();
+        #region Public Events
 
-       //event ElapsedEventHandler Elapsed;
+        event ElapsedEventHandler Elapsed;
 
-       //#endregion
+        #endregion
 
-       //#region Public Properties
+        #region Public Properties
 
-       //double Interval { get; set; }
+        double Interval { get; set; }
 
-       //#endregion
+        #endregion
 
-       //#region Public Methods and Operators
+        #region Public Methods and Operators
 
-       //void Dispose();
+        void Dispose();
 
-       //void Start();
+        void Start();
 
-       //void Stop();
+        void Stop();
 
-       //#endregion
-   }
+        #endregion
+    }
 }
