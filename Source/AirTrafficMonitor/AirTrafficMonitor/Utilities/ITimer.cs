@@ -10,19 +10,9 @@ namespace AirTrafficMonitor.Utilities
     {
         //bool Flag { get; set; }
         //void WaitTimer();
-        #region Public Events
-
         event ElapsedEventHandler Elapsed;
 
-        #endregion
-
-        #region Public Properties
-
         double Interval { get; set; }
-
-        #endregion
-
-        #region Public Methods and Operators
 
         void Dispose();
 
@@ -30,6 +20,5 @@ namespace AirTrafficMonitor.Utilities
 
         void Stop();
 
-        #endregion
     }
 }
