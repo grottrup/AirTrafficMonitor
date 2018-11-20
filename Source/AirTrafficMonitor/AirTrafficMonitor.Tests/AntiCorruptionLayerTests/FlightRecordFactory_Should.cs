@@ -33,6 +33,7 @@ namespace AirTrafficMonitor.Tests
         {
             var record = _uut.CreateRecord(rawData);
 
+            Assert.That(record.Timestamp, Is.Not.Null); // MinValue is the default DateTime value and this indicated an error
             Assert.That(record.Timestamp, Is.Not.EqualTo(DateTime.MinValue)); // MinValue is the default DateTime value and this indicated an error
         }
     }

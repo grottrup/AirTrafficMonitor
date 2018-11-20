@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
@@ -24,7 +25,7 @@ namespace AirTrafficMonitor.IntegrationTests.TopTests
             var fakeView = Substitute.For<IView>();
             var fakeSeperation = Substitute.For<ISeperationHandler>();     
             var fakeLogger = Substitute.For<Infrastructure.ILogger>();
-            var fakeMonitoredAirspace = Substitute.For<Airspace>();
+            var fakeMonitoredAirspace = Substitute.For<Airspace>(int.MaxValue, int.MinValue, int.MaxValue, int.MinValue);
 
             _fakeTransponder = Substitute.For<ITransponderReceiver>();
             var _factory = new FlightRecordFactory();
@@ -33,7 +34,7 @@ namespace AirTrafficMonitor.IntegrationTests.TopTests
         }
 
         [TestCase("AGJ063;39563;95000;16800;20181001160609975", "AGJ063", 39563, 95000, 16800)]
-        public void WhenRaisingTransponderDataReady_CreateRecordObject_ThatASubscriperCanReceive(string rawData, string expTag, int expLat, int expLong, int expAlt)
+        public void WhenRaisingTransponderDataReady_GivenFlightIsWithinAirspace_CreateFlightTrack_ThatASubscriperCanReceive(string rawData, string expTag, int expLat, int expLong, int expAlt)
         {
             // ARRANGE
             var transponderData = new List<string>();
@@ -50,8 +51,15 @@ namespace AirTrafficMonitor.IntegrationTests.TopTests
 
             // ASSERT
             Assert.That(persistedArgs.Tag, Is.Not.Null);
+            Assert.That(persistedArgs.NavigationCourse, Is.EqualTo(double.NaN));
+            Assert.That(persistedArgs.Velocity, Is.EqualTo(0));
+            Assert.That(persistedArgs.LatestTime, Is.Not.EqualTo(DateTime.MinValue));
+
             Assert.That(persistedArgs.Tag, Is.EqualTo(expTag));
-            Assert.That(persistedArgs.Position.Altitude, Is.EqualTo(int.MaxValue));
+            Assert.That(persistedArgs.Position.Altitude, Is.EqualTo(expAlt));
+            Assert.That(persistedArgs.Position.Latitude, Is.EqualTo(expLat));
+            Assert.That(persistedArgs.Position.Longitude, Is.EqualTo(expLong));
+            
         }
     }
 }
