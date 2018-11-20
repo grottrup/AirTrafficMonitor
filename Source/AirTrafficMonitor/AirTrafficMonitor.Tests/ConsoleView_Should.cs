@@ -26,8 +26,8 @@ namespace AirTrafficMonitor.Tests
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<FlightTrack>("TestFlight1");
-            _fakeFlightTrack1 = Substitute.For<FlightTrack>("TestFlight2");
+            _fakeFlightTrack = Substitute.For<FlightTrack>("AA123");
+            _fakeFlightTrack1 = Substitute.For<FlightTrack>("BB123");
         }
        
 

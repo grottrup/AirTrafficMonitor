@@ -16,7 +16,7 @@ namespace AirTrafficMonitor.Tests
     [TestFixture]
     public class AirspaceEvent_Should
     {
-        private ITimer _aTimer;
+
         private IView _fakeView;
         private ILogger _fakeLogger;
         private ISeperationHandler _fakeSeperation;
@@ -31,7 +31,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-            _aTimer = new EventTimer();
+
             _fakeTracks = Substitute.For<List<FlightTrack>>();
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
@@ -39,7 +39,7 @@ namespace AirTrafficMonitor.Tests
             _fakeLogger = Substitute.For<ILogger>();
             _fakeMonitoredAirspace = Substitute.For<Airspace>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _uut = new AirspaceEventHandler(_aTimer, _fakeFlightObserver, _fakeView);
+            _uut = new AirspaceEventHandler(_fakeFlightObserver, _fakeView);
 
         }
         //Flight CC123 entered airspace at 01-01-0001 00:00:00
@@ -64,7 +64,7 @@ namespace AirTrafficMonitor.Tests
             //};
             //_fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(record1));
 
-            _fakeView.Received().RenderWithRedTillTimerEnds("Flight " + track.Tag + " entered airspace at" + track.LatestTime + "", _aTimer);
+            _fakeView.Received().RenderWithRedTillTimerEnds("Flight " + track.Tag + " entered airspace at" + track.LatestTime + "");
         }
 
         //[Test]

@@ -19,7 +19,7 @@ namespace AirTrafficMonitor
         private readonly Airspace _monitoredAirspace;
         public event EventHandler<FlightTrackEventArgs> EnteredAirspace;
         public event EventHandler<FlightTrackEventArgs> LeftAirspace;
-     
+
         public FlightObserver(Airspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
 
@@ -37,16 +37,22 @@ namespace AirTrafficMonitor
             var flightUpdate = e.FlightRecord;
             if (flightUpdate.Position.IsWithin(_monitoredAirspace))
             {
-                var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                var newTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);
-                if (newTrack) // not in list yet
+                FlightTrack updatedTrack;
+                var existingTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);
+                if (existingTrack) // already in list
                 {
-                    var args = new FlightTrackEventArgs(updatedTrack);
-                 EnteredAirspace?.Invoke(this, args);
+                    updatedTrack = _tracks.SortRecordByTag(flightUpdate);
+                    //_view.Render(updatedTrack);
                 }
-                _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic
-                _view.Render(updatedTrack);
-                // TODO... logger?
+                else  {
+                    updatedTrack = _tracks.SortRecordByTag(flightUpdate);
+                    var args = new FlightTrackEventArgs(updatedTrack);
+
+              
+                        EnteredAirspace?.Invoke(this, args);
+                }
+                _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic                {
+                
             }
             else
             {
@@ -55,7 +61,7 @@ namespace AirTrafficMonitor
                 var leftairspacetrue = _tracks.Any(t => t.Tag == flightUpdate.Tag);
                 if (leftairspacetrue) // in list
                 {
-                    
+
                     var args = new FlightTrackEventArgs(leftAirspaceTrack);
                     LeftAirspace?.Invoke(this, args);
 

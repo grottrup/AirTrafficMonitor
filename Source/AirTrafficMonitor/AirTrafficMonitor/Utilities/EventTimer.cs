@@ -8,23 +8,32 @@ using System.Timers;
 
 namespace AirTrafficMonitor.Utilities
 {
-    public class EventTimer: Stopwatch, ITimer
+    public class EventTimer: ITimer
     {
-        //public bool Flag { get; set; }
-        //public void WaitTimer()
-        //{
-        //    Flag = false;
-        //    var timer = new System.Timers.Timer(5000);
-        //    timer.Elapsed += (src, args) => { Flag = true; };
-        //    timer.AutoReset = false;
-        //    timer.Start();
-        //}
+        private Timer _timer;
 
-        public event ElapsedEventHandler Elapsed;
-        public double Interval { get; set; }
-        public void Dispose()
+        public EventTimer(int milliSeconds)
         {
-            throw new NotImplementedException();
+            _timer = new Timer(milliSeconds);
+            _timer.Elapsed += OnTimedEvent;
+            _timer.AutoReset = false; // use as stop watch when false. do not repeat times event
+            _timer.Enabled = true; // when time have went activate event. elapsed is only raised once
+
         }
+
+
+        protected virtual void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Time event raised at: {0}\n",e.SignalTime);
+        }
+
+        void SetTimer()
+        {
+            _timer.Elapsed += OnTimedEvent;
+            _timer.AutoReset = false; // use as stop watch when false. do not repeat times event
+            _timer.Enabled = true; // when time have went activate event. elapsed is only raised once
+            //_timer.Interval = milliSeconds;
+        }
+       
     }
 }
