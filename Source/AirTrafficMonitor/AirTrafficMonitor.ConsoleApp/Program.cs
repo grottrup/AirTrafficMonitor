@@ -9,9 +9,6 @@ using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
 using TransponderReceiver;
-=========
-using AirTrafficMonitor.Utilities;
->>>>>>>>> Temporary merge branch 2
 
 namespace AirTrafficMonitor.ConsoleApp
 {
