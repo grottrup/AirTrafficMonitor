@@ -21,10 +21,10 @@ namespace AirTrafficMonitor.Tests
         private ILogger _fakeLogger;
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
-        private FlightObserver _uut;
+        private IFlightObserver _fakeFlightObserver;
         private List<FlightTrack> _fakeTracks;
         private Airspace _fakeMonitoredAirspace;
-        private AirspaceEventHandler _airspaceEventHandler;
+        private AirspaceEventHandler _uut;
 
 
 
@@ -38,70 +38,50 @@ namespace AirTrafficMonitor.Tests
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
             _fakeLogger = Substitute.For<ILogger>();
             _fakeMonitoredAirspace = Substitute.For<Airspace>();
-            _airspaceEventHandler = new AirspaceEventHandler();
-           
-            
+            _fakeFlightObserver = Substitute.For<IFlightObserver>();
+            _uut = new AirspaceEventHandler(_aTimer, _fakeFlightObserver, _fakeView);
 
-            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
-       
         }
         //Flight CC123 entered airspace at 01-01-0001 00:00:00
         [Test]
         public void AirspaceEvent()
         {
             // Act
-            var record = new FlightRecord()
+
+            var track = new FlightTrack("CC123")
             {
-                Tag = "CC123",
                 Position = new Position(20000, 20000, 19000),
-                Timestamp = DateTime.MinValue
+                LatestTime = DateTime.MinValue
             };
 
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-            var record1 = new FlightRecord()
-            {
-                Tag = "CC123",
-                Position = new Position(100, 100, 450),
-                Timestamp = DateTime.MinValue
-            };
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record1));
+            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
 
-            var record2 = new FlightRecord()
-            {
-                Tag = "AA123",
-                Position = new Position(18000, 20000, 18000),
-                Timestamp = DateTime.MinValue
-            };
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record2));
+            //var record1 = new FlightTrack("CC123")
+            //{
+              
+            //    Position = new Position(100, 100, 450),
+            //    LatestTime = DateTime.Now
+            //};
+            //_fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(record1));
 
-            var record3 = new FlightRecord()
-            {
-                Tag = "BB123",
-                Position = new Position(18000, 20000, 18000),
-                Timestamp = DateTime.MinValue
-            };
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record3));
-
-            // Assert
-            _fakeView.Received().Render(Arg.Any<FlightTrack>());
-
+            _fakeView.Received().RenderWithRedTillTimerEnds("Flight " + track.Tag + " entered airspace at" + track.LatestTime + "", _aTimer);
         }
 
-        [Test]
-        public void Test_Timer()
-        {
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-            _aTimer.WaitTimer();
-            watch.Stop();
+        //[Test]
+        //public void Test_Timer()
+        //{
+        //    Stopwatch watch = new Stopwatch();
+        //    watch.Start();
+        //    _aTimer.WaitTimer();
+        //    watch.Stop();
 
-            var output = watch.ElapsedMilliseconds;
+        //    var output = watch.ElapsedMilliseconds;
 
-            Assert.AreEqual(5000, output);
+        //    Assert.AreEqual(5000, output);
 
-            // Assert
+        //    // Assert
 
-        }
+        //}
 
     }
 }
