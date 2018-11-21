@@ -8,12 +8,20 @@
         public int MaxAltitude { get; private set; }
         public int MinAltitude { get; private set; }
         
-        public Airspace()
+        //public Airspace()
+        //{
+        //    MaxPosition = 90000;
+        //    MinPosition = 10000;
+        //    MaxAltitude = 20000;
+        //    MinAltitude = 500;
+        //}
+
+        public Airspace(int maxPosition, int minPosition, int maxAltitude, int minAltitude)
         {
-            MaxPosition = 90000;
-            MinPosition = 10000;
-            MaxAltitude = 20000;
-            MinAltitude = 500;
+            MaxPosition = maxPosition;
+            MinPosition = minPosition;
+            MaxAltitude = maxAltitude;
+            MinAltitude = minAltitude;
         }
 
         public bool HasPositionWithinBoundaries(Position position)

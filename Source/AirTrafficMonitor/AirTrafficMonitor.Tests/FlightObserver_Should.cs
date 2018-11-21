@@ -18,7 +18,7 @@ namespace AirTrafficMonitor.Tests
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
         private FlightObserver _uut;
-        private Airspace _fakeMonitoredAirspace;
+        private IAirspace _fakeMonitoredAirspace;
 
         [SetUp]
         public void SetUp()
@@ -27,7 +27,7 @@ namespace AirTrafficMonitor.Tests
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
             _fakeLogger = Substitute.For<ILogger>();
-            _fakeMonitoredAirspace = Substitute.For<Airspace>();
+            _fakeMonitoredAirspace = Substitute.For<IAirspace>();
             _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
         }
 
@@ -51,6 +51,9 @@ namespace AirTrafficMonitor.Tests
         [Test]
         public void Call_CollisionDivider()
         {
+            // Arrange
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
+
             // Act
             var record = new FlightRecord()
             {

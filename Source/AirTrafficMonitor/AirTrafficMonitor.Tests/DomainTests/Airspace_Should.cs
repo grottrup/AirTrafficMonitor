@@ -32,9 +32,10 @@ namespace AirTrafficMonitor.Tests.DomainTests
         [TestCase(90000, 90000, 20000, true)]
         [TestCase(90000, 10000, 20000, true)]
         [TestCase(10000, 90000, 20000, true)]
+        [TestCase(10000, 10000, 0, false)]
         public void BeAbleToCheck_WhetherItIsWithin_Airspace(int lat, int lon, int alt, bool expectedResult)
         {
-            var uut = new Airspace();
+            var uut = new Airspace(90000, 10000, 20000, 500);
             var position = new Position()
             {
                 Latitude = lat,
@@ -43,6 +44,15 @@ namespace AirTrafficMonitor.Tests.DomainTests
             };
 
             Assert.That(uut.HasPositionWithinBoundaries(position), Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GivenANullPosition_WhenCalling_HasPositionWithinBoundaries_ReturnFalse()
+        {
+            var uut = new Airspace(90000, 10000, 20000, 500);
+            Position position = null;
+
+            Assert.That(uut.HasPositionWithinBoundaries(position), Is.False);
         }
     }
 
