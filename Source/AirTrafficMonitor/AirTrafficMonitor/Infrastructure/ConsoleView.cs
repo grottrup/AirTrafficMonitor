@@ -14,9 +14,16 @@ namespace AirTrafficMonitor.Infrastructure
             Task.Delay(5000);
         }
 
-        public void Render(FlightTrack track)
+        public void Render(Tuple<FlightTrack> track)
         {
-            Console.WriteLine(track.ToString());
+            string flight1Tag = track.Item1.Tag;
+            DateTime flight1Time = track.Item1.LatestTime;
+            double flight1Nav = track.Item1.NavigationCourse;
+            int flight1Lat = track.Item1.Position.Latitude;
+            int flight1Lon = track.Item1.Position.Longitude;
+            int flight1Alt = track.Item1.Position.Altitude;
+            
+            Console.WriteLine("Tag: {0}, Time: {1}, NavigationCourse: {2}, Latitude: {3}, Longitude: {4}, Altitude: {5}\n", flight1Tag, flight1Time, flight1Nav, flight1Lat, flight1Lon, flight1Alt); 
         }
 
         public void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision)

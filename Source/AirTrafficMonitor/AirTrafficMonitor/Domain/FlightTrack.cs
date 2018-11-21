@@ -8,7 +8,7 @@ namespace AirTrafficMonitor.Domain
     {
         private readonly Queue<FlightRecord> _records;
 
-        public string Tag { get; }
+        public string Tag { get; set; }
         public DateTime LatestTime { get; set; }
         public double NavigationCourse { get; set; }
         public double Velocity { get; set; }
