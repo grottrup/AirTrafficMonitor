@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AirTrafficMonitor.Domain
 {
-    public class FlightTrack
+    public class FlightTrack : IFlightTrack
     {
         private readonly Queue<FlightRecord> _records;
 

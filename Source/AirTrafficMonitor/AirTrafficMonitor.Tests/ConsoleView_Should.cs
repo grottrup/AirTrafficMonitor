@@ -41,19 +41,19 @@ namespace AirTrafficMonitor.Tests
         }
        
 
-        [TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
+        [TestCase("AA123", "BB123", "2018-11-20")]
         
         public void ConsoleView_TestThatRenderCollisionCanPrint_ReturnTrue(string tag1, string tag2, string time, string outputstring)
         {
             _fakeFlightTrack = new FlightTrack("AA123")
             {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU"))
+                LatestTime = DateTime.Parse(time)
             };
             
             
             _fakeFlightTrack1 = new FlightTrack("BB123")
             {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU"))
+                LatestTime = DateTime.Parse(time)
             };
                 
             var currentConsoleOut = Console.Out;
@@ -67,14 +67,11 @@ namespace AirTrafficMonitor.Tests
                 _uut.RenderCollision(ff);
                 Assert.AreEqual(outputstring, ConsoleOutput.GetOutput());
             }
-
-            Assert.AreEqual(currentConsoleOut, Console.Out);
+            Assert.That(uutStr, Does.Contain(outputstring));
         }
 
 
-        //[TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
-
-       
+        [TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
         public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(string tag, string time, double nav, int lat, int lon, int alt, string outputstring)
         {
             _fakeFlightTrack2 = new FlightTrack("CC456")
