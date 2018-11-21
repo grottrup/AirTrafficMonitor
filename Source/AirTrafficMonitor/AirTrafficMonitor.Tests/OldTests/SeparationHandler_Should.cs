@@ -74,7 +74,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [Test]
         public void verticalcompare()
         {
-            tracks = new List<FlightTrack> {FT1, FT2};
+            tracks = new List<IFlightTrack> {FT1, FT2};
 
             separation.DetectCollision(tracks);
 

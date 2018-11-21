@@ -5,6 +5,6 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public interface ISeperationHandler
     {
-        void DetectCollision(List<IFlightTrack> tracks);
+        void DetectCollision(ICollection<IFlightTrack> tracks);
     }
 }
