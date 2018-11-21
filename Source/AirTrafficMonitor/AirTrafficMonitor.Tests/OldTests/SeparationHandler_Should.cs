@@ -17,7 +17,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         private List<Tuple<IFlightTrack, IFlightTrack>> flightsFlightInCollisionsDetected;
         private Tuple<IFlightTrack, IFlightTrack> flightsCollisionData;
         private IFlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
-        private FlightRecordFactory record;
+        private IFlightRecordFactory record;
         private SeparationHandler separation;
         private ILogger _fakeLogger;
 
@@ -55,8 +55,6 @@ namespace AirTrafficMonitor.Tests.UnitTests
             FT4.Update(record4);
             FT5.Update(record5);
             FT6.Update(record6);
-
-
         }
 
         [Test]

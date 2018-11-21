@@ -1,6 +1,4 @@
-﻿using AirTrafficMonitor.Infrastructure;
-
-namespace AirTrafficMonitor
+﻿namespace AirTrafficMonitor.Infrastructure
 {
     public class AirspaceEventHandler
     {

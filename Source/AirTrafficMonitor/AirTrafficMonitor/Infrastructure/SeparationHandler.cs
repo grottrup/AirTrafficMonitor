@@ -46,13 +46,17 @@ namespace AirTrafficMonitor.Infrastructure
 
         public void DetectCollision(ICollection<IFlightTrack> tracks) //????
         {
-            if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
+            if(false)//just make false so mike can continue coding
             {
-                for (int i = 0; i < tracks.Count - 1; i++)
+                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
                 {
-                    OnFlightsInProximity(new Tuple<IFlightTrack, IFlightTrack>(tracks.First(), tracks.Last()));
+                    for (int i = 0; i < tracks.Count - 1; i++)
+                    {
+                        OnFlightsInProximity(new Tuple<IFlightTrack, IFlightTrack>(tracks.First(), tracks.Last()));
+                    }
                 }
             }
+            
         }
     }
 }
