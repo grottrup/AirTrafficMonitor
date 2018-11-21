@@ -17,6 +17,9 @@
       <FilterEntry>
         <ClassMask>AirTrafficMonitor.Diagram.*</ClassMask>
       </FilterEntry>
+      <FilterEntry>
+        <ModuleMask>.Tests</ClassMask>
+      </FilterEntry>
       
       <!--Omit test coverage of nunit.framework-->
       <FilterEntry>
