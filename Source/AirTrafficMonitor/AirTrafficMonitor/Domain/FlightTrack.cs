@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace AirTrafficMonitor.Domain
@@ -91,7 +92,8 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
+            var formattedDate = string.Format(CultureInfo.InvariantCulture.EnglishName, LatestTime);
+            return $"[Tag: {Tag}, Time: {formattedDate}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
         }
     }
 }
