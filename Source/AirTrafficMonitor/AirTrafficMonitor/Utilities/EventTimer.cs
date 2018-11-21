@@ -14,17 +14,6 @@ namespace AirTrafficMonitor.Utilities
     {
         
         private Timer _timer;
-   
-        //public static void WriteAt(int left, int top, string s)
-        //{
-        //    int currentLeft = Console.CursorLeft;
-        //    int currentTop = Console.CursorTop;
-        //    Console.CursorVisible = false;//Hide cursor
-        //    Console.SetCursorPosition(left, top);
-        //    Console.Write(s);
-        //    Console.SetCursorPosition(currentLeft, currentTop);
-        //    Console.CursorVisible = true;//Show cursor back
-        //}
         public EventTimer(int milliSeconds)
         {
            
