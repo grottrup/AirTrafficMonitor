@@ -8,8 +8,8 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public interface IView
     {
-        void Render(Tuple<FlightTrack> track);
-        void RenderCollision(Tuple<FlightTrack, FlightTrack> flightsInCollision);
+        void Render(Tuple<IFlightTrack> track);
+        void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision);
         void RenderWithGreenTillTimerEnds(string renderstr);
         void RenderWithRedTillTimerEnds(string renderstr);
 

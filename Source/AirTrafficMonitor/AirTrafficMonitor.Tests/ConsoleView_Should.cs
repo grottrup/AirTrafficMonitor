@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
@@ -19,25 +13,17 @@ namespace AirTrafficMonitor.Tests
     public class ConsoleView_Should
     {
         private ConsoleView _uut;
-        private FlightTrack _fakeFlightTrack;
-        private FlightTrack _fakeFlightTrack1;
-        private FlightTrack _fakeFlightTrack2;
-        
-        
-//TODO: Der er syntax fejl grundet Datetime Parse konvertering. Der skal kigges yderligere på CultureInfo. 
-        // Måske det her: Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
-        //                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
-        
-        //Edit: i .NET 4.5 skulle følgende være AppDomain-wide: public static System.Globalization.CultureInfo DefaultThreadCurrentCulture { get; set; }
-        
+        private IFlightTrack _fakeFlightTrack;
+        private IFlightTrack _fakeFlightTrack1;
+        private IFlightTrack _fakeFlightTrack2;
         
         [SetUp]
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<FlightTrack>("AA123");
-            _fakeFlightTrack1 = Substitute.For<FlightTrack>("BB123");
-            _fakeFlightTrack2 = Substitute.For<FlightTrack>("CC456");
+            _fakeFlightTrack = Substitute.For<IFlightTrack>("AA123");
+            _fakeFlightTrack1 = Substitute.For<IFlightTrack>("BB123");
+            _fakeFlightTrack2 = Substitute.For<IFlightTrack>("CC456");
         }
        
 
@@ -57,7 +43,7 @@ namespace AirTrafficMonitor.Tests
                 
             var currentConsoleOut = Console.Out;
             
-            Tuple<FlightTrack, FlightTrack> ff = new Tuple<FlightTrack, FlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
+            Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
             
            
             using (var consoleOutput = new ConsoleOutput())
@@ -91,11 +77,11 @@ namespace AirTrafficMonitor.Tests
             
             var currentConsoleOut = Console.Out;
             
-            Tuple<FlightTrack> ft = new Tuple<FlightTrack>(_fakeFlightTrack2);
+            //Tuple<FlightTrack> ft = new Tuple<FlightTrack>(_fakeFlightTrack2); //What are you trying to do????
             
             using (var consoleOutput = new ConsoleOutput())
             {
-                _uut.Render(ft);
+                //_uut.Render(ft);
                 Assert.AreEqual(outputstring, ConsoleOutput.GetOutput());
             }
             Assert.AreEqual(currentConsoleOut, Console.Out);
