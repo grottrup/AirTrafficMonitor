@@ -16,11 +16,11 @@ namespace AirTrafficMonitor
         private readonly ILogger _logger;
         private readonly ISeperationHandler _handler;
         private readonly IFlightRecordReceiver _recordReceiver;
-        private readonly Airspace _monitoredAirspace;
+        private readonly IAirspace _monitoredAirspace;
         public event EventHandler<FlightTrackEventArgs> EnteredAirspace;
         public event EventHandler<FlightTrackEventArgs> LeftAirspace;
-
-        public FlightObserver(Airspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
+     
+        public FlightObserver(IAirspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
 
             _recordReceiver = recordReceiver;
@@ -35,7 +35,7 @@ namespace AirTrafficMonitor
         private void UpdateFlightTracks(object sender, FlightRecordEventArgs e)
         {
             var flightUpdate = e.FlightRecord;
-            if (flightUpdate.Position.IsWithin(_monitoredAirspace))
+            if (_monitoredAirspace.HasPositionWithinBoundaries(flightUpdate.Position))
             {
                 FlightTrack updatedTrack;
                 var existingTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);

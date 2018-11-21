@@ -3,7 +3,7 @@ using AirTrafficMonitor.AntiCorruptionLayer;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests.AntiCorruptionLayerTests
 {
     [TestFixture]
     public class FlightRecordFactory_Should
@@ -33,6 +33,7 @@ namespace AirTrafficMonitor.Tests
         {
             var record = _uut.CreateRecord(rawData);
 
+            Assert.That(record.Timestamp, Is.Not.Null); // MinValue is the default DateTime value and this indicated an error
             Assert.That(record.Timestamp, Is.Not.EqualTo(DateTime.MinValue)); // MinValue is the default DateTime value and this indicated an error
         }
     }

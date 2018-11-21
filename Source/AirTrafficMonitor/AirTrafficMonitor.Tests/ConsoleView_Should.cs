@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
@@ -18,53 +12,71 @@ namespace AirTrafficMonitor.Tests
     public class ConsoleView_Should
     {
         private ConsoleView _uut;
-        private FlightTrack _fakeFlightTrack;
-        private FlightTrack _fakeFlightTrack1;
         
-//TODO: Der er syntax fejl grundet Datetime Parse konvertering. Der skal kigges yderligere på CultureInfo. 
         [SetUp]
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<FlightTrack>("AA123");
-            _fakeFlightTrack1 = Substitute.For<FlightTrack>("BB123");
         }
        
-        [TestCase("AA123", "BB123", "20-11-2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 20-11-2018 00:00:00\n\r\n")]
-        
-        public void ConsoleView_test_that_it_prints(string tag1, string tag2, string time, string outputstring)
+
+        [TestCase("AA123", "BB123", 2018, 11, 20)]
+        public void RenderCollision_OfTwoFlightTracks(string tag1, string tag2, int year, int month, int day)
         {
-            _fakeFlightTrack = new FlightTrack("AA123")
-            {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU"))
-            };
-            
-            
-            _fakeFlightTrack1 = new FlightTrack("BB123")
-            {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU"))
-            };
-                
+            IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day));
+
+            IFlightTrack fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day));
+
             var currentConsoleOut = Console.Out;
             
-            Tuple<FlightTrack, FlightTrack> ff = new Tuple<FlightTrack, FlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
-            
+            Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
            
             using (var consoleOutput = new ConsoleOutput())
             {
                
                 _uut.RenderCollision(ff);
+                var result = ConsoleOutput.GetOutput();
+                Assert.That(result, Does.Contain("Collision").IgnoreCase);
+                Assert.That(result, Does.Contain(year.ToString()));
+                Assert.That(result, Does.Contain(month.ToString()));
+                Assert.That(result, Does.Contain(day.ToString()));
+                Assert.That(result, Does.Contain(tag1));
+                Assert.That(result, Does.Contain(tag2));
+            }
+        }
+
+
+        //[TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
+        public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(string tag, string time, double nav, int lat, int lon, int alt, string outputstring)
+        {
+            var fakeFlightTrack2 = new FlightTrack("CC456")
+            {
+                LatestTime = DateTime.Parse(time),
+                NavigationCourse = nav,
+                Position = new Position()
+                {
+                    Latitude = lat,
+                    Longitude = lon,
+                    Altitude = alt,
+                },
+                Tag = tag,
+            };
+            
+            var currentConsoleOut = Console.Out;
+            
+            //Tuple<FlightTrack> ft = new Tuple<FlightTrack>(_fakeFlightTrack2); //What are you trying to do????
+            
+            using (var consoleOutput = new ConsoleOutput())
+            {
+                //_uut.Render(ft);
                 Assert.AreEqual(outputstring, ConsoleOutput.GetOutput());
             }
-
             Assert.AreEqual(currentConsoleOut, Console.Out);
-        }
-/*
-
-        [Test]
-        public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(FlightTrack track, string flight1)
-        {
             
-        }*/
+        }
     }
 }
