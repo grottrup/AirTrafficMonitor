@@ -3,7 +3,7 @@ using AirTrafficMonitor.AntiCorruptionLayer;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests.AntiCorruptionLayerTests
 {
     [TestFixture]
     public class FlightRecordFactory_Should

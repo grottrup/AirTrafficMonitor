@@ -7,7 +7,7 @@ using AirTrafficMonitor.Domain;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests.DomainTests
 {
     [TestFixture]
     public class FlightTrack_Should
@@ -56,6 +56,27 @@ namespace AirTrafficMonitor.Tests
             _uut.Update(record1);
             _uut.Update(record2);
 
+            Assert.That(_uut.Velocity, Is.EqualTo(expectedVelocity));
+        }
+
+        [TestCase(-1000, -1000, -1000, 1000, 1000, 1000, 0, 1000, 1000, 1000, 1, 0)]
+        public void OnlyMakeVelocityCalculations_FromTheTwoLatestRecords(int lat1, int lon1, int alt1, 
+                                                                         int lat2, int lon2, int alt2, int time2,
+                                                                         int lat3, int lon3, int alt3, int time3,
+                                                                         double expectedVelocity)
+        {
+            // ARRAGNE
+            _uut = new FlightTrack("AAA123");
+            var record1 = new FlightRecord() { Position = new Position(lat1, lon1, alt1), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0) };
+            var record2 = new FlightRecord() { Position = new Position(lat2, lon2, alt2), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0 + time2) };
+            _uut.Update(record1);
+            _uut.Update(record2);
+
+            // ACT
+            var record3 = new FlightRecord() { Position = new Position(lat3, lon3, alt3), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0 + time3) }; ;
+            _uut.Update(record3);
+
+            //ASSERT
             Assert.That(_uut.Velocity, Is.EqualTo(expectedVelocity));
         }
     }

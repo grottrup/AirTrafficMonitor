@@ -9,7 +9,7 @@ using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 
-namespace AirTrafficMonitor.Tests
+namespace AirTrafficMonitor.Tests.DomainTests
 {
     [TestFixture]
     public class Airspace_Should
