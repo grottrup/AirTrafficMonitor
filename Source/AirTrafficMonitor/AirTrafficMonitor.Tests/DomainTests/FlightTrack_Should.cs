@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.Tests.DomainTests
         [TestCase(1, 1, 0, 0, 225)] // Sorth West
         [TestCase(0, 1, 1, 0, 135)] // Sorth East
         [TestCase(0, 0, 1, 1, 45)] // North East
-        [TestCase(0, 0, 0, 0, double.NaN)] // No course
+        [TestCase(0, 0, 0, 0, double.NaN)] // No expectedCourse
         [TestCase(100000, 0, 0, 1, 359.999)] // North North West testing decimals
         [TestCase(1, 0, -1, 0, 270)] // West
         [TestCase(0, 1, 0, -1, 180)] // Sourth
@@ -61,23 +61,49 @@ namespace AirTrafficMonitor.Tests.DomainTests
 
         [TestCase(-1000, -1000, -1000, 1000, 1000, 1000, 0, 1000, 1000, 1000, 1, 0)]
         public void OnlyMakeVelocityCalculations_FromTheTwoLatestRecords(int lat1, int lon1, int alt1, 
-                                                                         int lat2, int lon2, int alt2, int time2,
-                                                                         int lat3, int lon3, int alt3, int time3,
+                                                                         int lat2, int lon2, int alt2, int timeSec2,
+                                                                         int lat3, int lon3, int alt3, int timeSec3,
                                                                          double expectedVelocity)
         {
             // ARRAGNE
             _uut = new FlightTrack("AAA123");
             var record1 = new FlightRecord() { Position = new Position(lat1, lon1, alt1), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0) };
-            var record2 = new FlightRecord() { Position = new Position(lat2, lon2, alt2), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0 + time2) };
+            var record2 = new FlightRecord() { Position = new Position(lat2, lon2, alt2), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0).Add(new TimeSpan(0,0,timeSec2)) };
             _uut.Update(record1);
             _uut.Update(record2);
 
             // ACT
-            var record3 = new FlightRecord() { Position = new Position(lat3, lon3, alt3), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0 + time3) }; ;
+            var record3 = new FlightRecord() { Position = new Position(lat3, lon3, alt3), Timestamp = new DateTime(2018, 1, 1, 0, 0, 0).Add(new TimeSpan(0,0,timeSec2 + timeSec3)) }; ;
             _uut.Update(record3);
 
             //ASSERT
             Assert.That(_uut.Velocity, Is.EqualTo(expectedVelocity));
+        }
+
+        [TestCase("ABC123", 147,102,417,double.NaN,0,23,59)]
+        public void OnlyMakeVelocityCalculations_FromTheTwoLatestRecords2(string tag, int lat, int lon, int alt, 
+                                                                         double expectedCourse, double expectedVelocity, 
+                                                                         int hour, int minute)
+        {
+            // ARRANGE
+            _uut = new FlightTrack(tag);
+            var record1 = new FlightRecord()
+            {
+                Position = new Position(lat, lon, alt),
+                Timestamp = new DateTime(2018, 1, 1, hour, minute, 0)
+            };
+            _uut.Update(record1);
+
+            var uutStr = _uut.ToString();
+            //ASSERT
+            Assert.That(uutStr, Does.Contain(tag));
+            Assert.That(uutStr, Does.Contain(lat.ToString()));
+            Assert.That(uutStr, Does.Contain(lon.ToString()));
+            Assert.That(uutStr, Does.Contain(alt.ToString()));
+            Assert.That(uutStr, Does.Contain(expectedCourse.ToString()));
+            Assert.That(uutStr, Does.Contain(expectedVelocity.ToString()));
+            Assert.That(uutStr, Does.Contain(hour.ToString()));
+            Assert.That(uutStr, Does.Contain(minute.ToString()));
         }
     }
 }
