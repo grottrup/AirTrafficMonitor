@@ -46,20 +46,42 @@ namespace AirTrafficMonitor.Tests
             //Assert.IsTrue(File.Exists(path));
         }
 
-        [Test]
-        public void LogFile_WriteFileDoesExist_ReturnTrue_Real()
+        [TestCase("CC456", "DD789", "11/20/2018", "11/20/2018", 63.14262, 64.52742, 12300, 12500, 79000, 80000, 11000, 10000)]
+        public void LogFile_WriteFileDoesExist_ReturnTrue_Real(string tag1, string tag2, string time, string time2, double nav, double nav2, int lat, int lat2, int lon, int lon2, int alt, int alt2)
         {
-            _fakeFlightTrack = new FlightTrack("AA123");
+            _fakeFlightTrack = new FlightTrack("AA123")
+            {
+                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU")),
+                NavigationCourse = nav,
+                Position = new Position()
+                {
+                    Latitude = lat,
+                    Longitude = lon,
+                    Altitude = alt,
+                },
+                Tag = tag1,
+            };
             
-            _fakeFlightTrack1 = new FlightTrack("BB123");
+            _fakeFlightTrack1 = new FlightTrack("BB123")
+            {
+                LatestTime = DateTime.Parse(time2, CultureInfo.CreateSpecificCulture("eu-EU")),
+                NavigationCourse = nav2,
+                Position = new Position()
+                {
+                    Latitude = lat2,
+                    Longitude = lon2,
+                    Altitude = alt2,
+                },
+                Tag = tag2,
+            };
             
-            Tuple<FlightTrack, FlightTrack> wf = new Tuple<FlightTrack, FlightTrack>(_fakeFlightTrack,_fakeFlightTrack1);
+            Tuple<FlightTrack, FlightTrack> wf = new Tuple<FlightTrack, FlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
             
             string path = @"DataLog.txt";
             
             File.Delete("DataLog.txt");
-            _uut.DataLog("wf");
-            var writeFileDoesExist = (File.Exists("DataLog.txt"));
+            _uut.DataLog(wf);
+            var writeFileDoesExist = (File.Exists(path));
 
             Assert.That(writeFileDoesExist, Is.EqualTo(true));
             
@@ -74,7 +96,7 @@ namespace AirTrafficMonitor.Tests
             
             File.Delete("DataLog.txt");
             _uut.DataLog("Test Besked");
-            var writeFileDoesExist = (File.Exists("DataLog.txt"));
+            var writeFileDoesExist = (File.Exists(path));
 
             Assert.That(writeFileDoesExist, Is.EqualTo(true));
         }
