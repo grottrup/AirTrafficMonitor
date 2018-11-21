@@ -6,78 +6,83 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {
-        private List<FlightTrack> ProximityList;
+        //private List<FlightTrack> ProximityList;
+        private Tuple<FlightTrack, FlightTrack> ProximityList;
         private readonly ILogger _logger;
 
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
 
         public SeparationHandler(ILogger logger)
         {
-            _logger = logger;
+            _logger = logger; //We do not use the logger. Is it neccessary in the constructor?
         }
 
-        public class FlightInProximityEventArgs : EventArgs
-        {
-            public FlightTrack FlightTrack { get; private set; }
-            private List<FlightTrack> ProximityList;
-
-            public FlightInProximityEventArgs(List<FlightTrack> tracks)
-            {
-                ProximityList = tracks;
-            }
-        }
-
+        //Eventhandler
         protected virtual void OnFlightsInProximity(FlightInProximityEventArgs eventArgs)
         {
             EventHandler<FlightInProximityEventArgs> handler = FlightsInProximity;
-
             handler?.Invoke(this, eventArgs);
         }
 
-        public bool IsTimeEqual(List<FlightTrack> tracks)
+        //Controller - Logic
+        public void DetectCollision(Tuple<FlightTrack, FlightTrack> tracks)
         {
-            for (int i = 0; i < tracks.Count - 1; i++)
+            if (IsTimeEqual(tracks))//checks if new FlightTrack update is equal to any other flight.
             {
-                return tracks[i].LatestTime == tracks[i + 1].LatestTime;
-            }
-            return false;
-        }
-
-        public double CalculateHorizontialDistance(List<FlightTrack> tracks)
-        {
-            for (int i = 0; i < tracks.Count - 1; i++)
-            {
-                return Math.Round(Math.Abs(Math.Pow(tracks[i].Position.Latitude - tracks[i + 1].Position.Latitude, 2)
-                                    + Math.Pow(tracks[i].Position.Longitude - tracks[i + 1].Position.Longitude, 2)));
-            }
-            return 0;
-        }
-
-        public double CalculateVerticalDistance(List<FlightTrack> tracks)
-        {
-            for (int i = 0; i < tracks.Count - 1; i++)
-            {
-                return Math.Abs(tracks[i].Position.Altitude - tracks[i + 1].Position.Altitude);
-            }
-            return 0;
-        }
-
-        public void DetectCollision(List<FlightTrack> tracks)
-        {
-            if (IsTimeEqual(tracks))
-            {
-                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300)
+                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) //checks if new FlightTrack update is too close to any other flight
                 {
-
-                    for (int i = 0; i < tracks.Count - 1; i++)
-                    {
+                    //for (int i = 0; i < tracks - 1; i++)
+                    //{
                         var args = new FlightInProximityEventArgs(tracks);
                         OnFlightsInProximity(args);
 
                         //OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag, tracks[i].LatestTime));
-                    }
+                    //}
                 }
             }
         }
+
+        public bool IsTimeEqual(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update is equal to any other flight.
+        {
+            //for (int i = 0; i < tracks.Count - 1; i++)
+            //{
+            if (tracks != null)
+            {
+                if (tracks.Item1.LatestTime == tracks.Item2.LatestTime)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            //}
+            //return false;
+        }
+
+        public double CalculateHorizontialDistance(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update's position is too close to any other flight
+        {
+            //for (int i = 0; i < tracks.Count - 1; i++)
+            //{
+                return Math.Round(Math.Abs(Math.Pow(tracks.Item1.Position.Latitude - tracks.Item2.Position.Latitude, 2)
+                                    + Math.Pow(tracks.Item1.Position.Longitude - tracks.Item2.Position.Longitude, 2)));
+            //}
+            //return 0;
+        }
+
+        public double CalculateVerticalDistance(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update's altitude is too close to any other flight
+        {
+            //for (int i = 0; i < tracks.Count - 1; i++)
+            //{
+                return Math.Abs(tracks.Item1.Position.Altitude - tracks.Item2.Position.Altitude);
+            //}
+            //return 0;
+        }
+
     }
 }

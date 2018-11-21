@@ -42,9 +42,9 @@ namespace AirTrafficMonitor
                 if (newTrack) // not in list yet
                 {
                     var args = new FlightTrackEventArgs(updatedTrack);
-                 EnteredAirspace?.Invoke(this, args);
+                    EnteredAirspace?.Invoke(this, args);
                 }
-                _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic
+                _handler.DetectCollision(_tracks as Tuple<FlightTrack, FlightTrack>); // TODO: Handler needs to be more implementation agnostic
                 _view.Render(updatedTrack);
                 // TODO... logger?
             }
