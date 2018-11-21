@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="AirspaceEvent_Should.cs" />
     <Compile Include="AntiCorruptionLayerTests\FlightRecordReceiver_Should.cs" />
-    <Compile Include="EventTimer_Should.cs" />
     <Compile Include="FlightObserver_Should.cs" />
     <Compile Include="DomainTests\FlightTrack_Should.cs" />
     <Compile Include="Logger_Should.cs" />
