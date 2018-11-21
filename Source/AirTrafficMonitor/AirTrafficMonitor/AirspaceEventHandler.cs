@@ -4,15 +4,15 @@ namespace AirTrafficMonitor
 {
     public class AirspaceEventHandler
     {
-        private readonly IFlightObserver _flightInAirspaceSubject;
+        private readonly IFlightObserver _flightsInAirspaceSubject;
         private IView _view;
 
-        public AirspaceEventHandler(IFlightObserver flightInAirspaceSubject, IView view) 
+        public AirspaceEventHandler(IFlightObserver flightsInAirspaceSubject, IView view) 
         {
-            _flightInAirspaceSubject = flightInAirspaceSubject;
+            _flightsInAirspaceSubject = flightsInAirspaceSubject;
             _view = view;
-            _flightInAirspaceSubject.EnteredAirspace += EnterAirspaceEvent;
-            _flightInAirspaceSubject.LeftAirspace += LeftAirspaceEvent;
+            _flightsInAirspaceSubject.EnteredAirspace += EnterAirspaceEvent;
+            _flightsInAirspaceSubject.LeftAirspace += LeftAirspaceEvent;
         }
 
         private void EnterAirspaceEvent(object sender,FlightTrackEventArgs e)
