@@ -28,6 +28,8 @@ namespace AirTrafficMonitor.Tests
         // Måske det her: Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
         //                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
         
+        //Edit: i .NET 4.5 skulle følgende være AppDomain-wide: public static System.Globalization.CultureInfo DefaultThreadCurrentCulture { get; set; }
+        
         
         [SetUp]
         public void Setup()
@@ -39,7 +41,7 @@ namespace AirTrafficMonitor.Tests
         }
        
 
-        //[TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
+        [TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
         
         public void ConsoleView_TestThatRenderCollisionCanPrint_ReturnTrue(string tag1, string tag2, string time, string outputstring)
         {
@@ -69,12 +71,13 @@ namespace AirTrafficMonitor.Tests
             Assert.AreEqual(currentConsoleOut, Console.Out);
         }
 
-        //[Test]
-        //[TestCase("CC456", "11/20/2018 12:00:00", "63.14262", "12500", "80000", "10000" ,"Tag: CC456, Time: 11/20/2018 12:00:00 AM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
-        
+
+        //[TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
+
+       
         public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(string tag, string time, double nav, int lat, int lon, int alt, string outputstring)
         {
-            _fakeFlightTrack2 = new FlightTrack(tag)
+            _fakeFlightTrack2 = new FlightTrack("CC456")
             {
                 LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU")), //CultureInfo.CreateSpecificCulture("eu-EU")
                 NavigationCourse = nav,
@@ -83,12 +86,13 @@ namespace AirTrafficMonitor.Tests
                     Latitude = lat,
                     Longitude = lon,
                     Altitude = alt,
-                } 
+                },
+                Tag = tag,
             };
             
             var currentConsoleOut = Console.Out;
             
-            FlightTrack ft = new FlightTrack("CC456");
+            Tuple<FlightTrack> ft = new Tuple<FlightTrack>(_fakeFlightTrack2);
             
             using (var consoleOutput = new ConsoleOutput())
             {
