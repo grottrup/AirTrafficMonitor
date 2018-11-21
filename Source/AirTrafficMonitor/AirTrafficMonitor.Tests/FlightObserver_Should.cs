@@ -31,8 +31,8 @@ namespace AirTrafficMonitor.Tests
             _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
         }
 
-        [Test]
-        public void Call_Render()
+        //[Test]
+        public void Call_Render()//should it?
         {
             // Act
             var record = new FlightRecord()

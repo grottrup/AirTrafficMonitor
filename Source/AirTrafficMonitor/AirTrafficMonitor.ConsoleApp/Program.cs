@@ -16,15 +16,14 @@ namespace AirTrafficMonitor.ConsoleApp
     {
         static void Main(string[] args)
         {
-            ITimer _timer = new EventTimer();
             IFlightRecordFactory factory = new FlightRecordFactory();
             IFlightRecordReceiver recordReceiver = new FlightRecordReceiver(TransponderReceiverFactory.CreateTransponderDataReceiver(), factory);
             IView view = new ConsoleView();
             ILogger logger = new Logger();
             ISeperationHandler handler = new SeparationHandler(logger);
-            Airspace monitoredAirspace = new Airspace();
+            IAirspace monitoredAirspace = new Airspace();
             FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
-            AirspaceEventHandler airspaceEventHandler = new AirspaceEventHandler(_timer, flightObserver, view);
+            AirspaceEventHandler airspaceEventHandler = new AirspaceEventHandler(flightObserver, view);
             Console.ReadKey();
         }
     }

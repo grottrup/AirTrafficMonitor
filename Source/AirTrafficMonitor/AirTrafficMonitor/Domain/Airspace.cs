@@ -1,6 +1,7 @@
 ﻿namespace AirTrafficMonitor.Domain
 {
-    public class Airspace
+
+    public class Airspace : IAirspace
     {
         public int MaxPosition { get; private set; } // both x and y... consider splitting
         public int MinPosition { get; private set; } // both x and y... consider splitting
@@ -15,12 +16,19 @@
             MinAltitude = 500;
         }
 
-        public Airspace(int maxAltitude, int minAltitude, int maxPosition, int minPosition)
+        public bool HasPositionWithinBoundaries(Position position)
         {
-            MaxPosition = maxPosition;
-            MinPosition = minPosition;
-            MaxAltitude = maxAltitude;
-            MinAltitude = minAltitude;
+            if (position != null)
+            {
+                if (position.Latitude < MinPosition || position.Latitude > MaxPosition)
+                    return false;
+                if (position.Longitude < MinPosition || position.Longitude > MaxPosition)
+                    return false;
+                if (position.Altitude < MinAltitude || position.Altitude > MaxAltitude)
+                    return false;
+                return true;
+            }
+            return false;
         }
     }
 }

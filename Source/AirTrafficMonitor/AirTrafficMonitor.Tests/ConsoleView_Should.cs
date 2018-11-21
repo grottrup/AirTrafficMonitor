@@ -38,7 +38,8 @@ namespace AirTrafficMonitor.Tests
             _fakeFlightTrack2 = Substitute.For<FlightTrack>("CC456");
         }
        
-        [TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
+
+        //[TestCase("AA123", "BB123", "11/20/2018", "Warning, two planes are currently on collision course! \n Plane Tag: AA123, Plane Tag: BB123 and Time: 11/20/2018 12:00:00 AM\n\n")]
         
         public void ConsoleView_TestThatRenderCollisionCanPrint_ReturnTrue(string tag1, string tag2, string time, string outputstring)
         {

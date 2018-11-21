@@ -28,29 +28,28 @@ namespace AirTrafficMonitor.Infrastructure
             Console.WriteLine("Warning, two planes are currently on collision course! \n Plane Tag: {0}, Plane Tag: {1} and Time: {2}\n", flight1, flight2, timeFlight);
         }
 
-        public void RenderWithGreenTillTimerEnds(string renderstr, ITimer timer)
+        public void RenderWithGreenTillTimerEnds(string renderstr)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(renderstr);
 
-            //timer.WaitTimer();
+            var timer = new EventTimer(5000);
 
-            
             Console.ResetColor();
 
         }
 
-        public async void RenderWithRedTillTimerEnds(string renderstr, ITimer timer)
+        public void RenderWithRedTillTimerEnds(string renderstr)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(renderstr);
-
+            var timer = new EventTimer(5000);
             //var startTime = System.DateTime.Now;
             //while (startTime < startTime.Add(new TimeSpan(0,0,5)))
             //{
 
             //}
-            await Task.Delay(5000);
+           // await Task.Delay(5000);
             //timer.WaitTimer();
 
             //Console.ResetColor();
@@ -58,7 +57,7 @@ namespace AirTrafficMonitor.Infrastructure
             //timer.Interval = 5;
             //timer.Start();  
 
-            Console.ResetColor();
+            //Console.ResetColor();
         }
     }
 }

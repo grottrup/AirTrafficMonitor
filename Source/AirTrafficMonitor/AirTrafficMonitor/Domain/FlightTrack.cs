@@ -23,7 +23,10 @@ namespace AirTrafficMonitor.Domain
         {
             if (record != null)
             {
-                if (_records.Count == 2) _records.Dequeue();
+                if (_records.Count == 2)
+                {
+                    _records.Dequeue();
+                }
                 _records.Enqueue(record);
                 LatestTime = record.Timestamp;
                 Position = record.Position;
