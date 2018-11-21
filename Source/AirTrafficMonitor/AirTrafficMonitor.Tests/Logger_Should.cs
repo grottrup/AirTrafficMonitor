@@ -22,9 +22,6 @@ namespace AirTrafficMonitor.Tests
         private FlightTrack _fakeFlightTrack;
         private FlightTrack _fakeFlightTrack1;
         
-
-//TODO: Ændre test til selve koden og ikke testkoden
-        
         [SetUp]
         public void Setup()
         {
