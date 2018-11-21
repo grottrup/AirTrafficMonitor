@@ -49,34 +49,31 @@ namespace AirTrafficMonitor.Tests
             }
         }
 
-
-        //[TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
-        public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(string tag, string time, double nav, int lat, int lon, int alt, string outputstring)
+        [TestCase("CC456", 2018, 11, 21, 63.14262, 12500, 80000, 10000)]
+        public void ConsoleView_RenderOfOneTrack_FullInfo(string tag, int year, int month, int day, double nav, int lat, int lon, int alt)
         {
-            var fakeFlightTrack2 = new FlightTrack("CC456")
-            {
-                LatestTime = DateTime.Parse(time),
-                NavigationCourse = nav,
-                Position = new Position()
-                {
-                    Latitude = lat,
-                    Longitude = lon,
-                    Altitude = alt,
-                },
-                Tag = tag,
-            };
+            IFlightTrack fakeFlightTrack3 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack3.Tag.Returns(tag);
+            fakeFlightTrack3.LatestTime.Returns(new DateTime(year, month, day));
+            fakeFlightTrack3.NavigationCourse.Returns(nav);
+            fakeFlightTrack3.Position.Returns(new Position(lat, lon, alt));
             
             var currentConsoleOut = Console.Out;
             
-            //Tuple<FlightTrack> ft = new Tuple<FlightTrack>(_fakeFlightTrack2); //What are you trying to do????
-            
+            Tuple<IFlightTrack> ft = new Tuple<IFlightTrack>(fakeFlightTrack3);
             using (var consoleOutput = new ConsoleOutput())
             {
-                //_uut.Render(ft);
-                Assert.AreEqual(outputstring, ConsoleOutput.GetOutput());
+                _uut.Render(ft);
+                var result = ConsoleOutput.GetOutput();
+                Assert.That(result, Does.Contain(tag));
+                Assert.That(result, Does.Contain(year.ToString()));
+                Assert.That(result, Does.Contain(month.ToString()));
+                Assert.That(result, Does.Contain(day.ToString()));
+                Assert.That(result, Does.Contain(nav.ToString()));
+                Assert.That(result, Does.Contain(lat.ToString()));
+                Assert.That(result, Does.Contain(lon.ToString()));
+                Assert.That(result, Does.Contain(alt.ToString()));       
             }
-            Assert.AreEqual(currentConsoleOut, Console.Out);
-            
         }
     }
 }
