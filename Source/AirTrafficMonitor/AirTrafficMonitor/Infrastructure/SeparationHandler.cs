@@ -1,35 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {
-        private List<FlightTrack> ProximityList;
+        private readonly List<IFlightTrack> _flightsInProximityList;
         private readonly ILogger _logger;
 
-        public event EventHandler<FlightInCollision> FlightsInProximity;
+        public event EventHandler<Tuple<IFlightTrack, IFlightTrack>> FlightsInProximity;
 
         public SeparationHandler(ILogger logger)
         {
             _logger = logger;
         }
 
-        protected virtual void OnFlightsInProximity(FlightInCollision eventArgs)
+        protected virtual void OnFlightsInProximity(Tuple<IFlightTrack, IFlightTrack> eventArgs)
         {
-            EventHandler<FlightInCollision> handler = FlightsInProximity;
+            EventHandler<Tuple<IFlightTrack, IFlightTrack>> handler = FlightsInProximity;
 
             handler?.Invoke(this, eventArgs);
-        }
-
-        public bool IsTimeEqual(List<FlightTrack> tracks)
-        {
-            for (int i = 0; i < tracks.Count - 1; i++)
-            {
-                return tracks[i].LatestTime == tracks[i + 1].LatestTime;
-            }
-            return false;
         }
 
         public double CalculateHorizontialDistance(List<FlightTrack> tracks)
@@ -53,16 +46,11 @@ namespace AirTrafficMonitor.Infrastructure
 
         public void DetectCollision(List<FlightTrack> tracks)
         {
-            if (IsTimeEqual(tracks))
+            if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
             {
-                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300)
+                for (int i = 0; i < tracks.Count - 1; i++)
                 {
-
-                    for (int i = 0; i < tracks.Count - 1; i++)
-                    {
-                        OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag,
-                            tracks[i].LatestTime));
-                    }
+                    OnFlightsInProximity(new Tuple<IFlightTrack, IFlightTrack>(tracks[i], tracks[i + 1]));
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [Test]
         public void NotAccept_NullCollection()
         {
-            ICollection<FlightTrack> tracks = null;
+            ICollection<IFlightTrack> tracks = null;
             var factory = new FlightRecordFactory();
             var record = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
 
@@ -30,7 +30,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [Test]
         public void NotAccept_NullRecordWhenListIsEmpty()
         {
-            var tracks = new List<FlightTrack>();
+            var tracks = new List<IFlightTrack>();
 
             Assert.Throws<NullReferenceException>(() =>
                tracks.SortRecordByTag(null)
@@ -44,7 +44,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         public void CreateANewTrackWithASingleRecord_WhenListIsEmpty()
         {
             // Arrange
-            var tracks = new List<FlightTrack>();
+            var tracks = new List<IFlightTrack>();
             var factory = new FlightRecordFactory();
             var record = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
             var expectedTrack = new FlightTrack("AGJ063");
@@ -68,7 +68,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         {
             // Arrange
-            var tracks = new List<FlightTrack>();
+            var tracks = new List<IFlightTrack>();
             var factory = new FlightRecordFactory();
 
             var record1 = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
@@ -95,7 +95,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
 
         {
             // Arrange
-            var tracks = new List<FlightTrack>();
+            var tracks = new List<IFlightTrack>();
             var factory = new FlightRecordFactory();
             var record1 = factory.CreateRecord("AGJ063;39563;95000;16800;20181001160609975");
             var record2 = factory.CreateRecord("AGJ063;0;0;0;20191001160609975");

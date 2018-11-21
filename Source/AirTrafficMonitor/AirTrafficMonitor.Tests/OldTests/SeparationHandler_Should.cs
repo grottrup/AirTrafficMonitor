@@ -59,16 +59,6 @@ namespace AirTrafficMonitor.Tests.UnitTests
         }
 
         [Test]
-        public void Istime()
-        {
-            tracks = new List<FlightTrack>() {FT1, FT2};
-
-            separation.DetectCollision(tracks);
-
-            Assert.IsTrue(separation.IsTimeEqual(tracks));
-        }
-
-        [Test]
         public void horizontalcompare()
         {
             tracks = new List<FlightTrack>() {FT1, FT2};

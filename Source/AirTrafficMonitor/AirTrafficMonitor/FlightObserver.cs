@@ -11,7 +11,7 @@ namespace AirTrafficMonitor
 {
     public class FlightObserver : IFlightObserver
     {
-        private readonly ICollection<FlightTrack> _tracks;
+        private readonly ICollection<IFlightTrack> _tracks;
         private readonly IView _view;
         private readonly ILogger _logger;
         private readonly ISeperationHandler _handler;
@@ -28,7 +28,7 @@ namespace AirTrafficMonitor
             _logger = logger;
             _view = view;
             _handler = handler;
-            _tracks = new List<FlightTrack>();
+            _tracks = new List<IFlightTrack>();
             _monitoredAirspace = monitoredAirspace;
         }
 
@@ -37,7 +37,7 @@ namespace AirTrafficMonitor
             var flightUpdate = e.FlightRecord;
             if (_monitoredAirspace.HasPositionWithinBoundaries(flightUpdate.Position))
             {
-                FlightTrack updatedTrack;
+                IFlightTrack updatedTrack;
                 var existingTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);
                 if (existingTrack) // already in list
                 {
