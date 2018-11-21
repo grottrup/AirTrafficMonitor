@@ -22,7 +22,7 @@ namespace AirTrafficMonitor.Tests
         private ISeperationHandler _fakeSeperation;
         private IFlightRecordReceiver _fakeFlight;
         private IFlightObserver _fakeFlightObserver;
-        private List<FlightTrack> _fakeTracks;
+        private List<IFlightTrack> _tracks;
         private IAirspace _fakeMonitoredAirspace;
         private AirspaceEventHandler _uut;
 
@@ -31,8 +31,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-
-            _fakeTracks = Substitute.For<List<FlightTrack>>();
+            _tracks = new List<IFlightTrack>();
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
@@ -40,7 +39,6 @@ namespace AirTrafficMonitor.Tests
             _fakeMonitoredAirspace = Substitute.For<IAirspace>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
             _uut = new AirspaceEventHandler(_fakeFlightObserver, _fakeView);
-
         }
         //Flight CC123 entered airspace at 01-01-0001 00:00:00
         [Test]
@@ -48,11 +46,15 @@ namespace AirTrafficMonitor.Tests
         {
             // Act
 
-            var track = new FlightTrack("CC123")
-            {
-                Position = new Position(20000, 20000, 19000),
-                LatestTime = DateTime.MinValue
-            };
+            //var track = new FlightTrack("CC123")
+            //{
+            //    Position = new Position(20000, 20000, 19000),
+            //    LatestTime = DateTime.MinValue
+            //};
+
+            var track = Substitute.For<IFlightTrack>();
+            track.Position = new Position(20000, 20000, 19000);
+            track.LatestTime = DateTime.MaxValue;
 
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
 

@@ -5,9 +5,9 @@ namespace AirTrafficMonitor
 {
     public class FlightTrackEventArgs: EventArgs
     {
-        public FlightTrack FlightTrack { get; private set; }
+        public IFlightTrack FlightTrack { get; private set; }
 
-        public FlightTrackEventArgs(FlightTrack track)
+        public FlightTrackEventArgs(IFlightTrack track)
         {
             FlightTrack = track;
         }

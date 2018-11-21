@@ -21,16 +21,16 @@ namespace AirTrafficMonitor.Tests
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<IFlightTrack>("AA123");
-            _fakeFlightTrack1 = Substitute.For<IFlightTrack>("BB123");
-            _fakeFlightTrack2 = Substitute.For<IFlightTrack>("CC456");
+            _fakeFlightTrack = Substitute.For<IFlightTrack>(); //nooo
+            _fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            _fakeFlightTrack2 = Substitute.For<IFlightTrack>();
         }
        
 
         [TestCase("AA123", "BB123", "2018-11-20")]
         public void RenderCollision_OfTwoFlightTracks(string tag1, string tag2, string time)
         {
-            _fakeFlightTrack = new FlightTrack("AA123")
+            _fakeFlightTrack = new FlightTrack("AA123") //noooooooooooooooooo this is not a fake
             {
                 LatestTime = DateTime.Parse(time)
             };

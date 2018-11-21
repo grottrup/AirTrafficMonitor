@@ -45,7 +45,7 @@ namespace AirTrafficMonitor.IntegrationTests.TopTests
             transponderData.Add(rawData);
             _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
 
-            FlightTrack persistedArgs = null;
+            IFlightTrack persistedArgs = null;
             _sut.EnteredAirspace += (sender, e) =>
             {
                 persistedArgs = e.FlightTrack;
