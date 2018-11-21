@@ -31,14 +31,14 @@ namespace AirTrafficMonitor
         public void EnterAirspaceEvent(object sender,FlightTrackEventArgs e)
         {
                 var flightUpdate = e.FlightTrack;
-                _view.RenderWithRedTillTimerEnds("Flight "+flightUpdate.Tag+" entered airspace at"+flightUpdate.LatestTime+"");
+                _view.RenderWithRedTillTimerEnds("Flight: "+flightUpdate.Tag+" entered airspace at: "+flightUpdate.LatestTime+"");
               
         }
 
         public void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
             var flightUpdate = e.FlightTrack;
-            _view.RenderWithGreenTillTimerEnds("Flight "+flightUpdate.Tag+" left airspace at"+flightUpdate.LatestTime+"");
+            _view.RenderWithGreenTillTimerEnds("Flight: "+flightUpdate.Tag+" left airspace at: "+flightUpdate.LatestTime+"");
         }
     }
 }

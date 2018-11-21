@@ -16,7 +16,7 @@ namespace AirTrafficMonitor.Tests
     [TestFixture]
     public class AirspaceEvent_Should
     {
-
+        private ITimer _fakeTimer;
         private IView _fakeView;
         private ILogger _fakeLogger;
         private ISeperationHandler _fakeSeperation;
@@ -25,14 +25,15 @@ namespace AirTrafficMonitor.Tests
         private List<FlightTrack> _fakeTracks;
         private Airspace _fakeMonitoredAirspace;
         private AirspaceEventHandler _uut;
-
+        private FlightTrack _fakeTrack;
 
 
         [SetUp]
         public void SetUp()
         {
-
+            _fakeTimer = Substitute.For<EventTimer>(5000);
             _fakeTracks = Substitute.For<List<FlightTrack>>();
+            _fakeTrack = Substitute.For<FlightTrack>("AAAAA");
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
@@ -44,44 +45,56 @@ namespace AirTrafficMonitor.Tests
         }
         //Flight CC123 entered airspace at 01-01-0001 00:00:00
         [Test]
-        public void AirspaceEvent()
+        public void AirspaceEnterEvent()
         {
             // Act
 
-            var track = new FlightTrack("CC123")
+            _fakeTrack = new FlightTrack("CC123")
             {
                 Position = new Position(20000, 20000, 19000),
                 LatestTime = DateTime.MinValue
             };
 
-            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
+            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(_fakeTrack));
+            
 
-            //var record1 = new FlightTrack("CC123")
-            //{
-              
-            //    Position = new Position(100, 100, 450),
-            //    LatestTime = DateTime.Now
-            //};
-            //_fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(record1));
-
-            _fakeView.Received().RenderWithRedTillTimerEnds("Flight " + track.Tag + " entered airspace at" + track.LatestTime + "");
+            _fakeView.Received().RenderWithRedTillTimerEnds("Flight: " + _fakeTrack.Tag + " entered airspace at: " + _fakeTrack.LatestTime + "");
         }
 
-        //[Test]
-        //public void Test_Timer()
-        //{
-        //    Stopwatch watch = new Stopwatch();
-        //    watch.Start();
-        //    _aTimer.WaitTimer();
-        //    watch.Stop();
+        [Test]
+        public void AirspaceLeftEvent()
+        {
+            // Act
+           
+            _fakeTrack = new FlightTrack("BB123")
+            {
+                Position = new Position(11000, 910000, 5000),
+                LatestTime = DateTime.MinValue
+            };
 
-        //    var output = watch.ElapsedMilliseconds;
+            _fakeTracks = new List<FlightTrack>();
+            _fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(_fakeTrack));
 
-        //    Assert.AreEqual(5000, output);
 
-        //    // Assert
+            _fakeView.Received().RenderWithGreenTillTimerEnds("Flight: " + _fakeTrack.Tag + " left airspace at: " + _fakeTrack.LatestTime + "");
+        }
 
-        //}
+        [Test]
+        public void timer_test()
+        {
+            ITimer _fakeTimer1 = Substitute.For<ITimer>();
+            EventTimer E_Timer = new EventTimer(5000);
+            _fakeTrack = new FlightTrack("CC123")
+            {
+                Position = new Position(20000, 20000, 19000),
+                LatestTime = DateTime.MinValue
+            };
+
+            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(_fakeTrack));
+           
+            Received.InOrder(()=> _fakeTimer1.Start(5000));
+            //_fakeTimer.Received();
+        }
 
     }
 }

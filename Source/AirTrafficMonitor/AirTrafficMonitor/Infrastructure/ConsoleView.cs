@@ -1,7 +1,11 @@
 using AirTrafficMonitor.Domain;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Threading;
 using AirTrafficMonitor.Utilities;
 
@@ -9,11 +13,23 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        public void DelayTimer()
+        
+        //private int _lineNumber;
+        //private void WriteLine(string message, [CallerLineNumber] int lineNumber = 0)
+        //{
+        //    Console.WriteLine(message);
+        //    _lineNumber = lineNumber;
+        //}
+        public static void WriteAt(int left, int top, string s)
         {
-            Task.Delay(5000);
+            int currentLeft = Console.CursorLeft;
+            int currentTop = Console.CursorTop;
+            Console.CursorVisible = false;//Hide cursor
+            Console.SetCursorPosition(left, top);
+            Console.Write(s);
+            Console.SetCursorPosition(currentLeft, currentTop);
+            Console.CursorVisible = true;//Show cursor back
         }
-
         public void Render(FlightTrack track)
         {
             Console.WriteLine(track.ToString());
@@ -30,34 +46,24 @@ namespace AirTrafficMonitor.Infrastructure
 
         public void RenderWithGreenTillTimerEnds(string renderstr)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(renderstr);
-
+        
+           // Console.ForegroundColor = ConsoleColor.Green;
+       
+            Console.WriteLine(renderstr, Console.ForegroundColor = ConsoleColor.Green);
+            //WriteAt(0,3,renderstr);
             var timer = new EventTimer(5000);
 
-            Console.ResetColor();
 
         }
 
         public void RenderWithRedTillTimerEnds(string renderstr)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(renderstr);
-            var timer = new EventTimer(5000);
-            //var startTime = System.DateTime.Now;
-            //while (startTime < startTime.Add(new TimeSpan(0,0,5)))
-            //{
 
-            //}
-           // await Task.Delay(5000);
-            //timer.WaitTimer();
+            //Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(renderstr, Console.ForegroundColor = ConsoleColor.Red);
+           // WriteAt(0,0,renderstr);
+           var timer = new EventTimer(5000);
 
-            //Console.ResetColor();
-
-            //timer.Interval = 5;
-            //timer.Start();  
-
-            //Console.ResetColor();
         }
     }
 }
