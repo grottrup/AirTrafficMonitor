@@ -51,7 +51,7 @@ namespace AirTrafficMonitor
               
                         EnteredAirspace?.Invoke(this, args);
                 }
-                _handler.DetectCollision(_tracks as List<FlightTrack>); // TODO: Handler needs to be more implementation agnostic                {
+                _handler.DetectCollision(_tracks); // TODO: Handler needs to be more implementation agnostic                {
                 
             }
             else

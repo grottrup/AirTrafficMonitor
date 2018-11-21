@@ -25,34 +25,38 @@ namespace AirTrafficMonitor.Infrastructure
             handler?.Invoke(this, eventArgs);
         }
 
-        public double CalculateHorizontialDistance(List<FlightTrack> tracks)
+        public double CalculateHorizontialDistance(ICollection<IFlightTrack> tracks) // Wrong
         {
             for (int i = 0; i < tracks.Count - 1; i++)
             {
-                return Math.Round(Math.Abs(Math.Pow(tracks[i].Position.Latitude - tracks[i + 1].Position.Latitude, 2)
-                                    + Math.Pow(tracks[i].Position.Longitude - tracks[i + 1].Position.Longitude, 2)));
+                return Math.Round(Math.Abs(Math.Pow(tracks.First().Position.Latitude - tracks.Last().Position.Latitude, 2)
+                                    + Math.Pow(tracks.First().Position.Longitude - tracks.Last().Position.Longitude, 2)));
             }
             return 0;
         }
 
-        public double CalculateVerticalDistance(List<FlightTrack> tracks)
+        public double CalculateVerticalDistance(ICollection<IFlightTrack> tracks) //Wrong
         {
             for (int i = 0; i < tracks.Count - 1; i++)
             {
-                return Math.Abs(tracks[i].Position.Altitude - tracks[i + 1].Position.Altitude);
+                return Math.Abs(tracks.First().Position.Altitude - tracks.Last().Position.Altitude);
             }
             return 0;
         }
 
-        public void DetectCollision(List<FlightTrack> tracks)
+        public void DetectCollision(ICollection<IFlightTrack> tracks) //????
         {
-            if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
+            if(false)//just make false so mike can continue coding
             {
-                for (int i = 0; i < tracks.Count - 1; i++)
+                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
                 {
-                    OnFlightsInProximity(new Tuple<IFlightTrack, IFlightTrack>(tracks[i], tracks[i + 1]));
+                    for (int i = 0; i < tracks.Count - 1; i++)
+                    {
+                        OnFlightsInProximity(new Tuple<IFlightTrack, IFlightTrack>(tracks.First(), tracks.Last()));
+                    }
                 }
             }
+            
         }
     }
 }

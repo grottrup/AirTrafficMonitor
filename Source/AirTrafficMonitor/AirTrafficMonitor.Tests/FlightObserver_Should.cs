@@ -65,7 +65,7 @@ namespace AirTrafficMonitor.Tests
             _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
 
             // Assert
-            _fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
+            _fakeSeperation.Received().DetectCollision(Arg.Any<ICollection<IFlightTrack>>());
         }
 
         [Test]
