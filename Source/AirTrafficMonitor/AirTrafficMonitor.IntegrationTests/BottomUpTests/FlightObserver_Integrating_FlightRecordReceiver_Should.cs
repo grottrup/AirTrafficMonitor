@@ -11,6 +11,9 @@ using TransponderReceiver;
 
 namespace AirTrafficMonitor.IntegrationTests.TopTests
 {
+    /// <summary>
+    /// Integration step 2
+    /// </summary>
     [TestFixture]
     public class FlightObserver_Integrating_FlightRecordReceiver_Should
     {
