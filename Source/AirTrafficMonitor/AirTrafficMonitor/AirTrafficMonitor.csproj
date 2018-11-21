@@ -70,7 +70,6 @@
     <Compile Include="Diagram\PlantUmlGenerator.cs" />
     <Compile Include="Domain\Airspace.cs" />
     <Compile Include="AntiCorruptionLayer\FlightRecordFactory.cs" />
-    <Compile Include="Domain\FlightInCollision.cs" />
     <Compile Include="Domain\IAirspace.cs" />
     <Compile Include="Domain\IFlightTrack.cs" />
     <Compile Include="FlightTrackEventArgs.cs" />
