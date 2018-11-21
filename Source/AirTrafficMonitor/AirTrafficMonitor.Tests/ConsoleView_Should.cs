@@ -65,7 +65,7 @@ namespace AirTrafficMonitor.Tests
                
                 _uut.RenderCollision(ff);
                 var result = ConsoleOutput.GetOutput();
-                Assert.That(result, Does.Contain("Warning"));
+                Assert.That(result, Does.Contain("Collision").IgnoreCase);
                 Assert.That(result, Does.Contain(time));
                 Assert.That(result, Does.Contain(tag1));
                 Assert.That(result, Does.Contain(tag2));
