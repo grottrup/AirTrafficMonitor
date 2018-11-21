@@ -9,9 +9,8 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        public void DelayTimer()
+        public ConsoleView()
         {
-            Task.Delay(5000);
         }
 
         public void Render(Tuple<IFlightTrack> track)
