@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
@@ -13,38 +12,28 @@ namespace AirTrafficMonitor.Tests
     public class ConsoleView_Should
     {
         private ConsoleView _uut;
-        private IFlightTrack _fakeFlightTrack;
-        private IFlightTrack _fakeFlightTrack1;
-        private IFlightTrack _fakeFlightTrack2;
         
         [SetUp]
         public void Setup()
         {
             _uut = new ConsoleView();
-            _fakeFlightTrack = Substitute.For<IFlightTrack>(); //nooo
-            _fakeFlightTrack1 = Substitute.For<IFlightTrack>();
-            _fakeFlightTrack2 = Substitute.For<IFlightTrack>();
         }
        
 
-        [TestCase("AA123", "BB123", "2018-11-20")]
-        public void RenderCollision_OfTwoFlightTracks(string tag1, string tag2, string time)
+        [TestCase("AA123", "BB123", 2018, 11, 20)]
+        public void RenderCollision_OfTwoFlightTracks(string tag1, string tag2, int year, int month, int day)
         {
-            _fakeFlightTrack = new FlightTrack("AA123") //noooooooooooooooooo this is not a fake
-            {
-                LatestTime = DateTime.Parse(time)
-            };
-            
-            
-            _fakeFlightTrack1 = new FlightTrack("BB123")
-            {
-                LatestTime = DateTime.Parse(time)
-            };
-                
+            IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day));
+
+            IFlightTrack fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day));
+
             var currentConsoleOut = Console.Out;
             
-            Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
-            
+            Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
            
             using (var consoleOutput = new ConsoleOutput())
             {
@@ -52,7 +41,9 @@ namespace AirTrafficMonitor.Tests
                 _uut.RenderCollision(ff);
                 var result = ConsoleOutput.GetOutput();
                 Assert.That(result, Does.Contain("Collision").IgnoreCase);
-                Assert.That(result, Does.Contain(time));
+                Assert.That(result, Does.Contain(year));
+                Assert.That(result, Does.Contain(month));
+                Assert.That(result, Does.Contain(day));
                 Assert.That(result, Does.Contain(tag1));
                 Assert.That(result, Does.Contain(tag2));
             }
@@ -62,7 +53,7 @@ namespace AirTrafficMonitor.Tests
         //[TestCase("CC456", "11/20/2018 12:00:00", 63.14262, 12500, 80000, 10000 ,"Tag: CC456, Time: 11/20/2018 12:00:00 PM, NavigationCourse: 63.14262, Latitude: 12500, Longitude: 80000, Altitude: 10000\n\n")]
         public void ConsoleView_TestThatRenderCanPrint_ReturnTrue(string tag, string time, double nav, int lat, int lon, int alt, string outputstring)
         {
-            _fakeFlightTrack2 = new FlightTrack("CC456")
+            var fakeFlightTrack2 = new FlightTrack("CC456")
             {
                 LatestTime = DateTime.Parse(time),
                 NavigationCourse = nav,
