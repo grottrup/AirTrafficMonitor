@@ -92,7 +92,7 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            var formattedDate = string.Format(CultureInfo.InvariantCulture.EnglishName, LatestTime);
+            var formattedDate = LatestTime.ToString(CultureInfo.InvariantCulture);
             return $"[Tag: {Tag}, Time: {formattedDate}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
         }
     }
