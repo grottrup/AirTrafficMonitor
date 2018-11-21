@@ -13,15 +13,17 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        
-        public void Render(FlightTrack track)
-=======
+
+        //public void Render(FlightTrack track)
+        //{
+        //}
+
         public ConsoleView()
         {
         }
 
         public void Render(Tuple<IFlightTrack> track)
->>>>>>> master
+
         {
             string flight1Tag = track.Item1.Tag;
             DateTime flight1Time = track.Item1.LatestTime;
@@ -60,7 +62,7 @@ namespace AirTrafficMonitor.Infrastructure
             //Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(renderstr, Console.ForegroundColor = ConsoleColor.Red);
 
-           var timer = new EventTimer(5000);
+            var timer = new EventTimer(5000);
 
         }
     }

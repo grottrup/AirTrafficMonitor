@@ -32,13 +32,11 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-<<<<<<< HEAD
             _fakeTimer = Substitute.For<EventTimer>(5000);
             _fakeTracks = Substitute.For<List<FlightTrack>>();
             _fakeTrack = Substitute.For<FlightTrack>("AAAAA");
-=======
             _tracks = new List<IFlightTrack>();
->>>>>>> master
+
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
@@ -53,17 +51,16 @@ namespace AirTrafficMonitor.Tests
         {
             // Act
 
-<<<<<<< HEAD
+
             _fakeTrack = new FlightTrack("CC123")
             {
                 Position = new Position(20000, 20000, 19000),
                 LatestTime = DateTime.MinValue
             };
-=======
+
             var track = Substitute.For<IFlightTrack>();
             track.Position = new Position(20000, 20000, 19000);
             track.LatestTime = DateTime.MaxValue;
->>>>>>> master
 
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(_fakeTrack));
             
