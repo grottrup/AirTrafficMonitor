@@ -64,7 +64,7 @@ namespace AirTrafficMonitor.Tests
         {
             _fakeFlightTrack2 = new FlightTrack("CC456")
             {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU")), //CultureInfo.CreateSpecificCulture("eu-EU")
+                LatestTime = DateTime.Parse(time),
                 NavigationCourse = nav,
                 Position = new Position()
                 {
