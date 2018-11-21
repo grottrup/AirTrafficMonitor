@@ -75,5 +75,17 @@ namespace AirTrafficMonitor.Tests
                 Assert.That(result, Does.Contain(alt.ToString()));       
             }
         }
+
+        [Test]
+        public void RenderWithRed_WhenFlightEnterAirspace()
+        {
+            
+        }
+
+        [Test]
+        public void RenderWithGreen_WhenFlightLeavesAirspace()
+        {
+            
+        }
     }
 }
