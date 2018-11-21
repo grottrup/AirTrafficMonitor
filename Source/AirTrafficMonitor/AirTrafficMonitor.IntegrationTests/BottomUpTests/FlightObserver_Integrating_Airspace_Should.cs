@@ -24,25 +24,32 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
         private FlightObserver _sut;
 
         private ITransponderReceiver _fakeTransponder;
+        private ISeperationHandler _fakeSeperation;
 
         [SetUp]
         public void SetUp()
         {
             var fakeView = Substitute.For<IView>();
-            var fakeSeperation = Substitute.For<ISeperationHandler>();
             var fakeLogger = Substitute.For<Infrastructure.ILogger>();
+            _fakeSeperation = Substitute.For<ISeperationHandler>();
 
             var _factory = new FlightRecordFactory();
             _ssut_monitoredAirspace = new Airspace(90000, 10000, 20000, 500);
             _fakeTransponder = Substitute.For<ITransponderReceiver>();
             _ssut_flightRecordReceiver = new FlightRecordReceiver(_fakeTransponder, _factory);
-            _sut = new FlightObserver(_ssut_monitoredAirspace, _ssut_flightRecordReceiver, fakeView, fakeSeperation, fakeLogger);
+            _sut = new FlightObserver(_ssut_monitoredAirspace, _ssut_flightRecordReceiver, fakeView, _fakeSeperation, fakeLogger);
         }
 
-        [TestCase("AGJ063;39563;95000;16800;20181001160609975", "AGJ063", 39563, 95000, 16800)]
-        public void Something(string rawData, string expTag, int expLat, int expLong, int expAlt)
+        [TestCase("AGJ063;12000;50000;16800;20181001160609975", "AGJ063", 39563, 95000, 16800)]
+        public void WhenANewRecord_IsWithinAirspace_CallDetectCollision(string rawData, string expTag, int expLat, int expLong, int expAlt)
         {
-            
+            // ARRANGE
+            var transponderData = new List<string>();
+            transponderData.Add(rawData);
+
+            _fakeTransponder.TransponderDataReady += Raise.EventWith(_fakeTransponder, new RawTransponderDataEventArgs(transponderData));
+
+            _fakeSeperation.Received().DetectCollision(Arg.Any<List<FlightTrack>>());
         }
     }
 }

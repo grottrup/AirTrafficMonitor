@@ -49,7 +49,7 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void Call_CollisionDivider()
+        public void Call_DetectCollision()
         {
             // Arrange
             _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
