@@ -13,10 +13,10 @@ namespace AirTrafficMonitor.Tests.UnitTests
     class SeparationHandler_Should
     {
 
-        private List<FlightTrack> tracks;
+        private List<IFlightTrack> tracks;
         private List<Tuple<IFlightTrack, IFlightTrack>> flightsFlightInCollisionsDetected;
         private Tuple<IFlightTrack, IFlightTrack> flightsCollisionData;
-        private FlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
+        private IFlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
         private FlightRecordFactory record;
         private SeparationHandler separation;
         private ILogger _fakeLogger;
@@ -24,7 +24,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
-            tracks = new List<FlightTrack>();
+            tracks = new List<IFlightTrack>();
             flightsFlightInCollisionsDetected = new List<Tuple<IFlightTrack, IFlightTrack>>();
             record = new FlightRecordFactory();
             _fakeLogger = Substitute.For<ILogger>();
@@ -41,7 +41,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
             var record5 = record.CreateRecord("EEJ063;38563;90000;15800;20181001090605975");
             var record6 = record.CreateRecord("FFJ063;38563;90000;11800;20181001090609975");
 
-            FT1 = new FlightTrack(record1.Tag);
+            FT1 = new FlightTrack(record1.Tag); //TODO: don't make them here and mock it please
             FT2 = new FlightTrack(record2.Tag);
             FT3 = new FlightTrack(record3.Tag);
             FT4 = new FlightTrack(record4.Tag);
@@ -62,7 +62,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         [Test]
         public void horizontalcompare()
         {
-            tracks = new List<FlightTrack>() {FT1, FT2};
+            tracks = new List<IFlightTrack>() {FT1, FT2};
 
             separation.DetectCollision(tracks);
             // horizontial distance = 0

@@ -44,7 +44,7 @@ namespace AirTrafficMonitor.Infrastructure
             return 0;
         }
 
-        public void DetectCollision(List<FlightTrack> tracks)
+        public void DetectCollision(List<IFlightTrack> tracks)
         {
             if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) // TODO dont use magic numbers!!!!! :<
             {
