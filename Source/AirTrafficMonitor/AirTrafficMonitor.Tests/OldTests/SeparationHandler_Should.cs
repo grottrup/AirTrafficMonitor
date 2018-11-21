@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
@@ -13,8 +14,8 @@ namespace AirTrafficMonitor.Tests.UnitTests
     {
 
         private List<FlightTrack> tracks;
-        private List<FlightInCollision> flightsFlightInCollisionsDetected;
-        private FlightInCollision flightsCollisionData;
+        private List<Tuple<IFlightTrack, IFlightTrack>> flightsFlightInCollisionsDetected;
+        private Tuple<IFlightTrack, IFlightTrack> flightsCollisionData;
         private FlightTrack FT1, FT2, FT3, FT4, FT5, FT6;
         private FlightRecordFactory record;
         private SeparationHandler separation;
@@ -24,7 +25,7 @@ namespace AirTrafficMonitor.Tests.UnitTests
         public void SetUp()
         {
             tracks = new List<FlightTrack>();
-            flightsFlightInCollisionsDetected = new List<FlightInCollision>();
+            flightsFlightInCollisionsDetected = new List<Tuple<IFlightTrack, IFlightTrack>>();
             record = new FlightRecordFactory();
             _fakeLogger = Substitute.For<ILogger>();
             separation = new SeparationHandler(_fakeLogger);

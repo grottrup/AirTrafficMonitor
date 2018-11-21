@@ -26,7 +26,6 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<Airspace>();
             base.AddClass<FlightTrack>();
             base.AddClass<FlightRecord>();
-            base.AddClass<FlightInCollision>();
             base.AddClass<FlightRecordFactory>();
 
             // ACL
