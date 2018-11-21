@@ -41,9 +41,9 @@ namespace AirTrafficMonitor.Tests
                 _uut.RenderCollision(ff);
                 var result = ConsoleOutput.GetOutput();
                 Assert.That(result, Does.Contain("Collision").IgnoreCase);
-                Assert.That(result, Does.Contain(year));
-                Assert.That(result, Does.Contain(month));
-                Assert.That(result, Does.Contain(day));
+                Assert.That(result, Does.Contain(year.ToString()));
+                Assert.That(result, Does.Contain(month.ToString()));
+                Assert.That(result, Does.Contain(day.ToString()));
                 Assert.That(result, Does.Contain(tag1));
                 Assert.That(result, Does.Contain(tag2));
             }
