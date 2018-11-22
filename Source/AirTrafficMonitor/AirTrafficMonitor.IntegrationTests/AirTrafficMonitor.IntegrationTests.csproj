@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BottomUpTests\AirspaceEventHandler_Integrating_ConsoleView_DependingOn_FlightTracks_Should.cs" />
+    <Compile Include="BottomUpTests\AirspaceEventHandler_Integrating_Logger.cs" />
     <Compile Include="BottomUpTests\FlightObserver_Integrating_Airspace_Should.cs" />
     <Compile Include="BottomUpTests\FlightRecordReceiver_Integrating_FlightRecordFactory_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
