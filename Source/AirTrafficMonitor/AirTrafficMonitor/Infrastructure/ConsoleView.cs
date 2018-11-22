@@ -43,7 +43,7 @@ namespace AirTrafficMonitor.Infrastructure
             
             Console.WriteLine("Warning, two planes are currently on collision course! \n Plane Tag: {0}, Plane Tag: {1} and Time: {2}\n", flight1, flight2, timeFlight);
         }
-
+    
         public void RenderWithGreenTillTimerEnds(string renderstr)
         {
         
