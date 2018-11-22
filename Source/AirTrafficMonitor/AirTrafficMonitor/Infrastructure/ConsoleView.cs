@@ -15,19 +15,20 @@ namespace AirTrafficMonitor.Infrastructure
     public class ConsoleView : IView
     {
         private ISeperationHandler _handler;
+        private ILogger _logger;
 
 
-        public ConsoleView(ISeperationHandler handler)
+        public ConsoleView(ISeperationHandler handler, ILogger logger)
         {
             _handler = handler;
+            _logger = logger;
             _handler.FlightsInProximity += FlightsInCollision; //FlightInProximity event
         }
         
         private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
               this.RenderCollision(e.ProximityList);
-            
-            
+              this._logger.DataLog(e.ProximityList);  
         }
 
         //public void DelayTimer()

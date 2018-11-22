@@ -31,9 +31,7 @@ namespace AirTrafficMonitor.Infrastructure
             int flight2Lat = flightsInCollision.Item2.Position.Latitude;
             int flight2Lon = flightsInCollision.Item2.Position.Longitude;
             int flight2Alt = flightsInCollision.Item2.Position.Altitude;
-            
-            //string flight2 = flightsInCollision.ToString();
-            //string flight2 = flightsInCollision.ToString();
+           
 
             if (!File.Exists(Path))
             {
