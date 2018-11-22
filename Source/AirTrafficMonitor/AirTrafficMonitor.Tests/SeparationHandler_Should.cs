@@ -66,7 +66,7 @@ namespace AirTrafficMonitor.Tests
             //_fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
             
             //Assert
-            _fakeView.RenderCollision(lol);
+            //_fakeView.RenderCollision(lol);
         }
     }
 }
