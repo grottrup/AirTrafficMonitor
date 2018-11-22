@@ -27,7 +27,6 @@ namespace AirTrafficMonitor.Infrastructure
         {
               this.RenderCollision(e.ProximityList);
             
-            
         }
 
         //public void DelayTimer()

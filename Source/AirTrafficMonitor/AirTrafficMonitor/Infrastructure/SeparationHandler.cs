@@ -8,15 +8,13 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {
-        //private List<FlightTrack> ProximityList;
         private Tuple<IFlightTrack, IFlightTrack> ProximityList;
-        private readonly ILogger _logger;
 
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
 
-        public SeparationHandler(ILogger logger)
+        public SeparationHandler()
         {
-            _logger = logger; //We do not use the logger. Is it neccessary in the constructor?
+           
         }
 
         //Eventhandler
