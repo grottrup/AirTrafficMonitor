@@ -25,7 +25,7 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
         {
             _fakeSeparationHandler = Substitute.For<ISeperationHandler>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _ssut_view = new ConsoleView(_fakeSeparationHandler);
+            _ssut_view = new ConsoleView();
             _sut = new AirspaceEventHandler(_fakeFlightObserver, _ssut_view);
         }
 

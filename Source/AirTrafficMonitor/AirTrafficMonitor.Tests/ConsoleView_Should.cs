@@ -18,7 +18,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void Setup()
         {
-            _uut = new ConsoleView(_fakeSeparationHandler);
+            _uut = new ConsoleView();
         }
        
 

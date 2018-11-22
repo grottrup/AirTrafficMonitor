@@ -9,9 +9,20 @@ namespace AirTrafficMonitor.Infrastructure
     public class SeparationHandler : ISeperationHandler
     {
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
+        private ILogger _logger;
+        private IView _view;
 
-        public SeparationHandler()
+
+        public SeparationHandler(ILogger logger, IView view)
         {
+            _logger = logger;
+            _view = view;
+            FlightsInProximity += RenderAndLog;
+        }
+        private void RenderAndLog(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        {
+            _view.RenderCollision(e.proximityTracks);
+            _logger.DataLog(e.proximityTracks);
         }
 
         public void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks)
@@ -22,7 +33,6 @@ namespace AirTrafficMonitor.Infrastructure
                 {
                     var args = new FlightInProximityEventArgs(tracks);
                     FlightsInProximity?.Invoke(this, args);
-
                 }
             }
         }
