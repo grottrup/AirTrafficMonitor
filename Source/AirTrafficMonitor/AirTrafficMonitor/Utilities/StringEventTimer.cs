@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
-using NPlant.Console;
 
 namespace AirTrafficMonitor.Utilities
 {
-    public class StringEventTimer: Timer, ITimer
+    public class StringEventTimer: ITimer
     {
         private Timer _timer;
         private string _strToHandle;
