@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirspaceEvent_Should.cs" />
+    <Compile Include="CostumeConsole_Should.cs" />
     <Compile Include="SeparationHandler_Should.cs" />
     <Compile Include="AntiCorruptionLayerTests\FlightRecordReceiver_Should.cs" />
     <Compile Include="FlightObserver_Should.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="AntiCorruptionLayerTests\FlightRecordFactory_Should.cs" />
     <Compile Include="ConsoleView_Should.cs" />
     <Compile Include="OldTests\SeparationHandler_Should.cs" />
+    <Compile Include="StringEventTimer_Should.cs" />
     <Compile Include="TrackListRecordSorter_Should.cs" />
   </ItemGroup>
   <ItemGroup>
