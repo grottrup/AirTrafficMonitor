@@ -26,7 +26,7 @@ namespace AirTrafficMonitor.Tests
         }
 
         [TestCase(5000,"render this")]
-        public void some_test(int timer, string renderstr)
+        public void StringEventTimer_Is_Triggered(int timer, string renderstr)
         {
             _uut = new StringEventTimer(timer, renderstr);
             _uut.Elapsed += _fakeTimerSub.CountTheEvent;
@@ -38,7 +38,7 @@ namespace AirTrafficMonitor.Tests
         }
 
         [TestCase(5000, "render this")]
-        public void some_test1(int timer, string renderstr)
+        public void StringEventTimer_Is_Not_Triggered_Before_Time(int timer, string renderstr)
         {
             _uut = new StringEventTimer(timer, renderstr);
             _uut.Elapsed += _fakeTimerSub.CountTheEvent;
