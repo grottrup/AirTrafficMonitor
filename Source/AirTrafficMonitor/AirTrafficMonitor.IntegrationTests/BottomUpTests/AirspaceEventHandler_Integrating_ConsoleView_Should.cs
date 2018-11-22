@@ -84,7 +84,7 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
             using (var consoleOutput = new ConsoleOutput())
             {
 
-                _ssut_view.RenderWithRedTillTimerEnds(fakeFlightTrack1);
+                _ssut_view.AddToRenderWithColor(fakeFlightTrack1);
                 var result = ConsoleOutput.GetOutput();
                 Assert.That(result, Does.Contain("enter").IgnoreCase);
                 Assert.That(result, Does.Contain(year.ToString()));

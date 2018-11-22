@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
@@ -43,7 +44,7 @@ namespace AirTrafficMonitor.Tests
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
             
 
-            _fakeView.Received().RenderWithRedTillTimerEnds(fakeFlightTrack);
+            _fakeView.Received().AddToRenderWithColor(fakeFlightTrack);
         }
 
         [TestCase("BB123", 2018,1,1)]
@@ -70,6 +71,29 @@ namespace AirTrafficMonitor.Tests
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
            
             _fakeTimer.Received();
+        }
+
+        [TestCase("AA123", 2018, 1, 1)]
+        public void timer_OnTimerEvent(string tag, int year, int month, int day)
+        {
+            var fakeFlightTrack = Substitute.For<IFlightTrack>();
+            fakeFlightTrack.Tag.Returns(tag);
+            fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
+
+            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
+
+            var fakeTimer = Substitute.For<ITimer>();
+
+            
+            var currentConsoleOut = Console.Out;
+
+            using (var consoleOutput = new ConsoleOutput())
+            {
+
+
+                var result = ConsoleOutput.GetOutput();
+                Assert.That(result, Does.Contain("Timer").IgnoreCase);
+            }
         }
 
     }

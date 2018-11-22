@@ -1,5 +1,6 @@
 
 using System;
+using System.Timers;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Utilities;
 
@@ -11,7 +12,8 @@ namespace AirTrafficMonitor.Infrastructure
         void Render(Tuple<IFlightTrack> track);
         void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision);
         void RenderWithGreenTillTimerEnds(IFlightTrack track);
-        void RenderWithRedTillTimerEnds(IFlightTrack track);
+        void AddToRenderWithColor(string toRender, ConsoleColor color);
 
+        ElapsedEventHandler RemoveFromView(IFlightTrack flightTrack);
     }
 }

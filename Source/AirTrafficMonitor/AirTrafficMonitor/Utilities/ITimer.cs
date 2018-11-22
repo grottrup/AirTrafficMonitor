@@ -10,6 +10,7 @@ namespace AirTrafficMonitor.Utilities
 {
    public interface ITimer
    {
-     
-   }
+       double TimePassed { get; set; }
+       event System.Timers.ElapsedEventHandler Elapsed;
+    }
 }

@@ -13,12 +13,9 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
+        private ICollection<Tuple<string, ConsoleColor>> thingsToRender;
 
-        //public void Render(FlightTrack track)
-        //{
-        //}
-
-        public ConsoleView()
+        public ConsoleView(ITimer time)
         {
         }
 
@@ -52,18 +49,18 @@ namespace AirTrafficMonitor.Infrastructure
             Console.WriteLine("Flight: " + track.Tag + " left airspace at: " + track.LatestTime + "", Console.ForegroundColor = ConsoleColor.Green);
 
             var timer = new EventTimer(5000);
-
+            
 
         }
 
-        public void RenderWithRedTillTimerEnds(IFlightTrack track)
+        public void AddToRenderWithColor(string toRender, ConsoleColor color)
         {
+            Console.WriteLine(toRender, Console.ForegroundColor = color);
+        }
 
-            //Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Flight: " + track.Tag + " entered airspace at: " + track.LatestTime + "", Console.ForegroundColor = ConsoleColor.Red);
-
-            var timer = new EventTimer(5000);
-
+        public ElapsedEventHandler RemoveFromView(IFlightTrack flightTrack)
+        {
+            throw new NotImplementedException();
         }
     }
 }
