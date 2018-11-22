@@ -34,7 +34,7 @@ namespace AirTrafficMonitor.IntegrationTests.TopTests
             _fakeMonitoredAirspace = Substitute.For<IAirspace>();
             _fakeTransponder = Substitute.For<ITransponderReceiver>();
             _ssut_flightRecordReceiver = new FlightRecordReceiver(_fakeTransponder, _factory);
-            _sut = new FlightObserver(_fakeMonitoredAirspace, _ssut_flightRecordReceiver, fakeView, fakeSeperation, fakeLogger);
+            _sut = new FlightObserver(_fakeMonitoredAirspace, _ssut_flightRecordReceiver, fakeView, fakeSeperation);
         }
 
         [TestCase("AGJ063;39563;95000;16800;20181001160609975", "AGJ063", 39563, 95000, 16800)]

@@ -1,6 +1,7 @@
 ﻿using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
+using AirTrafficMonitor.Utilities;
 using NPlant;
 
 namespace AirTrafficMonitor.Diagram
@@ -28,6 +29,9 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<FlightTrack>();
             base.AddClass<FlightRecord>();
             base.AddClass<FlightRecordFactory>();
+
+            // Util
+            base.AddClass<StringEventTimer>();
 
             // ACL
             base.AddClass<FlightRecordEventArgs>();

@@ -13,20 +13,20 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        private ICollection<Tuple<string, ConsoleColor>> _thingsToRender;
+        public ICollection<Tuple<string, ConsoleColor>> ThingsToRender { get; }
         private IConsole _console;
 
         public ConsoleView(IConsole console)
         {
             _console = console;
-            _thingsToRender = new List<Tuple<string, ConsoleColor>>();
+            ThingsToRender = new List<Tuple<string, ConsoleColor>>();
         }
 
         public void AddToRenderWithColor(string toRender, ConsoleColor color)
         {
-            lock (_thingsToRender)
+            lock (ThingsToRender)
             {
-                _thingsToRender.Add(new Tuple<string, ConsoleColor>(toRender, color));
+                ThingsToRender.Add(new Tuple<string, ConsoleColor>(toRender, color));
             }
             RenderWithColor(color);
         }
@@ -34,9 +34,9 @@ namespace AirTrafficMonitor.Infrastructure
         private void RenderWithColor(ConsoleColor color)
         {
             _console.Clear();
-            lock (_thingsToRender)
+            lock (ThingsToRender)
             {
-                foreach (var renderThis in _thingsToRender)
+                foreach (var renderThis in ThingsToRender)
                 {
                     Console.WriteLine(renderThis.Item1, Console.ForegroundColor = renderThis.Item2);
                 }
@@ -45,13 +45,13 @@ namespace AirTrafficMonitor.Infrastructure
 
         public void RemoveFromRender(string preciseStringToRemove)
         {
-            lock (_thingsToRender)
+            lock (ThingsToRender)
             {
-                foreach (var renderThis in _thingsToRender)
+                foreach (var renderThis in ThingsToRender)
                 {
                     if (renderThis.Item1.Equals(preciseStringToRemove))
                     {
-                        _thingsToRender.Remove(renderThis);
+                        ThingsToRender.Remove(renderThis);
                         break;
                     }
                 }

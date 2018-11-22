@@ -26,9 +26,8 @@ namespace AirTrafficMonitor.Tests
             _fakeView = Substitute.For<IView>();
             _fakeSeperation = Substitute.For<ISeperationHandler>();
             _fakeFlight = Substitute.For<IFlightRecordReceiver>();
-            _fakeLogger = Substitute.For<ILogger>();
             _fakeMonitoredAirspace = Substitute.For<IAirspace>();
-            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
+            _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation);
         }
 
         //[Test]
