@@ -21,6 +21,9 @@
         <ClassMask>AirTrafficMonitor.Tests.*</ClassMask>
       </FilterEntry>
       <FilterEntry>
+        <ClassMask>AirTrafficMonitor.Utilities.CustomConsole</ClassMask>
+      </FilterEntry>
+      <FilterEntry>
       	<ModuleMask>nunit.framework</ModuleMask>
       </FilterEntry>
     </ExcludeFilters>
