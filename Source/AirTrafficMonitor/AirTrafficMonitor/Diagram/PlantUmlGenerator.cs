@@ -20,6 +20,7 @@ namespace AirTrafficMonitor.Diagram
             base.AddClass<SeparationHandler>();
             base.AddClass<Logger>();
             base.AddClass<ConsoleView>();
+            base.AddClass<AirspaceEventHandler>();
             
             // Domain
             base.AddClass<Position>();
