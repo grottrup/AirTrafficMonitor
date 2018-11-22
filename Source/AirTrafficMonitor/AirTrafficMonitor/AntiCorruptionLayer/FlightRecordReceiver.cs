@@ -30,5 +30,3 @@ namespace AirTrafficMonitor.AntiCorruptionLayer
         }
     }
 }
-//TODO: Mock ITransponderReceiver ud
-//TODO: 

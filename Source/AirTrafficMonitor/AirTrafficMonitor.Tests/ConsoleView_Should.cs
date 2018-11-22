@@ -18,7 +18,8 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void Setup()
         {
-            _uut = new ConsoleView();  
+            var fakeConsole = Substitute.For<IConsole>();
+            _uut = new ConsoleView(fakeConsole);
         }
        
         [TestCase("AA123", "BB123", 2018, 11, 20)]
