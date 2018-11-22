@@ -19,90 +19,66 @@ namespace AirTrafficMonitor.Tests
     public class Logger_Should
     {
         private Logger _uut;
-        private IFlightTrack _fakeFlightTrack;
-        private IFlightTrack _fakeFlightTrack1;
         
         [SetUp]
         public void Setup()
         {
             _uut = new Logger();
-            _fakeFlightTrack = Substitute.For<FlightTrack>("AA123");
-            _fakeFlightTrack1 = Substitute.For<FlightTrack>("BB123");
-            
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            File.Delete("DataLog.txt");
         }
 
         [Test]
-        //TestKomponent -> Scenarie -> Forventning
         public void LogFile_WriteFileDoesntExist_ReturnTrue()
         {
             string path = @"DataLog.txt";
 
-            //Sletter og asserter
-            File.Delete("DataLog.txt");
             Assert.IsFalse(File.Exists(path));
 
-            //Kalder og asserter.
             //_uut.DataLog("Test");
             //Assert.IsTrue(File.Exists(path));
         }
 
-        [TestCase("CC456", "DD789", "11/20/2018", "11/20/2018", 63.14262, 64.52742, 12300, 12500, 79000, 80000, 11000, 10000)]
-        public void LogFile_WriteFileDoesExist_ReturnTrue_Real(string tag1, string tag2, string time, string time2, double nav, double nav2, int lat, int lat2, int lon, int lon2, int alt, int alt2)
+        [TestCase("CC456", "DD789", 2018, 11, 22, 2018, 11, 22, 63.14262, 64.52742, 12300, 12500, 79000, 80000, 11000, 10000)]
+        public void LogFile_WriteFileDoesExist_ReturnTrue_Real(string tag1, string tag2, int year, int month, int day, int year2, int month2, int day2, double nav, double nav2, int lat, int lat2, int lon, int lon2, int alt, int alt2)
         {
-            _fakeFlightTrack = new FlightTrack("AA123")
-            {
-                LatestTime = DateTime.Parse(time, CultureInfo.CreateSpecificCulture("eu-EU")),
-                NavigationCourse = nav,
-                Position = new Position()
-                {
-                    Latitude = lat,
-                    Longitude = lon,
-                    Altitude = alt,
-                },
-                Tag = tag1,
-            };
+            IFlightTrack fakeFlightTrack = Substitute.For<IFlightTrack>();
+            fakeFlightTrack.Tag.Returns(tag1);
+            fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
+            fakeFlightTrack.NavigationCourse.Returns(nav);
+            fakeFlightTrack.Position.Returns(new Position(lat, lon, alt));
             
-            _fakeFlightTrack1 = new FlightTrack("BB123")
-            {
-                LatestTime = DateTime.Parse(time2, CultureInfo.CreateSpecificCulture("eu-EU")),
-                NavigationCourse = nav2,
-                Position = new Position()
-                {
-                    Latitude = lat2,
-                    Longitude = lon2,
-                    Altitude = alt2,
-                },
-                Tag = tag2,
-            };
+            IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack.Tag.Returns(tag2);
+            fakeFlightTrack.LatestTime.Returns(new DateTime(year2, month2, day2));
+            fakeFlightTrack.NavigationCourse.Returns(nav2);
+            fakeFlightTrack.Position.Returns(new Position(lat2, lon2, alt2));
             
-            Tuple<IFlightTrack, IFlightTrack> wf = new Tuple<IFlightTrack, IFlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
+            Tuple<IFlightTrack, IFlightTrack> wf = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack, fakeFlightTrack1);
             
             string path = @"DataLog.txt";
             
-            File.Delete("DataLog.txt");
-            _uut.DataLog(wf);
+            _uut.DataLog("wf");
             var writeFileDoesExist = (File.Exists(path));
 
-            Assert.That(writeFileDoesExist, Is.EqualTo(true));
+            Assert.That(writeFileDoesExist, Is.True);
             
         }
         
         
         [Test]
-        //TestKomponent -> Scenarie -> Forventning
         public void LogFile_WriteFileDoesExist_ReturnTrue()
         {
             string path = @"DataLog.txt";
             
-            File.Delete("DataLog.txt");
             _uut.DataLog("Test Besked");
             var writeFileDoesExist = (File.Exists(path));
 
-            Assert.That(writeFileDoesExist, Is.EqualTo(true));
-        }
-        
-        //[Test]
-        //TODO: public void LogFile_LogNewEvent_ReturnString()
-        
+            Assert.That(writeFileDoesExist, Is.True);
+        } 
     }
 }
