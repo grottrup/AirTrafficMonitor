@@ -13,19 +13,23 @@ namespace AirTrafficMonitor.Infrastructure
         private IView _view;
         private ILogger _logger;
 
-        public AirspaceEventHandler(IFlightObserver flightsInAirspaceSubject, IView view, ILogger logger)
+        public AirspaceEventHandler(IFlightObserver flightsInAirspaceSubject, IView view, ILogger logger, ISeperationHandler seperationHandler)
         {
             _flightsInAirspaceSubject = flightsInAirspaceSubject;
             _view = view;
+            _seperationHandler = seperationHandler;
             _flightsInAirspaceSubject.EnteredAirspace += EnterAirspaceEvent;
             _flightsInAirspaceSubject.LeftAirspace += LeftAirspaceEvent;
-            _seperationHandler.FlightsInProximity += RenderDangerOfProximity;
+            _seperationHandler.FlightsInProximity += DangerOfProximityEvent;
         }
 
-        private void RenderDangerOfProximity(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        private void DangerOfProximityEvent(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
-            _view.AddToRenderWithColor($"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}", ConsoleColor.Red);
+            var renderStr = $"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}";
+            _view.AddToRenderWithColor(renderStr, ConsoleColor.Red);
             _logger.DataLog(e.proximityTracks);
+            var timer = new StringEventTimer(5000, renderStr);
+            timer.Elapsed += StopShowingAirspaceEvent;
         }
 
         private void EnterAirspaceEvent(object sender, FlightTrackEventArgs e)

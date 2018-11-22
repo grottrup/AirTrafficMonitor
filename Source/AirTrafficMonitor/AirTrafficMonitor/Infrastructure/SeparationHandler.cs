@@ -17,12 +17,6 @@ namespace AirTrafficMonitor.Infrastructure
         {
             _logger = logger;
             _view = view;
-            FlightsInProximity += RenderDangerOfProximity;
-        }
-        private void RenderDangerOfProximity(object sender, FlightInProximityEventArgs e) //FlightInProximity event
-        {
-            _view.AddToRenderWithColor($"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}", ConsoleColor.Red);
-            _logger.DataLog(e.proximityTracks);
         }
 
         public void DetectCollision(ICollection<IFlightTrack> tracks)
