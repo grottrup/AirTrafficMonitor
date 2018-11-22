@@ -9,7 +9,6 @@ using AirTrafficMonitor.Utilities;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using ILogger = Castle.Core.Logging.ILogger;
 
 namespace AirTrafficMonitor.Tests
 {
@@ -47,15 +46,27 @@ namespace AirTrafficMonitor.Tests
 
         }
 
+
+        [TestCase(5000, "render this")]
+        public void StringEventTimer_HandleString(int timer, string renderstr)
+        {
+            _uut = new StringEventTimer(timer, renderstr);
+            _uut.Elapsed += _fakeTimerSub.CountTheEvent;
+
+            System.Threading.Thread.Sleep(6000);
+            Assert.That(_fakeTimerSub.renderstr, Is.EqualTo(renderstr));
+
+        }
+
     }
 
     public class FakeTimerSub
     {
         public int EventCounter = 0;
-
-        //testing of event by a subscriber that we can call .Recieved on
+        public string renderstr = null;
         public void CountTheEvent(object source, ElapsedEventArgsWithString e)
         {
+            renderstr = e.StringToHandle;
             EventCounter++;
         }
     }
