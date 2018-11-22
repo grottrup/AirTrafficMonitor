@@ -1,4 +1,6 @@
-﻿namespace AirTrafficMonitor.Infrastructure
+﻿using AirTrafficMonitor.Domain;
+
+namespace AirTrafficMonitor.Infrastructure
 {
     public class AirspaceEventHandler
     {
@@ -14,16 +16,17 @@
         }
 
         private void EnterAirspaceEvent(object sender,FlightTrackEventArgs e)
-        {
+        { 
+
                 var flightUpdate = e.FlightTrack;
-                _view.RenderWithRedTillTimerEnds("Flight: "+flightUpdate.Tag+" entered airspace at: "+flightUpdate.LatestTime+"");
+                _view.RenderWithRedTillTimerEnds(flightUpdate);
               
         }
 
         private void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
             var flightUpdate = e.FlightTrack;
-            _view.RenderWithGreenTillTimerEnds("Flight: "+flightUpdate.Tag+" left airspace at: "+flightUpdate.LatestTime+"");
+            _view.RenderWithGreenTillTimerEnds(flightUpdate);
         }
     }
 }

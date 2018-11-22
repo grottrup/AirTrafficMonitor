@@ -10,8 +10,8 @@ namespace AirTrafficMonitor.Infrastructure
     {
         void Render(Tuple<IFlightTrack> track);
         void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision);
-        void RenderWithGreenTillTimerEnds(string renderstr);
-        void RenderWithRedTillTimerEnds(string renderstr);
+        void RenderWithGreenTillTimerEnds(IFlightTrack track);
+        void RenderWithRedTillTimerEnds(IFlightTrack track);
 
     }
 }
