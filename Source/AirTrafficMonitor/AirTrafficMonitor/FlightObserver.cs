@@ -42,7 +42,7 @@ namespace AirTrafficMonitor
                 if (existingTrack) // already in list
                 {
                     updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                    //_view.AddToRenderWithColor(updatedTrack.ToString(), ConsoleColor.Yellow);
+                    _view.AddToRenderWithColor(updatedTrack.ToString(), ConsoleColor.Yellow);
                 }
                 else  {
                     updatedTrack = _tracks.SortRecordByTag(flightUpdate);
