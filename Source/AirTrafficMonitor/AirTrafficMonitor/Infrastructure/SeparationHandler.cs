@@ -21,52 +21,53 @@ namespace AirTrafficMonitor.Infrastructure
         }
         private void RenderAndLog(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
-            _view.RenderCollision(e.proximityTracks);
+            _view.AddToRenderWithColor($"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}", ConsoleColor.Red);
             _logger.DataLog(e.proximityTracks);
         }
 
-        public void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks)
+        public void DetectCollision(ICollection<IFlightTrack> tracks)
         {
-            if (WithinTimespan(tracks))//checks if new FlightTrack update is close to any other flight.
+            foreach (var track1 in tracks)
             {
-                if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) //checks if new FlightTrack update is too close to any other flight
+                foreach (var track2 in tracks)
                 {
-                    var args = new FlightInProximityEventArgs(tracks);
-                    FlightsInProximity?.Invoke(this, args);
+                    if (IsInCloseAirspace(track1, track2) && WithinTimespan(track1, track2))
+                    {
+                        var args = new FlightInProximityEventArgs(new Tuple<IFlightTrack, IFlightTrack>(track1, track2));
+                        FlightsInProximity?.Invoke(this, args);
+                    }
                 }
             }
+            
         }
 
-        public bool WithinTimespan(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update is close to any other flight.
+        private bool IsInCloseAirspace(IFlightTrack track1, IFlightTrack track2)
         {
-            TimeSpan interval = new TimeSpan(0, 2, 0);
+            var altitudeMeter = 300;
+            var horizontitalPlaneMeter = 500;
+            return CalculateHorizontialDistance(track1, track2) < 5000 && CalculateVerticalDistance(track1, track2) < altitudeMeter;
+        }
 
-            if (tracks != null)
+        public bool WithinTimespan(IFlightTrack track1, IFlightTrack track2)
+        {
+            TimeSpan interval = new TimeSpan(0, 10, 0); // Magic numbers
+
+            if (track1.LatestTime - track2.LatestTime <= interval)
             {
-                if (tracks.Item1.LatestTime - tracks.Item2.LatestTime <= interval)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
-        public double CalculateHorizontialDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's position is too close to any other flight
+        public double CalculateHorizontialDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's position is too close to any other flight
         {
-            return Math.Round(Math.Abs(Math.Pow(tracks.Item1.Position.Latitude - tracks.Item2.Position.Latitude, 2)
-                                + Math.Pow(tracks.Item1.Position.Longitude - tracks.Item2.Position.Longitude, 2)));
+            return Math.Round(Math.Abs(Math.Pow(track1.Position.Latitude - track2.Position.Latitude, 2)
+                                + Math.Pow(track1.Position.Longitude - track2.Position.Longitude, 2)));
         }
 
-        public double CalculateVerticalDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's altitude is too close to any other flight
+        public double CalculateVerticalDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's altitude is too close to any other flight
         {
-            return Math.Abs(tracks.Item1.Position.Altitude - tracks.Item2.Position.Altitude);
+            return Math.Abs(track1.Position.Altitude - track2.Position.Altitude);
         }
     }
 }
