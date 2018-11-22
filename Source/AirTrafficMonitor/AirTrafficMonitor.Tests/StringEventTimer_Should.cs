@@ -9,7 +9,6 @@ using AirTrafficMonitor.Utilities;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using ILogger = Castle.Core.Logging.ILogger;
 
 namespace AirTrafficMonitor.Tests
 {
