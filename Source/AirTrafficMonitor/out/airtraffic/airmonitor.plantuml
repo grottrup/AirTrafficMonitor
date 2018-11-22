@@ -1,0 +1,112 @@
+@startuml
+    class "FlightObserver" {
+    }
+
+
+    class "SeparationHandler" {
+    }
+
+
+    class "Logger" {
+    }
+
+
+    class "ConsoleView" {
+    }
+
+
+    class "AirspaceEventHandler" {
+    }
+
+
+    class "Position" {
+    }
+
+
+    class "Airspace" {
+    }
+
+
+    class "FlightTrack" {
+    }
+
+
+    class "FlightRecord" {
+    }
+
+
+    class "FlightRecordFactory" {
+    }
+
+
+    class "FlightRecordReceiver" {
+    }
+
+
+    interface "IFlightTrack" {
+    }
+
+
+    interface "IView" {
+    +AddToRenderWithColor(String, ConsoleColor)
+    +RemoveFromRender(String)
+    }
+
+
+    interface "ILogger" {
+    +DataLog(String)
+    }
+
+
+    interface "ISeperationHandler" {
+    +DetectCollision(ICollection<IFlightTrack>)
+    }
+
+
+    interface "IFlightRecordReceiver" {
+    }
+
+
+    interface "IAirspace" {
+    +HasPositionWithinBoundaries(Position)
+    }
+
+
+    interface "IFlightObserver" {
+    }
+
+    interface "IFlightRecordFactory" {
+    +CreateRecord(String)
+    }
+
+
+    interface "ITransponderReceiver" {
+    }
+
+
+"FlightObserver" *-- "IFlightTrack" : Has Many \ntracks
+"FlightObserver" *-- "IView" : Has A \nview
+"FlightObserver" *-- "ISeperationHandler" : Has A \nhandler
+"FlightObserver" *-- "IFlightRecordReceiver" : Has A \nrecordReceiver
+"FlightObserver" *-- "IAirspace" : Has A \nmonitoredAirspace
+"FlightObserver" -up-|> "IFlightObserver" : Extends
+"SeparationHandler" *-- "ILogger" : Has A \nlogger
+"SeparationHandler" *-- "IView" : Has A \nview
+"SeparationHandler" -up-|> "ISeperationHandler" : Extends
+"Logger" -up-|> "ILogger" : Extends
+"ConsoleView" -up-|> "IView" : Extends
+"AirspaceEventHandler" *-- "IFlightObserver" : Has A \nflightsInAirspaceSubject
+"AirspaceEventHandler" *-- "ISeperationHandler" : Has A \nseperationHandler
+"AirspaceEventHandler" *-- "IView" : Has A \nview
+"AirspaceEventHandler" *-- "ILogger" : Has A \nlogger
+"Airspace" -up-|> "IAirspace" : Extends
+"FlightTrack" *-- "FlightRecord" : Has Many \nrecords
+"FlightTrack" *-- "Position" : Has A \nPosition
+"FlightTrack" -up-|> "IFlightTrack" : Extends
+"FlightRecord" *-- "Position" : Has A \nPosition
+"FlightRecordFactory" -up-|> "IFlightRecordFactory" : Extends
+"FlightRecordReceiver" *-- "ITransponderReceiver" : Has A \nreceiver
+"FlightRecordReceiver" *-- "IFlightRecordFactory" : Has A \nflightRecordFactory
+"FlightRecordReceiver" -up-|> "IFlightRecordReceiver" : Extends
+"IFlightTrack" *-- "Position" : Has A \nPosition
+@enduml

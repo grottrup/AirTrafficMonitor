@@ -20,12 +20,11 @@ namespace AirTrafficMonitor
         public event EventHandler<FlightTrackEventArgs> EnteredAirspace;
         public event EventHandler<FlightTrackEventArgs> LeftAirspace;
      
-        public FlightObserver(IAirspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
+        public FlightObserver(IAirspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler)
         {
 
             _recordReceiver = recordReceiver;
             _recordReceiver.FlightRecordReceived += UpdateFlightTracks;
-            _logger = logger;
             _view = view;
             _handler = handler;
             _tracks = new List<IFlightTrack>();
