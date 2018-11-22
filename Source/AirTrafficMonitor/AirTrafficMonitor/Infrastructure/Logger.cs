@@ -16,7 +16,7 @@ namespace AirTrafficMonitor.Infrastructure
             Path = path;
         }
         
-        public void DataLog(Tuple<FlightTrack, FlightTrack> flightsInCollision)
+        public void DataLog(Tuple<IFlightTrack, IFlightTrack> flightsInCollision)
         {
             string flight1Tag = flightsInCollision.Item1.Tag;
             DateTime flight1Time = flightsInCollision.Item1.LatestTime;

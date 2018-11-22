@@ -16,6 +16,7 @@ namespace AirTrafficMonitor.Infrastructure
     {
         private ISeperationHandler _handler;
 
+
         public ConsoleView(ISeperationHandler handler)
         {
             _handler = handler;
@@ -25,9 +26,11 @@ namespace AirTrafficMonitor.Infrastructure
         private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
               this.RenderCollision(e.ProximityList);
+            
+            
         }
 
-        public void DelayTimer()
+        //public void DelayTimer()
 
         //public void Render(FlightTrack track)
         //{
@@ -36,7 +39,6 @@ namespace AirTrafficMonitor.Infrastructure
         
 
         public void Render(Tuple<IFlightTrack> track)
-
         {
             string flight1Tag = track.Item1.Tag;
             DateTime flight1Time = track.Item1.LatestTime;

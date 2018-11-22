@@ -9,7 +9,7 @@ namespace AirTrafficMonitor.Infrastructure
     public class SeparationHandler : ISeperationHandler
     {
         //private List<FlightTrack> ProximityList;
-        private Tuple<FlightTrack, FlightTrack> ProximityList;
+        private Tuple<IFlightTrack, IFlightTrack> ProximityList;
         private readonly ILogger _logger;
 
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
@@ -27,7 +27,7 @@ namespace AirTrafficMonitor.Infrastructure
         }
 
         //Controller - Logic
-        public void DetectCollision(Tuple<FlightTrack, FlightTrack> tracks)
+        public void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks)
         {
             if (WithinTimespan(tracks))//checks if new FlightTrack update is close to any other flight.
             {
@@ -44,7 +44,7 @@ namespace AirTrafficMonitor.Infrastructure
             }
         }
 
-        public bool WithinTimespan(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update is close to any other flight.
+        public bool WithinTimespan(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update is close to any other flight.
         {   
             //for (int i = 0; i < tracks.Count - 1; i++)
             //{
@@ -69,7 +69,7 @@ namespace AirTrafficMonitor.Infrastructure
             //return false;
         }
 
-        public double CalculateHorizontialDistance(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update's position is too close to any other flight
+        public double CalculateHorizontialDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's position is too close to any other flight
         {
             //for (int i = 0; i < tracks.Count - 1; i++)
             //{
@@ -79,7 +79,7 @@ namespace AirTrafficMonitor.Infrastructure
             //return 0;
         }
 
-        public double CalculateVerticalDistance(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update's altitude is too close to any other flight
+        public double CalculateVerticalDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's altitude is too close to any other flight
         {
             //for (int i = 0; i < tracks.Count - 1; i++)
             //{
