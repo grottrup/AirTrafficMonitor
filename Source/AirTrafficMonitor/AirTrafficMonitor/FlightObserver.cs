@@ -49,7 +49,7 @@ namespace AirTrafficMonitor
                     var args = new FlightTrackEventArgs(updatedTrack);
                     EnteredAirspace?.Invoke(this, args);
                 }
-                _handler.DetectCollision(_tracks as Tuple<IFlightTrack, IFlightTrack>); // TODO: Handler needs to be more implementation agnostic                {
+                _handler.DetectCollision(_tracks);
                 _handler.DetectCollision(_tracks);
                 
             }

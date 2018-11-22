@@ -17,7 +17,7 @@ namespace AirTrafficMonitor.Infrastructure
         {
             _logger = logger;
             _view = view;
-            FlightsInProximity += RenderAndLog;
+            FlightsInProximity += RenderDangerOfProximity;
         }
         private void RenderDangerOfProximity(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
@@ -48,7 +48,7 @@ namespace AirTrafficMonitor.Infrastructure
             return CalculateHorizontialDistance(track1, track2) < 5000 && CalculateVerticalDistance(track1, track2) < altitudeMeter;
         }
 
-        public bool WithinTimespan(IFlightTrack track1, IFlightTrack track2)
+        private bool WithinTimespan(IFlightTrack track1, IFlightTrack track2)
         {
             TimeSpan interval = new TimeSpan(0, 0, 3); // 3 seconds
 
@@ -59,13 +59,13 @@ namespace AirTrafficMonitor.Infrastructure
             return false;
         }
 
-        public double CalculateHorizontialDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's position is too close to any other flight
+        private double CalculateHorizontialDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's position is too close to any other flight
         {
             return Math.Round(Math.Abs(Math.Pow(track1.Position.Latitude - track2.Position.Latitude, 2)
                                 + Math.Pow(track1.Position.Longitude - track2.Position.Longitude, 2)));
         }
 
-        public double CalculateVerticalDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's altitude is too close to any other flight
+        private double CalculateVerticalDistance(IFlightTrack track1, IFlightTrack track2) //checks if new FlightTrack update's altitude is too close to any other flight
         {
             return Math.Abs(track1.Position.Altitude - track2.Position.Altitude);
         }

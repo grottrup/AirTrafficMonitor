@@ -21,9 +21,10 @@ namespace AirTrafficMonitor.Tests
         {
             _fakeTimer = Substitute.For<ITimer>();
             _fakeView = Substitute.For<IView>();
+            var fakeLogger = Substitute.For<ILogger>();
 
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _uut = new AirspaceEventHandler(_fakeFlightObserver, _fakeView);
+            _uut = new AirspaceEventHandler(_fakeFlightObserver, _fakeView, fakeLogger);
         }
 
         [TestCase("CC123", 2018, 1, 1)]
