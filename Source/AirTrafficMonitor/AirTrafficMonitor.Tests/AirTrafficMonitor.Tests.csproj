@@ -71,6 +71,7 @@
     <Compile Include="AntiCorruptionLayerTests\FlightRecordFactory_Should.cs" />
     <Compile Include="ConsoleView_Should.cs" />
     <Compile Include="OldTests\SeparationHandler_Should.cs" />
+    <Compile Include="StringEventTimer_Should.cs" />
     <Compile Include="TrackListRecordSorter_Should.cs" />
   </ItemGroup>
   <ItemGroup>
