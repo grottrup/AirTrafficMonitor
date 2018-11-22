@@ -35,9 +35,9 @@ namespace AirTrafficMonitor.Tests
         [Test]
         public void LogFile_WriteFileDoesntExist_ReturnTrue()
         {
-            string path = @"DataLog.txt";
+            string fileName = "DataLog.txt";
 
-            Assert.IsFalse(File.Exists(path));
+            Assert.IsFalse(File.Exists(fileName));
 
             //_uut.DataLog("Test");
             //Assert.IsTrue(File.Exists(path));

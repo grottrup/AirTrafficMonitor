@@ -45,7 +45,7 @@ namespace AirTrafficMonitor.Tests
             _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
 
             // Assert
-            //_fakeView.Received().Render(Arg.Any<FlightTrack>()); //TODO: OSCAR YOU BROKE IT HEREB
+            //_fakeView.Received().Render(Arg.Any<FlightTrack>()); //
         }
 
         [Test]
