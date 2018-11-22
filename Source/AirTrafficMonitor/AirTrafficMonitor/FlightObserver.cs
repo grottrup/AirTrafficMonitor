@@ -47,9 +47,7 @@ namespace AirTrafficMonitor
                 else  {
                     updatedTrack = _tracks.SortRecordByTag(flightUpdate);
                     var args = new FlightTrackEventArgs(updatedTrack);
-
-              
-                        EnteredAirspace?.Invoke(this, args);
+                    EnteredAirspace?.Invoke(this, args);
                 }
                 _handler.DetectCollision(_tracks); // TODO: Handler needs to be more implementation agnostic                {
                 

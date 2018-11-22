@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Timers;
@@ -13,14 +14,26 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
+        private ISeperationHandler _handler;
+
+        public ConsoleView(ISeperationHandler handler)
+        {
+            _handler = handler;
+            _handler.FlightsInProximity += FlightsInCollision; //FlightInProximity event
+        }
+        
+        private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        {
+              this.RenderCollision(e.ProximityList);
+        }
+
+        public void DelayTimer()
 
         //public void Render(FlightTrack track)
         //{
         //}
 
-        public ConsoleView()
-        {
-        }
+        
 
         public void Render(Tuple<IFlightTrack> track)
 
