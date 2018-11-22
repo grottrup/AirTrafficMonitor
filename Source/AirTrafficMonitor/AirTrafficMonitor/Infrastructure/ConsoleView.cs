@@ -33,12 +33,6 @@ namespace AirTrafficMonitor.Infrastructure
 
         //public void DelayTimer()
 
-        //public void Render(FlightTrack track)
-        //{
-        //}
-
-        
-
         public void Render(Tuple<IFlightTrack> track)
         {
             string flight1Tag = track.Item1.Tag;

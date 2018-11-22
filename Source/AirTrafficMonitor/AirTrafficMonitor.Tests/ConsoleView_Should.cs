@@ -1,4 +1,5 @@
-﻿/*using System;
+﻿using System;
+using System.Globalization;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
@@ -13,15 +14,16 @@ namespace AirTrafficMonitor.Tests
     {
         private ConsoleView _uut;
         private ISeperationHandler _fakeSeparationHandler;
+        private ILogger _fakeLogger;
 
-        
         [SetUp]
         public void Setup()
         {
-            _uut = new ConsoleView(_fakeSeparationHandler);
+            //ILogger fakeLogger = Substitute.For<ILogger>();
+            //ISeperationHandler fakeSeperationHandler = Substitute.For<ISeperationHandler>();
+            _uut = new ConsoleView(_fakeSeparationHandler, _fakeLogger);  
         }
        
-
         [TestCase("AA123", "BB123", 2018, 11, 20)]
         public void RenderCollision_OfTwoFlightTracks(string tag1, string tag2, int year, int month, int day)
         {
@@ -36,11 +38,12 @@ namespace AirTrafficMonitor.Tests
             var currentConsoleOut = Console.Out;
             
             Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
-           
+            
+      
             using (var consoleOutput = new ConsoleOutput())
             {
-               
                 _uut.RenderCollision(ff);
+                
                 var result = ConsoleOutput.GetOutput();
                 Assert.That(result, Does.Contain("Collision").IgnoreCase);
                 Assert.That(result, Does.Contain(year.ToString()));
@@ -78,4 +81,4 @@ namespace AirTrafficMonitor.Tests
             }
         }
     }
-}*/
+}
