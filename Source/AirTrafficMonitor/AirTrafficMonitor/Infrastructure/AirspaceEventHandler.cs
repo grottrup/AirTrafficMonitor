@@ -22,17 +22,16 @@ namespace AirTrafficMonitor.Infrastructure
         {
 
             var flightUpdate = e.FlightTrack;
-            _view.AddToRenderWithColor("Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime, ConsoleColor.Red);
+            var renderStr = "Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime;
+            _view.AddToRenderWithColor(renderStr, ConsoleColor.Red);
             var timer = new EventTimer(5000);
-            timer.Elapsed += _view.RemoveFromView(flightUpdate);
+            timer.Elapsed += _view.RemoveFromView(renderStr);
         }
 
         private void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
             var flightUpdate = e.FlightTrack;
             _view.RenderWithGreenTillTimerEnds(flightUpdate);
-            var timer = new EventTimer(5000);
-            timer.Elapsed += _view.RemoveFromView(flightUpdate);
         }
     }
 }

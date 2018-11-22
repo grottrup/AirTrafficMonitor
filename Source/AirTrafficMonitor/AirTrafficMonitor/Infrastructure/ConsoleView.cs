@@ -13,10 +13,13 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        private ICollection<Tuple<string, ConsoleColor>> thingsToRender;
+        private ICollection<Tuple<string, ConsoleColor>> _thingsToRender;
+        private IConsole _console;
 
-        public ConsoleView(ITimer time)
+        public ConsoleView(IConsole console)
         {
+            _console = console;
+            _thingsToRender = new List<Tuple<string, ConsoleColor>>();
         }
 
         public void Render(Tuple<IFlightTrack> track)
@@ -55,10 +58,15 @@ namespace AirTrafficMonitor.Infrastructure
 
         public void AddToRenderWithColor(string toRender, ConsoleColor color)
         {
-            Console.WriteLine(toRender, Console.ForegroundColor = color);
+            _console.Clear();
+            _thingsToRender.Add(new Tuple<string, ConsoleColor>(toRender, color));
+            foreach (var renderThis in _thingsToRender)
+            {
+                Console.WriteLine(renderThis.Item1, Console.ForegroundColor = renderThis.Item2);
+            }
         }
 
-        public ElapsedEventHandler RemoveFromView(IFlightTrack flightTrack)
+        public ElapsedEventHandler RemoveFromView(string preciseStringToRemove)
         {
             throw new NotImplementedException();
         }

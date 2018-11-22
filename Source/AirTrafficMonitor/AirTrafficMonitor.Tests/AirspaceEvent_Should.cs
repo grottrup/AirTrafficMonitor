@@ -26,7 +26,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-            _fakeTimer = Substitute.For<EventTimer>(5000);
+            _fakeTimer = Substitute.For<ITimer>(5000);
             _fakeView = Substitute.For<IView>();
 
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
@@ -44,7 +44,7 @@ namespace AirTrafficMonitor.Tests
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
             
 
-            _fakeView.Received().AddToRenderWithColor(fakeFlightTrack);
+            _fakeView.Received().AddToRenderWithColor(Arg.Any<string>(), Arg.Any<ConsoleColor>());
         }
 
         [TestCase("BB123", 2018,1,1)]

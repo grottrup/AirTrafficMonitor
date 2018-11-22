@@ -74,6 +74,8 @@
     <Compile Include="Domain\IFlightTrack.cs" />
     <Compile Include="FlightTrackEventArgs.cs" />
     <Compile Include="IFlightObserver.cs" />
+    <Compile Include="Utilities\CustomConsole.cs" />
+    <Compile Include="Utilities\IConsole.cs" />
     <Compile Include="Infrastructure\ILogger.cs" />
     <Compile Include="Infrastructure\ISeperationHandler.cs" />
     <Compile Include="Infrastructure\Logger.cs" />
