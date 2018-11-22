@@ -51,7 +51,7 @@ namespace AirTrafficMonitor.Tests
             _fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
 
 
-            _fakeView.Received().RenderWithGreenTillTimerEnds(fakeFlightTrack);
+            _fakeView.Received().AddToRenderWithColor(Arg.Any<string>(), Arg.Any<ConsoleColor>());
         }
     }
 }
