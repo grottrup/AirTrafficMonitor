@@ -30,7 +30,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-            _aTimer = new EventTimer(5000); //five seconds
+            //_aTimer = new EventTimer(5000); //five seconds
             //_fakeTracks = Substitute.For<Tuple<FlightTrack, FlightTrack>>();
             _fakeView = Substitute.For<IView>();
             //_fakeAirspaceEventHandler = Substitute.For<AirspaceEventHandler>();
