@@ -27,7 +27,7 @@ namespace AirTrafficMonitor.Infrastructure
         //Controller - Logic
         public void DetectCollision(Tuple<FlightTrack, FlightTrack> tracks)
         {
-            if (IsTimeEqual(tracks))//checks if new FlightTrack update is equal to any other flight.
+            if (WithinTimespan(tracks))//checks if new FlightTrack update is close to any other flight.
             {
                 if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) //checks if new FlightTrack update is too close to any other flight
                 {
@@ -42,13 +42,15 @@ namespace AirTrafficMonitor.Infrastructure
             }
         }
 
-        public bool IsTimeEqual(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update is equal to any other flight.
-        {
+        public bool WithinTimespan(Tuple<FlightTrack, FlightTrack> tracks) //checks if new FlightTrack update is close to any other flight.
+        {   
             //for (int i = 0; i < tracks.Count - 1; i++)
             //{
+            TimeSpan interval = new TimeSpan(0, 2, 0);
+
             if (tracks != null)
             {
-                if (tracks.Item1.LatestTime == tracks.Item2.LatestTime)
+                if (tracks.Item1.LatestTime - tracks.Item2.LatestTime <= interval)
                 {
                     return true;
                 }
