@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,50 +47,42 @@ namespace AirTrafficMonitor.Tests
             fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec2));
             fakeFlightTrack2.Position.Returns(fake2);
 
-            var fakeTracks = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
+            List<IFlightTrack> tracks = new List<IFlightTrack>();
+            tracks.Add(fakeFlightTrack1);
+            tracks.Add(fakeFlightTrack2);
+            ICollection<IFlightTrack> fakeTracks = tracks;
 
-            Tuple<IFlightTrack, IFlightTrack> proximityTracks = null;
+            Tuple<IFlightTrack, IFlightTrack> result = null;
             _uut.FlightsInProximity += (sender, e) =>
             {
-                proximityTracks = e.proximityTracks;
+                result = e.proximityTracks;
             };
 
-            //// Act
-            //_uut.DetectCollision(fakeTracks);
-
-            //// Assert
-            //Assert.That(fakeTracks, Is.Not.Null);
-            //_fakeView.Received().RenderCollision(fakeTracks);
-            //_fakeLogger.Received().DataLog(fakeTracks);
-
-        }
-        /*
-        [TestCase("ABC123", "DEF456")]
-        public void DoNothing_WhenFlightTracksAreNull(string tag1, string tag2)
-        {
-
-            //Create 2 flighttracks colliding
-            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
-            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
-
-            var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
-            fakeFlightTrack1.Tag.Returns(tag1);
-            fakeFlightTrack1.LatestTime.Returns(DateTime.MaxValue);
-            fakeFlightTrack1.Position.Returns(fake1);
-
-            var fakeFlightTrack2 = Substitute.For<IFlightTrack>();
-            fakeFlightTrack2.Tag.Returns(tag2);
-            fakeFlightTrack2.LatestTime.Returns(DateTime.MinValue);
-            fakeFlightTrack2.Position.Returns(fake2);
-            
-            Tuple<IFlightTrack, IFlightTrack> fakeTracks = null;
-
+            Tuple<IFlightTrack, IFlightTrack> expectedResult = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack2, fakeFlightTrack1);
 
             // Act
             _uut.DetectCollision(fakeTracks);
 
             // Assert
-            //Assert.AreEqual(_uut.WithinTimespan(fakeTracks), false );
+            Assert.AreEqual(result, expectedResult);
+        }
+        /*
+        [TestCase("ABC123", "DEF456")]
+        public void DoNothing_WhenFlightTracksAreNull(string tag1, string tag2)
+        {
+            ICollection<IFlightTrack> fakeTracks = null;
+
+            Tuple<IFlightTrack, IFlightTrack> result = null;
+            _uut.FlightsInProximity += (sender, e) =>
+            {
+                result = e.proximityTracks;
+            };
+
+            // Act
+            _uut.DetectCollision(fakeTracks);
+
+            // Assert
+            Assert.That(result, Is.Null);
         }
         /*
         [TestCase("ABC123", "DEF456")]
