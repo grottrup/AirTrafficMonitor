@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AirTrafficMonitor.AntiCorruptionLayer;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
+using AirTrafficMonitor.Utilities;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -51,30 +52,6 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void RenderAnyTrackInTheMonitoredAirSpace()
-        {
-            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
-
-            var record = new FlightRecord()
-            {
-                Tag = "test flight",
-                Position = new Position(20000, 20000, 19000),
-                Timestamp = DateTime.MinValue
-            };
-
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-
-
-            IFlightTrack persistedArg = null;
-            _uut.LeftAirspace += (sender, e) => { persistedArg = e.FlightTrack; };
-
-            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(false);
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-
-            Assert.That(persistedArg, Is.Not.Null);
-        }
-
-        [Test]
         public void Not_RenderAnyTracksOutsideTheMonitoredAirSpace()
         {
             _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
@@ -97,6 +74,26 @@ namespace AirTrafficMonitor.Tests
             
             Assert.That(persistedArg, Is.Not.Null);
             
+        }
+
+        [Test]
+        public void TrackAllreadyExists_AddToRenderWithColor()
+        {
+            
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
+            
+            var record = new FlightRecord()
+            {
+                Tag = "AA123",
+                Position = new Position(20000, 20000, 19000),
+                Timestamp = DateTime.MinValue
+            };
+            
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+
+            _fakeView.Received().AddToRenderWithColor(Arg.Any<string>(), Arg.Any<ConsoleColor>());
+
         }
     }
 }
