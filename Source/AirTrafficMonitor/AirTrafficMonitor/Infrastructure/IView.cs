@@ -14,6 +14,6 @@ namespace AirTrafficMonitor.Infrastructure
         void RenderWithGreenTillTimerEnds(IFlightTrack track);
         void AddToRenderWithColor(string toRender, ConsoleColor color);
 
-        ElapsedEventHandler RemoveFromView(string preciseStringToRemove);
+        void RemoveFromRender(string preciseStringToRemove);
     }
 }

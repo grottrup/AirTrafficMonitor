@@ -75,6 +75,7 @@
     <Compile Include="FlightTrackEventArgs.cs" />
     <Compile Include="IFlightObserver.cs" />
     <Compile Include="Utilities\CustomConsole.cs" />
+    <Compile Include="Utilities\ElapsedEventArgsWithString.cs" />
     <Compile Include="Utilities\IConsole.cs" />
     <Compile Include="Infrastructure\ILogger.cs" />
     <Compile Include="Infrastructure\ISeperationHandler.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Domain\FlightTrack.cs" />
     <Compile Include="AntiCorruptionLayer\FlightRecordReceiver.cs" />
     <Compile Include="Utilities\ConsoleOutput.cs" />
-    <Compile Include="Utilities\EventTimer.cs">
+    <Compile Include="Utilities\StringEventTimer.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utilities\ITimerFactory.cs" />

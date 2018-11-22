@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Timers;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Utilities;
+using Microsoft.Win32;
 
 namespace AirTrafficMonitor.Infrastructure
 {
@@ -23,9 +25,14 @@ namespace AirTrafficMonitor.Infrastructure
 
             var flightUpdate = e.FlightTrack;
             var renderStr = "Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime;
-            _view.AddToRenderWithColor(renderStr, ConsoleColor.Red);
-            var timer = new EventTimer(5000);
-            timer.Elapsed += _view.RemoveFromView(renderStr);
+            _view.AddToRenderWithColor(renderStr, ConsoleColor.Cyan);
+            var timer = new StringEventTimer(5000, renderStr); //_view.RemoveFromRender(renderStr);
+            timer.Elapsed += StopShowingThatItEntered;
+        }
+
+        protected virtual void StopShowingThatItEntered(object sender, ElapsedEventArgsWithString e)
+        {
+            _view.RemoveFromRender(e.StringToHandle);
         }
 
         private void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)

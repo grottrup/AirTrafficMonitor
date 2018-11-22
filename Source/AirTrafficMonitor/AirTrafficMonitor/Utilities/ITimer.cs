@@ -8,9 +8,8 @@ using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Utilities
 {
-   public interface ITimer
-   {
-       double TimePassed { get; set; }
-       event System.Timers.ElapsedEventHandler Elapsed;
+    public interface ITimer
+    {
+        event EventHandler<ElapsedEventArgsWithString> Elapsed;
     }
 }

@@ -12,8 +12,11 @@ using NUnit.Framework.Internal;
 
 namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
 {
+    /// <summary>
+    /// Integration step 4
+    /// </summary>
     [TestFixture]
-    public class AirspaceEventHandler_Integrating_ConsoleView_Should
+    public class AirspaceEventHandler_Integrating_ConsoleView_DependingOn_FlightTracks_Should
     {
         private AirspaceEventHandler _sut;
         private ConsoleView _ssut_view;
