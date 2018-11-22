@@ -18,18 +18,12 @@ namespace AirTrafficMonitor.Infrastructure
         private ILogger _logger;
 
 
-        public ConsoleView(ISeperationHandler handler, ILogger logger)
+        public ConsoleView()
         {
-            _handler = handler;
-            _logger = logger;
-            _handler.FlightsInProximity += FlightsInCollision; //FlightInProximity event
+            
         }
         
-        private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
-        {
-              this.RenderCollision(e.ProximityList);
-              this._logger.DataLog(e.ProximityList);  
-        }
+       
 
         //public void DelayTimer()
 

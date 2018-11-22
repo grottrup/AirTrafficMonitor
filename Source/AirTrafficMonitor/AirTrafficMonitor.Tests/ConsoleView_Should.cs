@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Runtime.Remoting.Messaging;
 using AirTrafficMonitor.Domain;
 using AirTrafficMonitor.Infrastructure;
 using AirTrafficMonitor.Utilities;
@@ -19,9 +20,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void Setup()
         {
-            //ILogger fakeLogger = Substitute.For<ILogger>();
-            //ISeperationHandler fakeSeperationHandler = Substitute.For<ISeperationHandler>();
-            _uut = new ConsoleView(_fakeSeparationHandler, _fakeLogger);  
+            _uut = new ConsoleView();  
         }
        
         [TestCase("AA123", "BB123", 2018, 11, 20)]
@@ -35,7 +34,7 @@ namespace AirTrafficMonitor.Tests
             fakeFlightTrack2.Tag.Returns(tag2);
             fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day));
 
-            var currentConsoleOut = Console.Out;
+            var currentConsoleOut = Console.Out;  
             
             Tuple<IFlightTrack, IFlightTrack> ff = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
             
