@@ -20,8 +20,8 @@ namespace AirTrafficMonitor.ConsoleApp
             IFlightRecordReceiver recordReceiver = new FlightRecordReceiver(TransponderReceiverFactory.CreateTransponderDataReceiver(), factory);
             IView view = new ConsoleView(new CustomConsole());
             ILogger logger = new Logger();
-            ISeperationHandler handler = new SeparationHandler(logger);
             IAirspace monitoredAirspace = new Airspace(90000, 10000, 20000, 500);
+            ISeperationHandler handler = new SeparationHandler(logger, view);
             FlightObserver flightObserver = new FlightObserver(monitoredAirspace, recordReceiver, view, handler, logger);
             AirspaceEventHandler airspaceEventHandler = new AirspaceEventHandler(flightObserver, view);
             Console.ReadKey();

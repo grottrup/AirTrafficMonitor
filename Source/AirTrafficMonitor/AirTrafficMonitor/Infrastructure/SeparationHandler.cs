@@ -8,46 +8,37 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class SeparationHandler : ISeperationHandler
     {
-        //private List<FlightTrack> ProximityList;
-        private Tuple<IFlightTrack, IFlightTrack> ProximityList;
-        private readonly ILogger _logger;
-
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
+        private ILogger _logger;
+        private IView _view;
 
-        public SeparationHandler(ILogger logger)
+
+        public SeparationHandler(ILogger logger, IView view)
         {
-            _logger = logger; //We do not use the logger. Is it neccessary in the constructor?
+            _logger = logger;
+            _view = view;
+            FlightsInProximity += RenderAndLog;
+        }
+        private void RenderAndLog(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        {
+            _view.RenderCollision(e.proximityTracks);
+            _logger.DataLog(e.proximityTracks);
         }
 
-        //Eventhandler
-        protected virtual void OnFlightsInProximity(FlightInProximityEventArgs eventArgs)
-        {
-            EventHandler<FlightInProximityEventArgs> handler = FlightsInProximity;
-            handler?.Invoke(this, eventArgs);
-        }
-
-        //Controller - Logic
         public void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks)
         {
             if (WithinTimespan(tracks))//checks if new FlightTrack update is close to any other flight.
             {
                 if (CalculateHorizontialDistance(tracks) < 5000 && CalculateVerticalDistance(tracks) < 300) //checks if new FlightTrack update is too close to any other flight
                 {
-                    //for (int i = 0; i < tracks - 1; i++)
-                    //{
-                        var args = new FlightInProximityEventArgs(tracks);
-                        OnFlightsInProximity(args);
-
-                        //OnFlightsInProximity(new FlightInCollision(tracks[i].Tag, tracks[i + 1].Tag, tracks[i].LatestTime));
-                    //}
+                    var args = new FlightInProximityEventArgs(tracks);
+                    FlightsInProximity?.Invoke(this, args);
                 }
             }
         }
 
         public bool WithinTimespan(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update is close to any other flight.
-        {   
-            //for (int i = 0; i < tracks.Count - 1; i++)
-            //{
+        {
             TimeSpan interval = new TimeSpan(0, 2, 0);
 
             if (tracks != null)
@@ -65,28 +56,17 @@ namespace AirTrafficMonitor.Infrastructure
             {
                 return false;
             }
-            //}
-            //return false;
         }
 
         public double CalculateHorizontialDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's position is too close to any other flight
         {
-            //for (int i = 0; i < tracks.Count - 1; i++)
-            //{
-                return Math.Round(Math.Abs(Math.Pow(tracks.Item1.Position.Latitude - tracks.Item2.Position.Latitude, 2)
-                                    + Math.Pow(tracks.Item1.Position.Longitude - tracks.Item2.Position.Longitude, 2)));
-            //}
-            //return 0;
+            return Math.Round(Math.Abs(Math.Pow(tracks.Item1.Position.Latitude - tracks.Item2.Position.Latitude, 2)
+                                + Math.Pow(tracks.Item1.Position.Longitude - tracks.Item2.Position.Longitude, 2)));
         }
 
         public double CalculateVerticalDistance(Tuple<IFlightTrack, IFlightTrack> tracks) //checks if new FlightTrack update's altitude is too close to any other flight
         {
-            //for (int i = 0; i < tracks.Count - 1; i++)
-            //{
-                return Math.Abs(tracks.Item1.Position.Altitude - tracks.Item2.Position.Altitude);
-            //}
-            //return 0;
+            return Math.Abs(tracks.Item1.Position.Altitude - tracks.Item2.Position.Altitude);
         }
-
     }
 }

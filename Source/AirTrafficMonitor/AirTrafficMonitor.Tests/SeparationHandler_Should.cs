@@ -16,57 +16,149 @@ namespace AirTrafficMonitor.Tests
     [TestFixture]
     class SeparationHandler_Should
     {
-        private ITimer _aTimer;
-        private IView _fakeView;
-        private ILogger _fakeLogger;
-        private IFlightRecordReceiver _fakeFlight;
         private IFlightObserver _fakeFlightObserver;
-        private Tuple<FlightTrack, FlightTrack> _fakeTracks;
-        private Airspace _fakeMonitoredAirspace;
-        private AirspaceEventHandler _fakeAirspaceEventHandler;
+        private ILogger _fakeLogger;
+        private IView _fakeView;
         private SeparationHandler _uut;
-        public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
 
         [SetUp]
         public void SetUp()
         {
-            //_aTimer = new EventTimer(5000); //five seconds
-            //_fakeTracks = Substitute.For<Tuple<FlightTrack, FlightTrack>>();
-            _fakeView = Substitute.For<IView>();
-            //_fakeAirspaceEventHandler = Substitute.For<AirspaceEventHandler>();
-            _fakeFlight = Substitute.For<IFlightRecordReceiver>();
-            _fakeLogger = Substitute.For<ILogger>();
-            _fakeMonitoredAirspace = Substitute.For<Airspace>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _uut = new SeparationHandler(_fakeLogger);
+            
+            _uut = new SeparationHandler(_fakeLogger, _fakeView);
+        }
+        
+        [TestCase("ABC123", "DEF456", 2018, 11, 22, 13, 41, 55, 56)]
+        public void RaiseEvent_WhenFlightsAreInProximity(string tag1, string tag2, int year, int month, int day, int hour, int min, int sec1, int sec2)
+        {
+            //Create 2 flighttracks colliding
+            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
+            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
+
+            var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec1));
+            fakeFlightTrack1.Position.Returns(fake1);
+
+            var fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec2));
+            fakeFlightTrack2.Position.Returns(fake2);
+
+            var fakeTracks = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
+
+            Tuple<IFlightTrack, IFlightTrack> proximityTracks = null;
+            _uut.FlightsInProximity += (sender, e) =>
+            {
+                proximityTracks = e.proximityTracks;
+            };
+
+            //// Act
+            //_uut.DetectCollision(fakeTracks);
+
+            //// Assert
+            //Assert.That(fakeTracks, Is.Not.Null);
+            //_fakeView.Received().RenderCollision(fakeTracks);
+            //_fakeLogger.Received().DataLog(fakeTracks);
+
+        }
+        /*
+        [TestCase("ABC123", "DEF456")]
+        public void DoNothing_WhenFlightTracksAreNull(string tag1, string tag2)
+        {
+
+            //Create 2 flighttracks colliding
+            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
+            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
+
+            var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(DateTime.MaxValue);
+            fakeFlightTrack1.Position.Returns(fake1);
+
+            var fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(DateTime.MinValue);
+            fakeFlightTrack2.Position.Returns(fake2);
+            
+            Tuple<IFlightTrack, IFlightTrack> fakeTracks = null;
+
+
+            // Act
+            _uut.DetectCollision(fakeTracks);
+
+            // Assert
+            //Assert.AreEqual(_uut.WithinTimespan(fakeTracks), false );
+        }
+        /*
+        [TestCase("ABC123", "DEF456")]
+        public void DoNothing_WhenNotWithinTimespan(string tag1, string tag2)
+        {
+
+            //Create 2 flighttracks colliding
+            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
+            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
+
+            var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(DateTime.MaxValue);
+            fakeFlightTrack1.Position.Returns(fake1);
+
+            var fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(DateTime.MinValue);
+            fakeFlightTrack2.Position.Returns(fake2);
+
+            var fakeTracks = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
+
+            Tuple<IFlightTrack, IFlightTrack> proximityTracks = null;
+            _uut.FlightsInProximity += (sender, e) =>
+            {
+                proximityTracks = e.proximityTracks;
+            };
+
+            // Act
+            _uut.DetectCollision(fakeTracks);
+
+            // Assert
+            //Assert.That(proximityTracks, Is.Null);
+
         }
 
 
-        ////Warning, two planes are currently on collision course!
-        ////Plane Tag: AB12 and plane Tag: CD34;
-        //[Test]
-        //public void WriteCollision()
-        //{
-        //    // Act
-        //    var track1 = new FlightTrack("AB12")
-        //    {
-        //        Position = new Position(20000, 20000, 19000),
-        //        LatestTime = DateTime.MinValue
-        //    };
-        //    var track2 = new FlightTrack("CD34")
-        //    {
-        //        Position = new Position(20000, 20000, 19000),
-        //        LatestTime = DateTime.MinValue
-        //    };
+        [TestCase("ABC123", "DEF456", 2018, 11, 22, 13, 41, 55, 56)]
+        public void DoNothing_WhenNotWithinProximity(string tag1, string tag2, int year, int month, int day, int hour, int min, int sec1, int sec2)
+        {
 
-        //    var lol = new Tuple<IFlightTrack, IFlightTrack>(track1, track2);
+            //Create 2 flighttracks colliding
+            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
+            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
 
-        //    //_uut.FlightsInProximity += Raise.EventWith(_uut, new FlightInProximityEventArgs(lol));
-        //    //_fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-        //    //_fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
-            
-        //    //Assert
-        //    //_fakeView.RenderCollision(lol);
-        //}
+            var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack1.Tag.Returns(tag1);
+            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec1));
+            fakeFlightTrack1.Position.Returns(fake1);
+
+            var fakeFlightTrack2 = Substitute.For<IFlightTrack>();
+            fakeFlightTrack2.Tag.Returns(tag2);
+            fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec2));
+            fakeFlightTrack2.Position.Returns(fake2);
+
+            var fakeTracks = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
+
+            Tuple<IFlightTrack, IFlightTrack> proximityTracks = null;
+            _uut.FlightsInProximity += (sender, e) =>
+            {
+                proximityTracks = e.proximityTracks;
+            };
+
+            // Act
+            _uut.DetectCollision(fakeTracks);
+
+            // Assert
+            //Assert.That(proximityTracks, Is.Null);
+
+        }*/
     }
 }
