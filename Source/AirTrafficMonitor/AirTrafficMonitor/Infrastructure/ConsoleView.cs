@@ -1,12 +1,14 @@
-﻿using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Domain;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Threading;
 using AirTrafficMonitor.Utilities;
-using AirTrafficMonitor.Infrastructure;
 
 namespace AirTrafficMonitor.Infrastructure
 {
@@ -26,56 +28,55 @@ namespace AirTrafficMonitor.Infrastructure
         }
 
         public void DelayTimer()
-        {
-            Task.Delay(5000);
-        }
 
-        public void Render(FlightTrack track)
-        {
-            Console.WriteLine(track.ToString());
-        }
+        //public void Render(FlightTrack track)
+        //{
+        //}
 
-        //public void RenderCollision(List<FlightTrack> ProximityList)
-        public void RenderCollision(Tuple<FlightTrack, FlightTrack> ProximityList)
-        {
+        
 
-            string flight1 = ProximityList.Item1.ToString();
-            string flight2 = ProximityList.Item2.ToString();
+        public void Render(Tuple<IFlightTrack> track)
+
+        {
+            string flight1Tag = track.Item1.Tag;
+            DateTime flight1Time = track.Item1.LatestTime;
+            double flight1Nav = track.Item1.NavigationCourse;
+            int flight1Lat = track.Item1.Position.Latitude;
+            int flight1Lon = track.Item1.Position.Longitude;
+            int flight1Alt = track.Item1.Position.Altitude;
             
-            Console.WriteLine($"Warning, two planes are currently on collision course! \n Plane Tag: {flight1} and plane Tag: {flight2}\n");
+            Console.WriteLine("Tag: {0}, Time: {1}, NavigationCourse: {2}, Latitude: {3}, Longitude: {4}, Altitude: {5}\n", flight1Tag, flight1Time, flight1Nav, flight1Lat, flight1Lon, flight1Alt); 
         }
 
-        public void RenderWithGreenTillTimerEnds(string renderstr, ITimer timer)
+        public void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(renderstr);
-
-            //timer.WaitTimer();
-
+            string flight1 = flightsInCollision.Item1.Tag;
+            string flight2 = flightsInCollision.Item2.Tag;
+            DateTime timeFlight = flightsInCollision.Item2.LatestTime;
             
-            Console.ResetColor();
+            Console.WriteLine("Warning, two planes are currently on collision course! \n Plane Tag: {0}, Plane Tag: {1} and Time: {2}\n", flight1, flight2, timeFlight);
+        }
+
+        public void RenderWithGreenTillTimerEnds(string renderstr)
+        {
+        
+           // Console.ForegroundColor = ConsoleColor.Green;
+       
+            Console.WriteLine(renderstr, Console.ForegroundColor = ConsoleColor.Green);
+
+            var timer = new EventTimer(5000);
+
 
         }
 
-        public async void RenderWithRedTillTimerEnds(string renderstr, ITimer timer)
+        public void RenderWithRedTillTimerEnds(string renderstr)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(renderstr);
 
-            //var startTime = System.DateTime.Now;
-            //while (startTime < startTime.Add(new TimeSpan(0,0,5)))
-            //{
+            //Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(renderstr, Console.ForegroundColor = ConsoleColor.Red);
 
-            //}
-            await Task.Delay(5000);
-            //timer.WaitTimer();
+            var timer = new EventTimer(5000);
 
-            //Console.ResetColor();
-
-            //timer.Interval = 5;
-            //timer.Start();  
-
-            Console.ResetColor();
         }
     }
 }

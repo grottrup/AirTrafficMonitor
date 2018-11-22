@@ -11,16 +11,16 @@ namespace AirTrafficMonitor
 {
     public class FlightObserver : IFlightObserver
     {
-        private readonly ICollection<FlightTrack> _tracks;
+        private readonly ICollection<IFlightTrack> _tracks;
         private readonly IView _view;
         private readonly ILogger _logger;
         private readonly ISeperationHandler _handler;
         private readonly IFlightRecordReceiver _recordReceiver;
-        private readonly Airspace _monitoredAirspace;
+        private readonly IAirspace _monitoredAirspace;
         public event EventHandler<FlightTrackEventArgs> EnteredAirspace;
         public event EventHandler<FlightTrackEventArgs> LeftAirspace;
      
-        public FlightObserver(Airspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
+        public FlightObserver(IAirspace monitoredAirspace, IFlightRecordReceiver recordReceiver, IView view, ISeperationHandler handler, ILogger logger)
         {
 
             _recordReceiver = recordReceiver;
@@ -28,25 +28,29 @@ namespace AirTrafficMonitor
             _logger = logger;
             _view = view;
             _handler = handler;
-            _tracks = new List<FlightTrack>();
+            _tracks = new List<IFlightTrack>();
             _monitoredAirspace = monitoredAirspace;
         }
 
         private void UpdateFlightTracks(object sender, FlightRecordEventArgs e)
         {
             var flightUpdate = e.FlightRecord;
-            if (flightUpdate.Position.IsWithin(_monitoredAirspace))
+            if (_monitoredAirspace.HasPositionWithinBoundaries(flightUpdate.Position))
             {
-                var updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                var newTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);
-                if (newTrack) // not in list yet
+                IFlightTrack updatedTrack;
+                var existingTrack = _tracks.Any(t => t.Tag == flightUpdate.Tag);
+                if (existingTrack) // already in list
                 {
+                    updatedTrack = _tracks.SortRecordByTag(flightUpdate);
+                    //_view.Render(updatedTrack);
+                }
+                else  {
+                    updatedTrack = _tracks.SortRecordByTag(flightUpdate);
                     var args = new FlightTrackEventArgs(updatedTrack);
                     EnteredAirspace?.Invoke(this, args);
                 }
-                _handler.DetectCollision(_tracks as Tuple<FlightTrack, FlightTrack>); // TODO: Handler needs to be more implementation agnostic
-                _view.Render(updatedTrack);
-                // TODO... logger?
+                _handler.DetectCollision(_tracks); // TODO: Handler needs to be more implementation agnostic                {
+                
             }
             else
             {
@@ -55,7 +59,7 @@ namespace AirTrafficMonitor
                 var leftairspacetrue = _tracks.Any(t => t.Tag == flightUpdate.Tag);
                 if (leftairspacetrue) // in list
                 {
-                    
+
                     var args = new FlightTrackEventArgs(leftAirspaceTrack);
                     LeftAirspace?.Invoke(this, args);
 

@@ -1,30 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using NPlant.Console;
 
 namespace AirTrafficMonitor.Utilities
 {
-    public class EventTimer: Stopwatch, ITimer
+    public class EventTimer: ITimer
     {
-        //public bool Flag { get; set; }
-        //public void WaitTimer()
-        //{
-        //    Flag = false;
-        //    var timer = new System.Timers.Timer(5000);
-        //    timer.Elapsed += (src, args) => { Flag = true; };
-        //    timer.AutoReset = false;
-        //    timer.Start();
-        //}
-
-        public event ElapsedEventHandler Elapsed;
-        public double Interval { get; set; }
-        public void Dispose()
+        
+        private Timer _timer;
+        public EventTimer(int milliSeconds)
         {
-            throw new NotImplementedException();
+           
+            _timer = new Timer(milliSeconds);
+            _timer.Elapsed += OnTimedEvent;
+            _timer.AutoReset = false; // use as stop watch when false. do not repeat times event
+            _timer.Enabled = true; // when time have went activate event. elapsed is only raised once
+
         }
+
+        public virtual void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Console.WriteLine("Timer event raised at: {0} ",e.SignalTime, Console.ForegroundColor = ConsoleColor.White);
+        }
+
+        
     }
 }

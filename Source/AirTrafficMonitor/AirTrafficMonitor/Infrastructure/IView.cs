@@ -1,17 +1,17 @@
-﻿using AirTrafficMonitor.Domain;
-using AirTrafficMonitor.Utilities;
+﻿
 using System;
+using AirTrafficMonitor.Domain;
  using System.Collections.Generic;
+
 
 namespace AirTrafficMonitor.Infrastructure
 {
     public interface IView
     {
-        void Render(FlightTrack track);
-        void RenderCollision(Tuple<FlightTrack, FlightTrack> ProximityList);
-        void RenderWithGreenTillTimerEnds(string renderstr, ITimer timer);
-        void RenderWithRedTillTimerEnds(string renderstr, ITimer timer);
+        void Render(Tuple<IFlightTrack> track);
+        void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision);
+        void RenderWithGreenTillTimerEnds(string renderstr);
+        void RenderWithRedTillTimerEnds(string renderstr);
 
-        //void RenderCollision(List<FlightTrack> ProximityList);
     }
 }

@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace AirTrafficMonitor.Domain
 {
-    public class FlightTrack
+    public class FlightTrack : IFlightTrack
     {
         private readonly Queue<FlightRecord> _records;
 
-        public string Tag { get; }
+        public string Tag { get; set; }
         public DateTime LatestTime { get; set; }
         public double NavigationCourse { get; set; }
         public double Velocity { get; set; }
         public Position Position { get; set; }
-
         public FlightTrack(string tag)
         {
             Tag = tag;
@@ -24,7 +24,10 @@ namespace AirTrafficMonitor.Domain
         {
             if (record != null)
             {
-                if (_records.Count == 2) _records.Dequeue();
+                if (_records.Count == 2)
+                {
+                    _records.Dequeue();
+                }
                 _records.Enqueue(record);
                 LatestTime = record.Timestamp;
                 Position = record.Position;
@@ -89,7 +92,8 @@ namespace AirTrafficMonitor.Domain
 
         public override string ToString()
         {
-            return $"[Tag: {Tag}, Time: {LatestTime}, NavigationCourse: {NavigationCourse}, Latitude:{Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
+            var formattedDate = LatestTime.ToString(CultureInfo.InvariantCulture);
+            return $"[Tag: {Tag}, Time: {formattedDate}, NavigationCourse: {NavigationCourse}, Latitude: {Position.Latitude}, Longitude: {Position.Longitude}, Altitude: {Position.Altitude}]";
         }
     }
 }

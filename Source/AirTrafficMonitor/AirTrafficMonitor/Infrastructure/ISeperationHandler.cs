@@ -7,6 +7,6 @@ namespace AirTrafficMonitor.Infrastructure
     public interface ISeperationHandler
     {
         event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
-        void DetectCollision(Tuple<FlightTrack, FlightTrack> tracks);
+        void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks);
     }
 }
