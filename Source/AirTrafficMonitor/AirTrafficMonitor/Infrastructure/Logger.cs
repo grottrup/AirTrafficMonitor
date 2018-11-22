@@ -24,6 +24,7 @@ namespace AirTrafficMonitor.Infrastructure
             int flight1Lat = flightsInCollision.Item1.Position.Latitude;
             int flight1Lon = flightsInCollision.Item1.Position.Longitude;
             int flight1Alt = flightsInCollision.Item1.Position.Altitude;
+            double flight1Vel = flightsInCollision.Item1.Velocity;
             
             string flight2Tag = flightsInCollision.Item2.Tag;
             DateTime flight2Time = flightsInCollision.Item1.LatestTime;
@@ -31,7 +32,7 @@ namespace AirTrafficMonitor.Infrastructure
             int flight2Lat = flightsInCollision.Item2.Position.Latitude;
             int flight2Lon = flightsInCollision.Item2.Position.Longitude;
             int flight2Alt = flightsInCollision.Item2.Position.Altitude;
-           
+            double flight2Vel = flightsInCollision.Item1.Velocity;
 
             if (!File.Exists(Path))
             {
@@ -42,8 +43,8 @@ namespace AirTrafficMonitor.Infrastructure
             using (var DL = File.AppendText(Path))
             {
                 //DL.WriteLine($"Warning, two planes are currently on collision course! \n Plane Tag: {flight1} and plane Tag: {flight2}\n");;
-                DL.WriteLine($"Warning, two planes are currently on collision course! \n Plane nr. 1 Tag: {flight1Tag}, Time: {flight1Time}, NavigationCourse: {flight1Nav}, Latitude: {flight1Lat}, Longitude: {flight1Lon}, Altitude: {flight1Alt}]" +
-                             $", and Plane nr. 2 Tag: {flight2Tag}, Time: {flight2Time}, NavigationCourse: {flight2Nav}, Latitude: {flight2Lat}, Longitude: {flight2Lon}, Altitude: {flight2Alt}");
+                DL.WriteLine($"Warning, two planes are currently on collision course! \n Plane nr. 1 Tag: {flight1Tag}, Time: {flight1Time}, NavigationCourse: {flight1Nav}, Latitude: {flight1Lat}, Longitude: {flight1Lon}, Altitude: {flight1Alt},Velocity: {flight1Vel}]" +
+                             $", and Plane nr. 2 Tag: {flight2Tag}, Time: {flight2Time}, NavigationCourse: {flight2Nav}, Latitude: {flight2Lat}, Longitude: {flight2Lon}, Altitude: {flight2Alt}, Velocity: {flight2Vel}");
             }      
         }
         //Til test purpose:

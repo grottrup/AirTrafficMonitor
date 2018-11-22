@@ -43,26 +43,28 @@ namespace AirTrafficMonitor.Tests
             //Assert.IsTrue(File.Exists(path));
         }
 
-        [TestCase("CC456", "DD789", 2018, 11, 22, 2018, 11, 22, 63.14262, 64.52742, 12300, 12500, 79000, 80000, 11000, 10000)]
-        public void LogFile_WriteFileDoesExist_ReturnTrue_Real(string tag1, string tag2, int year, int month, int day, int year2, int month2, int day2, double nav, double nav2, int lat, int lat2, int lon, int lon2, int alt, int alt2)
+        [TestCase("CC456", "DD789", 2018, 11, 22, 2018, 11, 22, 63.14262, 64.52742, 12300, 12500, 79000, 80000, 11000, 10000, 100.2, 132.5)]
+        public void LogFile_WriteFileDoesExist_ReturnTrue_Real(string tag1, string tag2, int year, int month, int day, int year2, int month2, int day2, double nav, double nav2, int lat, int lat2, int lon, int lon2, int alt, int alt2, double vel, double vel2)
         {
             IFlightTrack fakeFlightTrack = Substitute.For<IFlightTrack>();
             fakeFlightTrack.Tag.Returns(tag1);
             fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
             fakeFlightTrack.NavigationCourse.Returns(nav);
             fakeFlightTrack.Position.Returns(new Position(lat, lon, alt));
+            fakeFlightTrack.Velocity.Returns(vel);
             
             IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
-            fakeFlightTrack.Tag.Returns(tag2);
-            fakeFlightTrack.LatestTime.Returns(new DateTime(year2, month2, day2));
-            fakeFlightTrack.NavigationCourse.Returns(nav2);
-            fakeFlightTrack.Position.Returns(new Position(lat2, lon2, alt2));
+            fakeFlightTrack1.Tag.Returns(tag2);
+            fakeFlightTrack1.LatestTime.Returns(new DateTime(year2, month2, day2));
+            fakeFlightTrack1.NavigationCourse.Returns(nav2);
+            fakeFlightTrack1.Position.Returns(new Position(lat2, lon2, alt2));
+            fakeFlightTrack1.Velocity.Returns(vel2);
             
             Tuple<IFlightTrack, IFlightTrack> wf = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack, fakeFlightTrack1);
             
             string path = @"DataLog.txt";
             
-            _uut.DataLog("wf");
+            _uut.DataLog(wf);
             var writeFileDoesExist = (File.Exists(path));
 
             Assert.That(writeFileDoesExist, Is.True);

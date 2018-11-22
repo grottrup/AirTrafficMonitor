@@ -14,8 +14,6 @@ namespace AirTrafficMonitor.Tests
     public class ConsoleView_Should
     {
         private ConsoleView _uut;
-        private ISeperationHandler _fakeSeparationHandler;
-        private ILogger _fakeLogger;
 
         [SetUp]
         public void Setup()
@@ -53,14 +51,15 @@ namespace AirTrafficMonitor.Tests
             }
         }
 
-        [TestCase("CC456", 2018, 11, 21, 63.14262, 12500, 80000, 10000)]
-        public void ConsoleView_RenderOfOneTrack_FullInfo(string tag, int year, int month, int day, double nav, int lat, int lon, int alt)
+        [TestCase("CC456", 2018, 11, 21, 63.14262, 12500, 80000, 10000, 142.4)]
+        public void ConsoleView_RenderOfOneTrack_FullInfo(string tag, int year, int month, int day, double nav, int lat, int lon, int alt, double vel)
         {
             IFlightTrack fakeFlightTrack3 = Substitute.For<IFlightTrack>();
             fakeFlightTrack3.Tag.Returns(tag);
             fakeFlightTrack3.LatestTime.Returns(new DateTime(year, month, day));
             fakeFlightTrack3.NavigationCourse.Returns(nav);
             fakeFlightTrack3.Position.Returns(new Position(lat, lon, alt));
+            fakeFlightTrack3.Velocity.Returns(vel);
             
             var currentConsoleOut = Console.Out;
             
@@ -76,7 +75,8 @@ namespace AirTrafficMonitor.Tests
                 Assert.That(result, Does.Contain(nav.ToString()));
                 Assert.That(result, Does.Contain(lat.ToString()));
                 Assert.That(result, Does.Contain(lon.ToString()));
-                Assert.That(result, Does.Contain(alt.ToString()));       
+                Assert.That(result, Does.Contain(alt.ToString())); 
+                Assert.That(result, Does.Contain(vel.ToString()));
             }
         }
     }
