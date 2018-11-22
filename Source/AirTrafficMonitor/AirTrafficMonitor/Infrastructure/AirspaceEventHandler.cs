@@ -55,8 +55,8 @@ namespace AirTrafficMonitor.Infrastructure
             var renderStr = "Flight: " + flightUpdate.Tag + " left airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Green);
             _logger.DataLog(renderStr);
-            //var timer = new StringEventTimer(5000, renderStr);
-            //timer.Elapsed += StopShowingAirspaceEvent;
+            var timer = new StringEventTimer(5000, renderStr);
+            timer.Elapsed += StopShowingAirspaceEvent;
         }
     }
 }
