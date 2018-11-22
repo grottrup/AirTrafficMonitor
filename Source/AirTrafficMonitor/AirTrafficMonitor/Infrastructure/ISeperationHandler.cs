@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Infrastructure
 {
     public interface ISeperationHandler
     {
-        void DetectCollision(ICollection<IFlightTrack> tracks);
+        event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
+        void DetectCollision(Tuple<IFlightTrack, IFlightTrack> tracks);
     }
 }

@@ -1,7 +1,12 @@
 using AirTrafficMonitor.Domain;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Threading;
 using AirTrafficMonitor.Utilities;
 
@@ -9,11 +14,29 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        public ConsoleView()
+        private ISeperationHandler _handler;
+
+        public ConsoleView(ISeperationHandler handler)
         {
+            _handler = handler;
+            _handler.FlightsInProximity += FlightsInCollision; //FlightInProximity event
+        }
+        
+        private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        {
+              this.RenderCollision(e.ProximityList);
         }
 
+        public void DelayTimer()
+
+        //public void Render(FlightTrack track)
+        //{
+        //}
+
+        
+
         public void Render(Tuple<IFlightTrack> track)
+
         {
             string flight1Tag = track.Item1.Tag;
             DateTime flight1Time = track.Item1.LatestTime;
@@ -34,36 +57,26 @@ namespace AirTrafficMonitor.Infrastructure
             Console.WriteLine("Warning, two planes are currently on collision course! \n Plane Tag: {0}, Plane Tag: {1} and Time: {2}\n", flight1, flight2, timeFlight);
         }
 
-        public void RenderWithGreenTillTimerEnds(string renderstr)
+        public void RenderWithGreenTillTimerEnds(IFlightTrack track)
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(renderstr);
+        
+           // Console.ForegroundColor = ConsoleColor.Green;
+       
+            Console.WriteLine("Flight: " + track.Tag + " left airspace at: " + track.LatestTime + "", Console.ForegroundColor = ConsoleColor.Green);
 
             var timer = new EventTimer(5000);
 
-            Console.ResetColor();
 
         }
 
-        public void RenderWithRedTillTimerEnds(string renderstr)
+        public void RenderWithRedTillTimerEnds(IFlightTrack track)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(renderstr);
+
+            //Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Flight: " + track.Tag + " entered airspace at: " + track.LatestTime + "", Console.ForegroundColor = ConsoleColor.Red);
+
             var timer = new EventTimer(5000);
-            //var startTime = System.DateTime.Now;
-            //while (startTime < startTime.Add(new TimeSpan(0,0,5)))
-            //{
 
-            //}
-           // await Task.Delay(5000);
-            //timer.WaitTimer();
-
-            //Console.ResetColor();
-
-            //timer.Interval = 5;
-            //timer.Start();  
-
-            //Console.ResetColor();
         }
     }
 }

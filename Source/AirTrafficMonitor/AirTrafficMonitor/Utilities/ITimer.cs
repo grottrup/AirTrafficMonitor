@@ -10,6 +10,6 @@ namespace AirTrafficMonitor.Utilities
 {
    public interface ITimer
    {
-
+     
    }
 }
