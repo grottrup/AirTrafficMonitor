@@ -42,31 +42,31 @@ namespace AirTrafficMonitor.Tests
         }
 
 
-        //Warning, two planes are currently on collision course!
-        //Plane Tag: AB12 and plane Tag: CD34;
-        [Test]
-        public void WriteCollision()
-        {
-            // Act
-            var track1 = new FlightTrack("AB12")
-            {
-                Position = new Position(20000, 20000, 19000),
-                LatestTime = DateTime.MinValue
-            };
-            var track2 = new FlightTrack("CD34")
-            {
-                Position = new Position(20000, 20000, 19000),
-                LatestTime = DateTime.MinValue
-            };
+        ////Warning, two planes are currently on collision course!
+        ////Plane Tag: AB12 and plane Tag: CD34;
+        //[Test]
+        //public void WriteCollision()
+        //{
+        //    // Act
+        //    var track1 = new FlightTrack("AB12")
+        //    {
+        //        Position = new Position(20000, 20000, 19000),
+        //        LatestTime = DateTime.MinValue
+        //    };
+        //    var track2 = new FlightTrack("CD34")
+        //    {
+        //        Position = new Position(20000, 20000, 19000),
+        //        LatestTime = DateTime.MinValue
+        //    };
 
-            var lol = new Tuple<IFlightTrack, IFlightTrack>(track1, track2);
+        //    var lol = new Tuple<IFlightTrack, IFlightTrack>(track1, track2);
 
-            //_uut.FlightsInProximity += Raise.EventWith(_uut, new FlightInProximityEventArgs(lol));
-            //_fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-            //_fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
+        //    //_uut.FlightsInProximity += Raise.EventWith(_uut, new FlightInProximityEventArgs(lol));
+        //    //_fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+        //    //_fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
             
-            //Assert
-            //_fakeView.RenderCollision(lol);
-        }
+        //    //Assert
+        //    //_fakeView.RenderCollision(lol);
+        //}
     }
 }
