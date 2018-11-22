@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,103 +29,76 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
             _fakeSeparationHandler = Substitute.For<ISeperationHandler>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
             var fakeConsole = Substitute.For<IConsole>();
+            var fakeLogger = Substitute.For<Infrastructure.ILogger>();
             _ssut_view = new ConsoleView(fakeConsole);
-            _sut = new AirspaceEventHandler(_fakeFlightObserver, _ssut_view);
+            _sut = new AirspaceEventHandler(_fakeFlightObserver, _ssut_view, fakeLogger, _fakeSeparationHandler);
         }
 
-        [TestCase("BB123", 2018, 11, 20)]
-        public void BeAbleTo_Display_AirspaceEvent_ForEnteringAirSpace(string tag, int year, int month, int day)
+        [TestCase("AA123")]
+        public void LeftAirspace_Adds_To_WhatShouldBeShow(string tag1)
         {
-
-            var fakeFlightTrack = Substitute.For<IFlightTrack>();
-            fakeFlightTrack.Tag.Returns(tag);
-            fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
-
-            IFlightTrack persistedArgs = null;
-            _fakeFlightObserver.EnteredAirspace += (sender, e) =>
+            // arrange
+            IFlightTrack track = new FlightTrack(tag1)
             {
-                persistedArgs = e.FlightTrack;
-            };
-
-            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
-
-            Assert.That(persistedArgs, Is.Not.Null);
-            Assert.That(persistedArgs.Tag, Is.EqualTo(fakeFlightTrack.Tag));
-            Assert.That(persistedArgs.LatestTime, Is.EqualTo(fakeFlightTrack.LatestTime));
-        }
-
-        [TestCase("BB123", 2018, 11, 20)]
-        public void BeAbleTo_Display_AirspaceEvent_ForLeftAirSpace(string tag, int year, int month, int day)
-        {
-
-            var fakeFlightTrack = Substitute.For<IFlightTrack>();
-            fakeFlightTrack.Tag.Returns(tag);
-            fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
-
-            IFlightTrack persistedArgs = null;
-            _fakeFlightObserver.EnteredAirspace += (sender, e) =>
-            {
-                persistedArgs = e.FlightTrack;
-            };
-
-            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
-
-            Assert.That(persistedArgs, Is.Not.Null);
-            Assert.That(persistedArgs.Tag, Is.EqualTo(fakeFlightTrack.Tag));
-            Assert.That(persistedArgs.LatestTime, Is.EqualTo(fakeFlightTrack.LatestTime));
-        }
-
-        [TestCase("AA123", 2018, 11, 20)]
-        public void EnterAirspace_Prints__In_Console(string tag1, int year, int month, int day)
-        {
-
-            IFlightTrack fakeFlightTrack1 = new FlightTrack(tag1)
-            {
-                LatestTime = new DateTime(year, month, day),
+                LatestTime = new DateTime(2018, 1, 1),
                 NavigationCourse = double.NaN,
-                Position = new Position(0,0,0),
+                Position = new Position(0, 0, 0),
                 Velocity = 0
             };
 
-            var currentConsoleOut = Console.Out;
+            //act
+            _fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
 
-   
-            using (var consoleOutput = new ConsoleOutput())
-            {
-
-                _ssut_view.AddToRenderWithColor("Enter" + fakeFlightTrack1.ToString(), ConsoleColor.White);
-                var result = ConsoleOutput.GetOutput();
-                Assert.That(result, Does.Contain("enter").IgnoreCase);
-                Assert.That(result, Does.Contain(year.ToString()));
-                Assert.That(result, Does.Contain(month.ToString()));
-                Assert.That(result, Does.Contain(day.ToString()));
-                Assert.That(result, Does.Contain(tag1));
-            }
+            //assert
+            Assert.That(_ssut_view.ThingsToRender.First().Item1, Does.Contain(tag1));
         }
 
-        [TestCase("AA123", 2018, 11, 20)]
-        public void LeftAirspace_Prints__In_Console(string tag1, int year, int month, int day)
+        [TestCase("AA123")]
+        public void EnterAirspace_Adds_To_WhatShouldBeShow(string tag1)
         {
-
-            IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
-            fakeFlightTrack1.Tag.Returns(tag1);
-            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day));
-
-
-            var currentConsoleOut = Console.Out;
-
-
-            using (var consoleOutput = new ConsoleOutput())
+            // arrange
+            IFlightTrack track = new FlightTrack(tag1)
             {
+                LatestTime = new DateTime(2018, 1, 1),
+                NavigationCourse = double.NaN,
+                Position = new Position(0, 0, 0),
+                Velocity = 0
+            };
 
-                _ssut_view.RenderWithGreenTillTimerEnds(fakeFlightTrack1);
-                var result = ConsoleOutput.GetOutput();
-                Assert.That(result, Does.Contain("left").IgnoreCase);
-                Assert.That(result, Does.Contain(year.ToString()));
-                Assert.That(result, Does.Contain(month.ToString()));
-                Assert.That(result, Does.Contain(day.ToString()));
-                Assert.That(result, Does.Contain(tag1));
-            }
+            //act
+            _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(track));
+
+            //assert
+            Assert.That(_ssut_view.ThingsToRender.First().Item1, Does.Contain(tag1));
         }
+
+        [TestCase("AA123", "BB123")]
+        public void ProximityEvent_Adds_To_WhatShouldBeShow(string tag1, string tag2)
+        {
+            // arrange
+            IFlightTrack track1 = new FlightTrack(tag1)
+            {
+                LatestTime = new DateTime(2018, 1, 1),
+                NavigationCourse = double.NaN,
+                Position = new Position(0, 0, 0),
+                Velocity = 0
+            };
+
+            IFlightTrack track2 = new FlightTrack(tag2)
+            {
+                LatestTime = new DateTime(2018, 1, 1),
+                NavigationCourse = double.NaN,
+                Position = new Position(0, 0, 0),
+                Velocity = 0
+            };
+
+            //act
+            _fakeSeparationHandler.FlightsInProximity += Raise.EventWith(_fakeSeparationHandler, new FlightInProximityEventArgs(new Tuple<IFlightTrack, IFlightTrack>( track1, track2)));
+
+            //assert
+            Assert.That(_ssut_view.ThingsToRender.First().Item1, Does.Contain(tag1));
+            Assert.That(_ssut_view.ThingsToRender.First().Item1, Does.Contain(tag2));
+        }
+
     }
-}*/
+}

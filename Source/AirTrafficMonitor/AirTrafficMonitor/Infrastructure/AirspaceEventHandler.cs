@@ -29,8 +29,8 @@ namespace AirTrafficMonitor.Infrastructure
             var renderStr = $"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}";
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Red);
             _logger.DataLog(renderStr);
-            var timer = new StringEventTimer(5000, renderStr);
-            timer.Elapsed += StopShowingAirspaceEvent;
+            //var timer = new StringEventTimer(5000, renderStr);
+            //timer.Elapsed += StopShowingAirspaceEvent;
         }
 
         protected void EnterAirspaceEvent(object sender, FlightTrackEventArgs e)
@@ -40,8 +40,8 @@ namespace AirTrafficMonitor.Infrastructure
             var renderStr = "Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Cyan);
             _logger.DataLog(renderStr);
-            var timer = new StringEventTimer(5000, renderStr);
-            timer.Elapsed += StopShowingAirspaceEvent;
+            //var timer = new StringEventTimer(5000, renderStr);
+            //timer.Elapsed += StopShowingAirspaceEvent;
         }
 
         protected void StopShowingAirspaceEvent(object sender, ElapsedEventArgsWithString e)
@@ -55,8 +55,8 @@ namespace AirTrafficMonitor.Infrastructure
             var renderStr = "Flight: " + flightUpdate.Tag + " left airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Green);
             _logger.DataLog(renderStr);
-            var timer = new StringEventTimer(5000, renderStr);
-            timer.Elapsed += StopShowingAirspaceEvent;
+            //var timer = new StringEventTimer(5000, renderStr);
+            //timer.Elapsed += StopShowingAirspaceEvent;
         }
     }
 }
