@@ -30,8 +30,9 @@ namespace AirTrafficMonitor.Infrastructure
             int flight1Lat = track.Item1.Position.Latitude;
             int flight1Lon = track.Item1.Position.Longitude;
             int flight1Alt = track.Item1.Position.Altitude;
+            double flight1Vel = track.Item1.Velocity;
             
-            Console.WriteLine("Tag: {0}, Time: {1}, NavigationCourse: {2}, Latitude: {3}, Longitude: {4}, Altitude: {5}\n", flight1Tag, flight1Time, flight1Nav, flight1Lat, flight1Lon, flight1Alt); 
+            Console.WriteLine("Tag: {0}, Time: {1}, NavigationCourse: {2}, Latitude: {3}, Longitude: {4}, Altitude: {5}, Velocity: {6}\n", flight1Tag, flight1Time, flight1Nav, flight1Lat, flight1Lon, flight1Alt, flight1Vel); 
         }
 
         public void RenderCollision(Tuple<IFlightTrack, IFlightTrack> flightsInCollision)
