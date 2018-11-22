@@ -18,12 +18,14 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
         private AirspaceEventHandler _sut;
         private ConsoleView _ssut_view;
         private IFlightObserver _fakeFlightObserver;
+        private ISeperationHandler _fakeSeparationHandler;
 
         [SetUp]
         public void Setup()
         {
+            _fakeSeparationHandler = Substitute.For<ISeperationHandler>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _ssut_view = new ConsoleView();
+            _ssut_view = new ConsoleView(_fakeSeparationHandler);
             _sut = new AirspaceEventHandler(_fakeFlightObserver, _ssut_view);
         }
 
