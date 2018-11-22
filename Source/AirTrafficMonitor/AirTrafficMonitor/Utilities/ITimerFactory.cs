@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
-using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Utilities
 {
-    public interface ITimer
+    interface ITimerFactory
     {
-        event EventHandler<ElapsedEventArgsWithString> Elapsed;
+        ITimer CreateTimer();
     }
 }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
-using AirTrafficMonitor.Domain;
+using AirTrafficMonitor.Infrastructure;
 
 namespace AirTrafficMonitor.Utilities
 {
-    public interface ITimer
+    public class CustomConsole : IConsole
     {
-        event EventHandler<ElapsedEventArgsWithString> Elapsed;
+        public void Clear()
+        {
+            Console.Clear();
+        }
     }
 }

@@ -12,8 +12,11 @@ using NUnit.Framework.Internal;
 
 namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
 {
+    /// <summary>
+    /// Integration step 4
+    /// </summary>
     [TestFixture]
-    public class AirspaceEventHandler_Integrating_ConsoleView_Should
+    public class AirspaceEventHandler_Integrating_ConsoleView_DependingOn_FlightTracks_Should
     {
         private AirspaceEventHandler _sut;
         private ConsoleView _ssut_view;
@@ -25,7 +28,8 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
         {
             _fakeSeparationHandler = Substitute.For<ISeperationHandler>();
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
-            _ssut_view = new ConsoleView(_fakeSeparationHandler);
+            var fakeConsole = Substitute.For<IConsole>();
+            _ssut_view = new ConsoleView(fakeConsole);
             _sut = new AirspaceEventHandler(_fakeFlightObserver, _ssut_view);
         }
 
@@ -75,10 +79,13 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
         public void EnterAirspace_Prints__In_Console(string tag1, int year, int month, int day)
         {
 
-            IFlightTrack fakeFlightTrack1 = Substitute.For<IFlightTrack>();
-            fakeFlightTrack1.Tag.Returns(tag1);
-            fakeFlightTrack1.LatestTime.Returns(new DateTime(year, month, day));
-
+            IFlightTrack fakeFlightTrack1 = new FlightTrack(tag1)
+            {
+                LatestTime = new DateTime(year, month, day),
+                NavigationCourse = double.NaN,
+                Position = new Position(0,0,0),
+                Velocity = 0
+            };
 
             var currentConsoleOut = Console.Out;
 
@@ -86,7 +93,7 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
             using (var consoleOutput = new ConsoleOutput())
             {
 
-                _ssut_view.RenderWithRedTillTimerEnds(fakeFlightTrack1);
+                _ssut_view.AddToRenderWithColor("Enter" + fakeFlightTrack1.ToString(), ConsoleColor.White);
                 var result = ConsoleOutput.GetOutput();
                 Assert.That(result, Does.Contain("enter").IgnoreCase);
                 Assert.That(result, Does.Contain(year.ToString()));
