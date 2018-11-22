@@ -42,7 +42,7 @@ namespace AirTrafficMonitor
                 if (existingTrack) // already in list
                 {
                     updatedTrack = _tracks.SortRecordByTag(flightUpdate);
-                    //_view.Render(updatedTrack);
+                    _view.AddToRenderWithColor(updatedTrack.ToString(), ConsoleColor.Yellow);
                 }
                 else  {
                     updatedTrack = _tracks.SortRecordByTag(flightUpdate);
@@ -50,6 +50,7 @@ namespace AirTrafficMonitor
                     EnteredAirspace?.Invoke(this, args);
                 }
                 _handler.DetectCollision(_tracks as Tuple<IFlightTrack, IFlightTrack>); // TODO: Handler needs to be more implementation agnostic                {
+                _handler.DetectCollision(_tracks);
                 
             }
             else
