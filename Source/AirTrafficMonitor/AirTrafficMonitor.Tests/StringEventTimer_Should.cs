@@ -47,15 +47,29 @@ namespace AirTrafficMonitor.Tests
 
         }
 
+
+        [TestCase(5000, "render this")]
+        public void StringEventTimer_HandleString(int timer, string renderstr)
+        {
+            _uut = new StringEventTimer(timer, renderstr);
+            _uut.Elapsed += _fakeTimerSub.CountTheEvent;
+
+            System.Threading.Thread.Sleep(6000);
+            Assert.That(_fakeTimerSub.renderstr, Is.EqualTo(renderstr));
+
+        }
+
     }
 
     public class FakeTimerSub
     {
         public int EventCounter = 0;
 
+        public string renderstr = null;
         //testing of event by a subscriber that we can call .Recieved on
         public void CountTheEvent(object source, ElapsedEventArgsWithString e)
         {
+            renderstr = e.StringToHandle;
             EventCounter++;
         }
     }
