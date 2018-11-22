@@ -5,6 +5,6 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public interface ILogger
     {
-        void DataLog(Tuple<IFlightTrack, IFlightTrack> flightsInCollision);
+        void DataLog(string loggingStr);
     }
 }

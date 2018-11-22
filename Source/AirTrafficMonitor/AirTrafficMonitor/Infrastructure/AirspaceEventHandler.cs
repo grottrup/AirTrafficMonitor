@@ -23,35 +23,37 @@ namespace AirTrafficMonitor.Infrastructure
             _seperationHandler.FlightsInProximity += DangerOfProximityEvent;
         }
 
-        private void DangerOfProximityEvent(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        protected void DangerOfProximityEvent(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
             var renderStr = $"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}";
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Red);
-            _logger.DataLog(e.proximityTracks);
+            _logger.DataLog(renderStr);
             var timer = new StringEventTimer(5000, renderStr);
             timer.Elapsed += StopShowingAirspaceEvent;
         }
 
-        private void EnterAirspaceEvent(object sender, FlightTrackEventArgs e)
+        protected void EnterAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
 
             var flightUpdate = e.FlightTrack;
             var renderStr = "Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Cyan);
+            _logger.DataLog(renderStr);
             var timer = new StringEventTimer(5000, renderStr);
             timer.Elapsed += StopShowingAirspaceEvent;
         }
 
-        protected virtual void StopShowingAirspaceEvent(object sender, ElapsedEventArgsWithString e)
+        protected void StopShowingAirspaceEvent(object sender, ElapsedEventArgsWithString e)
         {
             _view.RemoveFromRender(e.StringToHandle);
         }
 
-        private void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
+        protected void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
             var flightUpdate = e.FlightTrack;
             var renderStr = "Flight: " + flightUpdate.Tag + " left airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Green);
+            _logger.DataLog(renderStr);
             var timer = new StringEventTimer(5000, renderStr);
             timer.Elapsed += StopShowingAirspaceEvent;
         }
