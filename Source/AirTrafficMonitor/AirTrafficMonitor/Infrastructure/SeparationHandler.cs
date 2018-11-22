@@ -9,14 +9,9 @@ namespace AirTrafficMonitor.Infrastructure
     public class SeparationHandler : ISeperationHandler
     {
         public event EventHandler<FlightInProximityEventArgs> FlightsInProximity;
-        private ILogger _logger;
-        private IView _view;
 
-
-        public SeparationHandler(ILogger logger, IView view)
+        public SeparationHandler()
         {
-            _logger = logger;
-            _view = view;
         }
 
         public void DetectCollision(ICollection<IFlightTrack> tracks)

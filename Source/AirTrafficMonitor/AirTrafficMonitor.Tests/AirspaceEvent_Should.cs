@@ -30,9 +30,8 @@ namespace AirTrafficMonitor.Tests
             _uut = new AirspaceEventHandler(_fakeFlightObserver, _fakeView, fakeLogger, _fakeSeperation);
         }
 
-
         [TestCase("CC123", 2018, 1, 1, "CC456", 2018, 1, 1)]
-        public void Trigger_Warning(string tag, int year, int month, int day, string tag2, int year2, int month2, int day2)
+        public void Give_TriggerWarning(string tag, int year, int month, int day, string tag2, int year2, int month2, int day2)
         {
             // Act
             var fakeFlightTrack = Substitute.For<IFlightTrack>();
