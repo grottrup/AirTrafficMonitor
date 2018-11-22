@@ -12,11 +12,13 @@ namespace AirTrafficMonitor.Tests
     public class ConsoleView_Should
     {
         private ConsoleView _uut;
+        private ISeperationHandler _fakeSeparationHandler;
+
         
         [SetUp]
         public void Setup()
         {
-            _uut = new ConsoleView();
+            _uut = new ConsoleView(_fakeSeparationHandler);
         }
        
 

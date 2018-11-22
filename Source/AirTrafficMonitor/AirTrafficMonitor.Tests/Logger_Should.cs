@@ -19,8 +19,8 @@ namespace AirTrafficMonitor.Tests
     public class Logger_Should
     {
         private Logger _uut;
-        private FlightTrack _fakeFlightTrack;
-        private FlightTrack _fakeFlightTrack1;
+        private IFlightTrack _fakeFlightTrack;
+        private IFlightTrack _fakeFlightTrack1;
         
         [SetUp]
         public void Setup()
@@ -75,7 +75,7 @@ namespace AirTrafficMonitor.Tests
                 Tag = tag2,
             };
             
-            Tuple<FlightTrack, FlightTrack> wf = new Tuple<FlightTrack, FlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
+            Tuple<IFlightTrack, IFlightTrack> wf = new Tuple<IFlightTrack, IFlightTrack>(_fakeFlightTrack, _fakeFlightTrack1);
             
             string path = @"DataLog.txt";
             

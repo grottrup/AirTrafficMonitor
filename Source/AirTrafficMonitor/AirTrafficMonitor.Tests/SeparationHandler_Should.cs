@@ -30,7 +30,7 @@ namespace AirTrafficMonitor.Tests
         [SetUp]
         public void SetUp()
         {
-            _aTimer = new EventTimer();
+            _aTimer = new EventTimer(5000); //five seconds
             //_fakeTracks = Substitute.For<Tuple<FlightTrack, FlightTrack>>();
             _fakeView = Substitute.For<IView>();
             //_fakeAirspaceEventHandler = Substitute.For<AirspaceEventHandler>();
@@ -59,7 +59,7 @@ namespace AirTrafficMonitor.Tests
                 LatestTime = DateTime.MinValue
             };
 
-            var lol = new Tuple<FlightTrack, FlightTrack>(track1, track2);
+            var lol = new Tuple<IFlightTrack, IFlightTrack>(track1, track2);
 
             //_uut.FlightsInProximity += Raise.EventWith(_uut, new FlightInProximityEventArgs(lol));
             //_fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
