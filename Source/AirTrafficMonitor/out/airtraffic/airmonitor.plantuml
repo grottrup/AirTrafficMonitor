@@ -85,13 +85,10 @@
 
 
 "FlightObserver" *-- "IFlightTrack" : Has Many \ntracks
-"FlightObserver" *-- "IView" : Has A \nview
 "FlightObserver" *-- "ISeperationHandler" : Has A \nhandler
 "FlightObserver" *-- "IFlightRecordReceiver" : Has A \nrecordReceiver
 "FlightObserver" *-- "IAirspace" : Has A \nmonitoredAirspace
 "FlightObserver" -up-|> "IFlightObserver" : Extends
-"SeparationHandler" *-- "ILogger" : Has A \nlogger
-"SeparationHandler" *-- "IView" : Has A \nview
 "SeparationHandler" -up-|> "ISeperationHandler" : Extends
 "Logger" -up-|> "ILogger" : Extends
 "ConsoleView" -up-|> "IView" : Extends

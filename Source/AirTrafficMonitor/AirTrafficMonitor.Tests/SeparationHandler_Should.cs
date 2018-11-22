@@ -27,7 +27,7 @@ namespace AirTrafficMonitor.Tests
         {
             _fakeFlightObserver = Substitute.For<IFlightObserver>();
             
-            _uut = new SeparationHandler(_fakeLogger, _fakeView);
+            _uut = new SeparationHandler();
         }
         
         [TestCase("ABC123", "DEF456", 2018, 11, 22, 13, 41, 55, 56)]
