@@ -49,7 +49,7 @@ namespace AirTrafficMonitor.IntegrationTests.BottomUpTests
 
             _fakeTransponder.TransponderDataReady += Raise.EventWith(_fakeTransponder, new RawTransponderDataEventArgs(transponderData));
 
-            _fakeSeperation.Received().DetectCollision(Arg.Any<Tuple<IFlightTrack, IFlightTrack>>());
+            _fakeSeperation.Received().DetectCollision(Arg.Any<ICollection<IFlightTrack>>());
         }
     }
 }
