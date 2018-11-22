@@ -139,14 +139,12 @@ namespace AirTrafficMonitor.Tests
 
         }
 
-        /*
+        
         [TestCase("ABC123", "DEF456", 2018, 11, 22, 13, 41, 55, 56)]
         public void DoNothing_WhenNotWithinProximity(string tag1, string tag2, int year, int month, int day, int hour, int min, int sec1, int sec2)
-        {
-
-            //Create 2 flighttracks colliding
-            Position fake1 = Substitute.For<Position>(15000, 15000, 10000);
-            Position fake2 = Substitute.For<Position>(15000, 15001, 10000);
+        {//Create 2 flighttracks colliding
+            Position fake1 = Substitute.For<Position>(15000, 15000, 6000);
+            Position fake2 = Substitute.For<Position>(15000, 15001, 19999);
 
             var fakeFlightTrack1 = Substitute.For<IFlightTrack>();
             fakeFlightTrack1.Tag.Returns(tag1);
@@ -158,20 +156,25 @@ namespace AirTrafficMonitor.Tests
             fakeFlightTrack2.LatestTime.Returns(new DateTime(year, month, day, hour, min, sec2));
             fakeFlightTrack2.Position.Returns(fake2);
 
-            var fakeTracks = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack1, fakeFlightTrack2);
+            List<IFlightTrack> tracks = new List<IFlightTrack>();
+            tracks.Add(fakeFlightTrack1);
+            tracks.Add(fakeFlightTrack2);
+            ICollection<IFlightTrack> fakeTracks = tracks;
 
-            Tuple<IFlightTrack, IFlightTrack> proximityTracks = null;
+            Tuple<IFlightTrack, IFlightTrack> result = null;
             _uut.FlightsInProximity += (sender, e) =>
             {
-                proximityTracks = e.proximityTracks;
+                result = e.proximityTracks;
             };
+
+            Tuple<IFlightTrack, IFlightTrack> expectedResult = new Tuple<IFlightTrack, IFlightTrack>(fakeFlightTrack2, fakeFlightTrack1);
 
             // Act
             _uut.DetectCollision(fakeTracks);
 
             // Assert
-            //Assert.That(proximityTracks, Is.Null);
+            Assert.AreNotEqual(result, expectedResult);
 
-        }*/
+        }
     }
 }
