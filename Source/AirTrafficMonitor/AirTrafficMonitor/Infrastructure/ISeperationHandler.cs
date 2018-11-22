@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using AirTrafficMonitor.Domain;
 
 namespace AirTrafficMonitor.Infrastructure
