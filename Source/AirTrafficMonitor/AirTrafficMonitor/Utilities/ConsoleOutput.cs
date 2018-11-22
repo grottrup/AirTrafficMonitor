@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirTrafficMonitor.Utilities
+namespace AirTrafficMonitor.Utilities // Should be moved to unit test project wtf
 {
     //Source: https://www.codeproject.com/Articles/501610/Getting-Console-Output-Within-A-Unit-Test
     public class ConsoleOutput : IDisposable
