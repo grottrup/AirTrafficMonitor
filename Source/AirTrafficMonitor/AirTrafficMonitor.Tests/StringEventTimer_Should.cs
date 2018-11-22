@@ -64,9 +64,7 @@ namespace AirTrafficMonitor.Tests
     public class FakeTimerSub
     {
         public int EventCounter = 0;
-
         public string renderstr = null;
-        //testing of event by a subscriber that we can call .Recieved on
         public void CountTheEvent(object source, ElapsedEventArgsWithString e)
         {
             renderstr = e.StringToHandle;
