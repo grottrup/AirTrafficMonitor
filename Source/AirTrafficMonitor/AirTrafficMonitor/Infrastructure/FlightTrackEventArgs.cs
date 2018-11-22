@@ -1,7 +1,7 @@
 ﻿using System;
 using AirTrafficMonitor.Domain;
 
-namespace AirTrafficMonitor
+namespace AirTrafficMonitor.Infrastructure
 {
     public class FlightTrackEventArgs: EventArgs
     {
