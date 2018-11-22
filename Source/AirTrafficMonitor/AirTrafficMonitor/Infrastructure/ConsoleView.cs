@@ -25,7 +25,7 @@ namespace AirTrafficMonitor.Infrastructure
         
         private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
-              this.RenderCollision(e.ProximityList);
+              this.RenderCollision(e.proximityTracks);
             
         }
 

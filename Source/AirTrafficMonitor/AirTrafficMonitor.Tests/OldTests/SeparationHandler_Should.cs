@@ -100,7 +100,7 @@ using NUnit.Framework;
 
 //    separation.DetectCollision(tracks);
 
-//    Assert.That(separation.ProximityList.Count, Is.EqualTo(2));
+//    Assert.That(separation.proximityTracks.Count, Is.EqualTo(2));
 //    //Assert.That(flightsFlightInCollisionsDetected.Count, Is.EqualTo(2));
 //}
 

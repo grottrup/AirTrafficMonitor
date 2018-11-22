@@ -7,10 +7,10 @@ using AirTrafficMonitor.Domain;
 public class FlightInProximityEventArgs : EventArgs
 {
     //public FlightTrack FlightTrack { get; private set; }
-    public Tuple<IFlightTrack, IFlightTrack> ProximityList;
+    public Tuple<IFlightTrack, IFlightTrack> proximityTracks;
 
     public FlightInProximityEventArgs(Tuple<IFlightTrack, IFlightTrack> tracks)
     {
-        ProximityList = tracks;
+        proximityTracks = tracks;
     }
 }
