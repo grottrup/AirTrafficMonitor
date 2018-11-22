@@ -33,11 +33,8 @@ namespace AirTrafficMonitor.Tests
         {
             // Act
             var fakeFlightTrack = Substitute.For<IFlightTrack>();
-            fakeFlightTrack.Tag.Returns(tag);
-            fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
 
             _fakeFlightObserver.EnteredAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
-
 
             _fakeView.Received().AddToRenderWithColor(Arg.Any<string>(), Arg.Any<ConsoleColor>());
         }
@@ -51,7 +48,6 @@ namespace AirTrafficMonitor.Tests
             fakeFlightTrack.LatestTime.Returns(new DateTime(year, month, day));
 
             _fakeFlightObserver.LeftAirspace += Raise.EventWith(_fakeFlightObserver, new FlightTrackEventArgs(fakeFlightTrack));
-
 
             _fakeView.Received().AddToRenderWithColor(Arg.Any<string>(), Arg.Any<ConsoleColor>());
         }

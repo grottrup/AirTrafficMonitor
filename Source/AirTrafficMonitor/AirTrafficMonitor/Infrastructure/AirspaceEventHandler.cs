@@ -18,6 +18,7 @@ namespace AirTrafficMonitor.Infrastructure
             _flightsInAirspaceSubject = flightsInAirspaceSubject;
             _view = view;
             _seperationHandler = seperationHandler;
+            _logger = logger;
             _flightsInAirspaceSubject.EnteredAirspace += EnterAirspaceEvent;
             _flightsInAirspaceSubject.LeftAirspace += LeftAirspaceEvent;
             _seperationHandler.FlightsInProximity += DangerOfProximityEvent;
