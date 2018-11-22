@@ -27,10 +27,10 @@ namespace AirTrafficMonitor.Infrastructure
             var renderStr = "Flight: " + flightUpdate.Tag + " entered airspace at: " + flightUpdate.LatestTime;
             _view.AddToRenderWithColor(renderStr, ConsoleColor.Cyan);
             var timer = new StringEventTimer(5000, renderStr); //_view.RemoveFromRender(renderStr);
-            timer.Elapsed += StopShowingThatItEntered;
+            timer.Elapsed += StopShowingAirspaceEvent;
         }
 
-        protected virtual void StopShowingThatItEntered(object sender, ElapsedEventArgsWithString e)
+        protected virtual void StopShowingAirspaceEvent(object sender, ElapsedEventArgsWithString e)
         {
             _view.RemoveFromRender(e.StringToHandle);
         }
@@ -38,7 +38,10 @@ namespace AirTrafficMonitor.Infrastructure
         private void LeftAirspaceEvent(object sender, FlightTrackEventArgs e)
         {
             var flightUpdate = e.FlightTrack;
-            _view.RenderWithGreenTillTimerEnds(flightUpdate);
+            var renderStr = "Flight: " + flightUpdate.Tag + " left airspace at: " + flightUpdate.LatestTime;
+            _view.AddToRenderWithColor(renderStr, ConsoleColor.Green);
+            var timer = new StringEventTimer(5000, renderStr); //_view.RemoveFromRender(renderStr);
+            timer.Elapsed += StopShowingAirspaceEvent;
         }
     }
 }

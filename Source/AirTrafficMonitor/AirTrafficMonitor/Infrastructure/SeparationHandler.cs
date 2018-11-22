@@ -19,7 +19,7 @@ namespace AirTrafficMonitor.Infrastructure
             _view = view;
             FlightsInProximity += RenderAndLog;
         }
-        private void RenderAndLog(object sender, FlightInProximityEventArgs e) //FlightInProximity event
+        private void RenderDangerOfProximity(object sender, FlightInProximityEventArgs e) //FlightInProximity event
         {
             _view.AddToRenderWithColor($"Danger! Proximity of {e.proximityTracks.Item1.Tag} and {e.proximityTracks.Item2.Tag}", ConsoleColor.Red);
             _logger.DataLog(e.proximityTracks);
@@ -31,7 +31,7 @@ namespace AirTrafficMonitor.Infrastructure
             {
                 foreach (var track2 in tracks)
                 {
-                    if (IsInCloseAirspace(track1, track2) && WithinTimespan(track1, track2))
+                    if (IsInCloseAirspace(track1, track2) && WithinTimespan(track1, track2) && track1.Tag != track2.Tag)
                     {
                         var args = new FlightInProximityEventArgs(new Tuple<IFlightTrack, IFlightTrack>(track1, track2));
                         FlightsInProximity?.Invoke(this, args);
@@ -50,7 +50,7 @@ namespace AirTrafficMonitor.Infrastructure
 
         public bool WithinTimespan(IFlightTrack track1, IFlightTrack track2)
         {
-            TimeSpan interval = new TimeSpan(0, 10, 0); // Magic numbers
+            TimeSpan interval = new TimeSpan(0, 0, 3); // 3 seconds
 
             if (track1.LatestTime - track2.LatestTime <= interval)
             {
