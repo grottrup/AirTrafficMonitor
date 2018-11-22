@@ -33,14 +33,11 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void LogFile_WriteFileDoesntExist_ReturnTrue()
+        public void LogFile_WriteFileDoesntExist()
         {
             string fileName = "DataLog.txt";
 
             Assert.IsFalse(File.Exists(fileName));
-
-            //_uut.DataLog("Test");
-            //Assert.IsTrue(File.Exists(path));
         }
 
         [TestCase("CC456")]

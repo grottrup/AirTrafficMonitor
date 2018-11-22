@@ -31,23 +31,6 @@ namespace AirTrafficMonitor.Tests
             _uut = new FlightObserver(_fakeMonitoredAirspace, _fakeFlight, _fakeView, _fakeSeperation, _fakeLogger);
         }
 
-        //[Test]
-        public void Call_Render()//should it?
-        {
-            // Act
-            var record = new FlightRecord()
-            {
-                Tag = "test flight",
-                Position = new Position(20000, 20000, 19000),
-                Timestamp = DateTime.MinValue
-            };
-
-            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
-
-            // Assert
-            //_fakeView.Received().Render(Arg.Any<FlightTrack>()); //
-        }
-
         [Test]
         public void Call_DetectCollision()
         {
@@ -69,14 +52,52 @@ namespace AirTrafficMonitor.Tests
         }
 
         [Test]
-        public void RenderAllTracksWithinTheMonitoredAirSpace()
+        public void RenderAnyTrackInTheMonitoredAirSpace()
         {
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
+
+            var record = new FlightRecord()
+            {
+                Tag = "test flight",
+                Position = new Position(20000, 20000, 19000),
+                Timestamp = DateTime.MinValue
+            };
+
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+
+
+            IFlightTrack persistedArg = null;
+            _uut.LeftAirspace += (sender, e) => { persistedArg = e.FlightTrack; };
+
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(false);
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+
+            Assert.That(persistedArg, Is.Not.Null);
         }
 
         [Test]
         public void Not_RenderAnyTracksOutsideTheMonitoredAirSpace()
         {
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(true);
 
+            var record = new FlightRecord()
+            {
+                Tag = "test flight",
+                Position = new Position(0, 0, 0),
+                Timestamp = DateTime.MinValue
+            };
+            
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+
+
+            IFlightTrack persistedArg = null;
+            _uut.LeftAirspace += (sender, e) => { persistedArg = e.FlightTrack; };
+            
+            _fakeMonitoredAirspace.HasPositionWithinBoundaries(Arg.Any<Position>()).Returns(false);
+            _fakeFlight.FlightRecordReceived += Raise.EventWith(_fakeFlight, new FlightRecordEventArgs(record));
+            
+            Assert.That(persistedArg, Is.Not.Null);
+            
         }
     }
 }
