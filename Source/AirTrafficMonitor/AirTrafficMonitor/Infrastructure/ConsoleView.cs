@@ -14,30 +14,10 @@ namespace AirTrafficMonitor.Infrastructure
 {
     public class ConsoleView : IView
     {
-        private ISeperationHandler _handler;
-
-
-        public ConsoleView(ISeperationHandler handler)
+        public ConsoleView()
         {
-            _handler = handler;
-            _handler.FlightsInProximity += FlightsInCollision; //FlightInProximity event
         }
         
-        private void FlightsInCollision(object sender, FlightInProximityEventArgs e) //FlightInProximity event
-        {
-              this.RenderCollision(e.ProximityList);
-            
-            
-        }
-
-        //public void DelayTimer()
-
-        //public void Render(FlightTrack track)
-        //{
-        //}
-
-        
-
         public void Render(Tuple<IFlightTrack> track)
         {
             string flight1Tag = track.Item1.Tag;
