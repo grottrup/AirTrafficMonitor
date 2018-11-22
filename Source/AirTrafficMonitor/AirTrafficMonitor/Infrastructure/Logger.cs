@@ -11,9 +11,9 @@ namespace AirTrafficMonitor.Infrastructure
     {
         private readonly string _path;
 
-        public Logger(string path = @"DataLog.txt")
+        public Logger(string fileName = "DataLog.txt")
         {
-            _path = path;
+            _path = Path.Combine(Path.GetFullPath(Directory.GetCurrentDirectory()), fileName);
         }
  
         public void DataLog(string loggingStr)
